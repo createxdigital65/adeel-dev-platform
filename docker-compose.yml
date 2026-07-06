@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: adeel-db
+    environment:
+      POSTGRES_USER: adeel_user
+      POSTGRES_PASSWORD: StrongPassword123!
+      POSTGRES_DB: adeel_dev_platform
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U adeel_user -d adeel_dev_platform"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    image: adeel-backend:latest
+    container_name: adeel-backend-api
+    build:
+      context: .
+      dockerfile: docker/backend.Dockerfile
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=db;Database=adeel_dev_platform;Username=adeel_user;Password=StrongPassword123!
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: always
+
+  frontend:
+    image: adeel-frontend:latest
+    container_name: adeel-frontend-web
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  postgres_data:
