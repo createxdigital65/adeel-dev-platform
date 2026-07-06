@@ -1,0 +1,293 @@
+<div class="space-y-24 pb-20 overflow-x-hidden">
+  
+  <!-- Hero Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-20">
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-12 items-center">
+      <!-- Hero Copy (Col Span 5) -->
+      <div class="xl:col-span-5 space-y-6 text-center xl:text-left animate-fade-in-up">
+        <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-semibold border border-blue-500/20">
+          <span class="flex h-1.5 w-1.5 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-500"></span>
+          </span>
+          <span>Available for Roles & Consulting</span>
+        </div>
+        
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+          Building Scalable Applications, 
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500">Intelligent Automation</span>, 
+          and Modern Experiences.
+        </h1>
+        
+        <p class="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto xl:mx-0 leading-relaxed">
+          I'm Adeel Sattar, a .NET Developer and Full-Stack Engineer focused on building high-performance software, AI-powered solutions, and business-driven digital platforms.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row items-center justify-center xl:justify-start gap-4">
+          <a (click)="scrollToContact()" id="btn-hero-talk" class="w-full sm:w-auto px-6 py-3 text-center rounded-xl bg-blue-600 hover:bg-blue-500 font-semibold text-xs tracking-wide text-white transition-all shadow-lg shadow-blue-500/15 cursor-pointer">
+            Let's Talk
+          </a>
+          <a routerLink="/" fragment="projects" id="btn-hero-projects" class="w-full sm:w-auto px-6 py-3 text-center rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 font-semibold text-xs tracking-wide text-slate-300 hover:text-slate-100 transition-all cursor-pointer">
+            View Projects
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Visualizer (Col Span 7) -->
+      <div class="xl:col-span-7 w-full flex justify-center animate-fade-in">
+        <app-architecture-visualizer class="w-full"></app-architecture-visualizer>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+    <div class="max-w-3xl mx-auto text-center space-y-6">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-100">
+        About <span class="text-blue-500">Me</span>
+      </h2>
+      <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">The Journey & Core Values</p>
+      
+      <div class="text-slate-400 text-sm sm:text-base text-justify space-y-4 leading-relaxed font-light">
+        <p>
+          My journey started in Computer Science, discovering the foundations of software design, algorithmic complexities, and database paradigms. From the start, I was obsessed with how lines of code translate directly into operational business efficiencies.
+        </p>
+        <p>
+          To bridge technical solutions with real-world marketing funnels, I spent significant time building robust, performant websites using WordPress, and orchestrating Meta advertising campaigns. This phase instilled a deep understanding of customer conversion loops and client goals.
+        </p>
+        <p>
+          Recognizing the need for enterprise-level scaling, I focused on the .NET ecosystem and Angular framework. Combining C#'s memory safety, compiler optimizations, and Clean Architecture patterns with Angular's reactive Signals paradigm allows me to construct secure systems that solve tangible problems.
+        </p>
+        <p>
+          Today, I actively integrate AI-powered automations and AI Agents, transforming manual workflows into background worker microservices that boost business scalability.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Bento Grid -->
+  <section id="skills" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+    <div class="text-center space-y-3 mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-100">
+        Engineered <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Skills Matrix</span>
+      </h2>
+      <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">Modern stack expertise categorized by technical scope</p>
+    </div>
+
+    <!-- Bento Grid Layout -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let group of skillGroups; let i = index" 
+        [ngClass]="{'lg:col-span-2': i === 0 || i === 4, 'glass-card glow-card': true}"
+        class="rounded-2xl p-6 border border-slate-900 bg-slate-900/20 relative group hover:border-slate-800/80 hover:bg-slate-900/35 transition-all duration-300">
+        
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-sm font-bold text-slate-200 tracking-wide uppercase">{{ group.title }}</h3>
+          <span class="text-[10px] text-slate-500 font-semibold">0{{ i + 1 }}</span>
+        </div>
+
+        <div class="flex flex-wrap gap-2 relative z-10">
+          <span *ngFor="let skill of group.skills" class="text-xs px-3 py-1.5 rounded-lg bg-slate-950/80 text-slate-300 border border-slate-850 group-hover:border-slate-800 transition-colors">
+            {{ skill }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+    <div class="text-center space-y-3 mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-100 font-sans">
+        Featured <span class="text-blue-500">Projects</span>
+      </h2>
+      <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">High performance production architectures built from scratch</p>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 gap-8">
+      <div *ngFor="let proj of projects()" 
+        class="glass-card rounded-2xl border border-slate-900 bg-slate-900/10 overflow-hidden hover:border-slate-800/80 transition-all duration-300">
+        <div class="p-6 md:p-8 flex flex-col md:flex-row md:items-start justify-between gap-6">
+          
+          <!-- Left Content -->
+          <div class="flex-1 space-y-4">
+            <div class="flex items-center space-x-3">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-blue-400 bg-blue-500/5 px-2 py-0.5 rounded-full border border-blue-500/10">
+                {{ proj.category }}
+              </span>
+            </div>
+
+            <h3 class="text-xl font-bold text-slate-100">{{ proj.title }}</h3>
+            <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">{{ proj.description }}</p>
+
+            <!-- Tech badges -->
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span *ngFor="let tech of proj.techs" class="text-[10px] px-2.5 py-1 bg-slate-950/80 rounded border border-slate-850 text-slate-300">
+                {{ tech }}
+              </span>
+            </div>
+          </div>
+
+          <!-- Right Action & Expand Trigger -->
+          <div class="flex items-center md:self-center">
+            <button (click)="toggleProject(proj)" [id]="'btn-expand-' + proj.title"
+              class="w-full md:w-auto px-5 py-2.5 rounded-xl bg-slate-950 border border-slate-850 hover:border-blue-500/40 text-xs font-semibold text-slate-300 hover:text-slate-100 transition-all flex items-center justify-center space-x-2 cursor-pointer">
+              <span>{{ proj.expanded ? 'Hide Design Architecture' : 'Inspect Design Architecture' }}</span>
+              <svg class="h-3 w-3 transform transition-transform" [ngClass]="proj.expanded ? 'rotate-180 text-blue-400' : 'text-slate-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Expanded Architectural Details Drawer -->
+        <div *ngIf="proj.expanded" class="border-t border-slate-900 bg-slate-950/60 p-6 md:p-8 space-y-6 animate-fade-in">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Left Info -->
+            <div class="space-y-4">
+              <h4 class="text-xs uppercase font-bold tracking-wider text-slate-500">Key Features Implemented</h4>
+              <ul class="space-y-2.5">
+                <li *ngFor="let feature of proj.features" class="flex items-start text-xs text-slate-400">
+                  <svg class="h-4 w-4 text-blue-400 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span>{{ feature }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Right Info -->
+            <div class="space-y-4">
+              <div>
+                <h4 class="text-xs uppercase font-bold tracking-wider text-red-400 mb-1.5">The Engineering Challenge</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">{{ proj.challenges }}</p>
+              </div>
+              <div>
+                <h4 class="text-xs uppercase font-bold tracking-wider text-emerald-400 mb-1.5">Lessons Learned & Solutions</h4>
+                <p class="text-xs text-slate-400 leading-relaxed">{{ proj.lessons }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+    <div class="text-center space-y-3 mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-100">
+        Professional <span class="text-blue-500">Services</span>
+      </h2>
+      <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">Adding tangible value via engineering and growth automation</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let serv of services; let idx = index" 
+        class="glass-card rounded-2xl p-6 border border-slate-900 bg-slate-900/10 flex flex-col justify-between hover:border-slate-800/80 transition-all duration-300">
+        <div class="space-y-4">
+          <!-- Icon placeholder (simulating custom styling) -->
+          <div class="w-10 h-10 rounded-xl bg-blue-500/5 text-blue-400 flex items-center justify-center border border-blue-500/10">
+            <svg *ngIf="serv.icon === 'code'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+            <svg *ngIf="serv.icon === 'globe'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+            </svg>
+            <svg *ngIf="serv.icon === 'cpu'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+            </svg>
+            <svg *ngIf="serv.icon === 'wordpress'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+            <svg *ngIf="serv.icon === 'trending'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+
+          <h3 class="text-sm font-bold text-slate-200 tracking-wide">{{ serv.title }}</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">{{ serv.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Playground Component Embedding -->
+  <section id="ai-playground" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+    <div class="text-center space-y-3 mb-12">
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-100">
+        AI <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Playground</span>
+      </h2>
+      <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">Observe real-time automation simulation models in action</p>
+    </div>
+    
+    <app-ai-playground-demo></app-ai-playground-demo>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section #contactSection id="contact" class="max-w-3xl mx-auto px-4 sm:px-6 scroll-mt-24">
+    <div class="glass-panel rounded-2xl border-slate-800/80 p-6 md:p-8 shadow-2xl relative">
+      <div class="text-center space-y-2 mb-8">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-100">Start a Project</h2>
+        <p class="text-xs text-slate-400">Provide details below to trigger lead sync automation workflows</p>
+      </div>
+
+      <form (submit)="submitContactForm($event)" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Name -->
+          <div class="space-y-1">
+            <label for="contact-name" class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Your Name *</label>
+            <input type="text" id="contact-name" name="name" required [disabled]="isSubmitting()"
+              [(ngModel)]="contactName"
+              class="w-full p-3 rounded-lg bg-slate-950 border border-slate-850 text-xs text-slate-200 focus:outline-none focus:border-blue-500/50 transition-colors">
+          </div>
+          <!-- Email -->
+          <div class="space-y-1">
+            <label for="contact-email" class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Your Email *</label>
+            <input type="email" id="contact-email" name="email" required [disabled]="isSubmitting()"
+              [(ngModel)]="contactEmail"
+              class="w-full p-3 rounded-lg bg-slate-950 border border-slate-850 text-xs text-slate-200 focus:outline-none focus:border-blue-500/50 transition-colors">
+          </div>
+        </div>
+
+        <!-- Company -->
+        <div class="space-y-1">
+          <label for="contact-company" class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Company / Organization</label>
+          <input type="text" id="contact-company" name="company" [disabled]="isSubmitting()"
+            [(ngModel)]="contactCompany"
+            class="w-full p-3 rounded-lg bg-slate-950 border border-slate-850 text-xs text-slate-200 focus:outline-none focus:border-blue-500/50 transition-colors">
+        </div>
+
+        <!-- Project details -->
+        <div class="space-y-1">
+          <label for="contact-details" class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Project Details & Requirements</label>
+          <textarea id="contact-details" name="details" rows="4" [disabled]="isSubmitting()"
+            [(ngModel)]="contactDetails"
+            class="w-full p-3 rounded-lg bg-slate-950 border border-slate-850 text-xs text-slate-200 focus:outline-none focus:border-blue-500/50 resize-none transition-colors"
+            placeholder="Tell me about what you are looking to build...">
+          </textarea>
+        </div>
+
+        <!-- Feedback Alert status -->
+        <div *ngIf="submitSuccess() !== null" class="p-3.5 rounded-lg text-xs font-semibold animate-fade-in"
+          [ngClass]="submitSuccess() ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'">
+          <span *ngIf="submitSuccess()">🚀 Contact proposal submitted successfully! Lead automation pipeline sync complete.</span>
+          <span *ngIf="!submitSuccess()">⚠️ Failed to deliver contact parameters. Please email directly or try again later.</span>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="isSubmitting() || !contactName() || !contactEmail()" id="btn-submit-contact"
+          class="w-full py-3 px-4 rounded-lg font-semibold text-xs tracking-wide transition-all duration-300 flex items-center justify-center cursor-pointer shadow-lg"
+          [ngClass]="isSubmitting() || !contactName() || !contactEmail() ? 'bg-slate-850 text-slate-500 border border-slate-800 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-500/10'">
+          <svg *ngIf="isSubmitting()" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          {{ isSubmitting() ? 'Sending Contact Parameters...' : 'Submit Project Parameters' }}
+        </button>
+      </form>
+    </div>
+  </section>
+
+</div>

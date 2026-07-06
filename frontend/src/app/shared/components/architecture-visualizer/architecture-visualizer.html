@@ -1,0 +1,161 @@
+<div class="w-full flex flex-col xl:flex-row gap-6 p-6 glass-panel rounded-2xl border-slate-800/80 shadow-2xl relative overflow-hidden">
+  <!-- Glowing background details -->
+  <div class="absolute -top-40 -left-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute -bottom-40 -right-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <!-- Left: Interactive Canvas -->
+  <div class="flex-1 min-h-[360px] md:min-h-[400px] bg-slate-950/60 rounded-xl relative border border-slate-900 overflow-hidden flex flex-col justify-between p-4">
+    <!-- SVGs for Flow Lines -->
+    <svg class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="blue-purple" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#3b82f6" />
+          <stop offset="100%" stop-color="#8b5cf6" />
+        </linearGradient>
+      </defs>
+
+      <!-- Connection Lines -->
+      <!-- Frontend (10%, 15% -> 30%, 30%) to API (50%, 15% -> 50%, 30%) -->
+      <path d="M 120 100 H 260" stroke="#1e293b" stroke-width="2" />
+      <path *ngIf="activeFlow() && selectedNode() === 'frontend'" d="M 120 100 H 260" stroke="url(#blue-purple)" stroke-width="2" stroke-dasharray="8 6" class="animate-[dash_10s_linear_infinite]" />
+
+      <!-- API (50%, 15%) to DB (90%, 15%) -->
+      <path d="M 380 100 H 520" stroke="#1e293b" stroke-width="2" />
+      <path *ngIf="activeFlow() && (selectedNode() === 'api' || selectedNode() === 'db')" d="M 380 100 H 520" stroke="url(#blue-purple)" stroke-width="2" stroke-dasharray="8 6" class="animate-[dash_10s_linear_infinite]" />
+
+      <!-- API (50%, 15%) to AI Agent (50%, 65%) -->
+      <path d="M 320 135 V 260" stroke="#1e293b" stroke-width="2" />
+      <path *ngIf="activeFlow() && (selectedNode() === 'api' || selectedNode() === 'ai')" d="M 320 135 V 260" stroke="url(#blue-purple)" stroke-width="2" stroke-dasharray="8 6" class="animate-[dash_10s_linear_infinite]" />
+
+      <!-- Deployment (10%, 65%) to Frontend (10%, 15%) -->
+      <path d="M 80 260 V 135" stroke="#1e293b" stroke-width="2" />
+      <path *ngIf="activeFlow() && (selectedNode() === 'deployment')" d="M 80 260 V 135" stroke="url(#blue-purple)" stroke-width="2" stroke-dasharray="8 6" class="animate-[dash_10s_linear_infinite]" />
+
+      <!-- Deployment (10%, 65%) to API (50%, 15%) -->
+      <path d="M 120 295 H 260" stroke="#1e293b" stroke-width="2" />
+      <path *ngIf="activeFlow() && (selectedNode() === 'deployment')" d="M 120 295 H 260" stroke="url(#blue-purple)" stroke-width="2" stroke-dasharray="8 6" class="animate-[dash_10s_linear_infinite]" />
+    </svg>
+
+    <style>
+      @keyframes dash {
+        to {
+          stroke-dashoffset: -100;
+        }
+      }
+    </style>
+
+    <!-- Visualizer Nodes Grid -->
+    <div class="grid grid-cols-3 gap-y-16 gap-x-4 z-10 my-auto">
+      <!-- Row 1: Frontend, API, Database -->
+      <!-- Frontend Node -->
+      <div class="flex justify-center">
+        <button (click)="selectNode('frontend')" id="btn-node-frontend"
+          class="w-24 h-24 rounded-2xl flex flex-col items-center justify-center border transition-all duration-300 group cursor-pointer"
+          [ngClass]="selectedNode() === 'frontend' ? 'bg-blue-500/10 border-blue-500 shadow-lg shadow-blue-500/10' : 'bg-slate-900/90 border-slate-800 hover:border-slate-700 hover:bg-slate-800/40'">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-1.5 group-hover:scale-110 transition-transform">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <span class="text-[10px] font-semibold text-slate-300">Client App</span>
+        </button>
+      </div>
+
+      <!-- API Node -->
+      <div class="flex justify-center">
+        <button (click)="selectNode('api')" id="btn-node-api"
+          class="w-24 h-24 rounded-2xl flex flex-col items-center justify-center border transition-all duration-300 group cursor-pointer"
+          [ngClass]="selectedNode() === 'api' ? 'bg-purple-500/10 border-purple-500 shadow-lg shadow-purple-500/10' : 'bg-slate-900/90 border-slate-800 hover:border-slate-700 hover:bg-slate-800/40'">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-1.5 group-hover:scale-110 transition-transform">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+          </div>
+          <span class="text-[10px] font-semibold text-slate-300">.NET API</span>
+        </button>
+      </div>
+
+      <!-- Database Node -->
+      <div class="flex justify-center">
+        <button (click)="selectNode('db')" id="btn-node-db"
+          class="w-24 h-24 rounded-2xl flex flex-col items-center justify-center border transition-all duration-300 group cursor-pointer"
+          [ngClass]="selectedNode() === 'db' ? 'bg-blue-500/10 border-blue-500 shadow-lg shadow-blue-500/10' : 'bg-slate-900/90 border-slate-800 hover:border-slate-700 hover:bg-slate-800/40'">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-1.5 group-hover:scale-110 transition-transform">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+            </svg>
+          </div>
+          <span class="text-[10px] font-semibold text-slate-300">Database</span>
+        </button>
+      </div>
+
+      <!-- Row 2: Deployment, Spacing, AI Service -->
+      <!-- Deployment Node -->
+      <div class="flex justify-center">
+        <button (click)="selectNode('deployment')" id="btn-node-deploy"
+          class="w-24 h-24 rounded-2xl flex flex-col items-center justify-center border transition-all duration-300 group cursor-pointer"
+          [ngClass]="selectedNode() === 'deployment' ? 'bg-purple-500/10 border-purple-500 shadow-lg shadow-purple-500/10' : 'bg-slate-900/90 border-slate-800 hover:border-slate-700 hover:bg-slate-800/40'">
+          <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-1.5 group-hover:scale-110 transition-transform">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+          </div>
+          <span class="text-[10px] font-semibold text-slate-300">Deployment</span>
+        </button>
+      </div>
+
+      <!-- Spacing -->
+      <div></div>
+
+      <!-- AI Node -->
+      <div class="flex justify-center">
+        <button (click)="selectNode('ai')" id="btn-node-ai"
+          class="w-24 h-24 rounded-2xl flex flex-col items-center justify-center border transition-all duration-300 group cursor-pointer"
+          [ngClass]="selectedNode() === 'ai' ? 'bg-blue-500/10 border-blue-500 shadow-lg shadow-blue-500/10' : 'bg-slate-900/90 border-slate-800 hover:border-slate-700 hover:bg-slate-800/40'">
+          <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-1.5 group-hover:scale-110 transition-transform">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <span class="text-[10px] font-semibold text-slate-300">AI Agents</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Active flow path toggler -->
+    <div class="flex items-center justify-between text-xs border-t border-slate-900 pt-3">
+      <span class="text-slate-500 font-medium">Click nodes to analyze system paths</span>
+      <button (click)="toggleFlow()" class="text-slate-400 hover:text-slate-200 flex items-center space-x-1.5 focus:outline-none cursor-pointer">
+        <span class="relative flex h-2 w-2">
+          <span *ngIf="activeFlow()" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2" [ngClass]="activeFlow() ? 'bg-blue-500' : 'bg-slate-700'"></span>
+        </span>
+        <span class="text-[10px] font-semibold tracking-wider uppercase">{{ activeFlow() ? 'Flow Active' : 'Flow Paused' }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Right: Node Information Panel -->
+  <div class="w-full xl:w-96 flex flex-col justify-between bg-slate-900/40 rounded-xl p-5 border border-slate-900 z-10">
+    <div>
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-[10px] uppercase font-bold tracking-wider text-blue-400 bg-blue-500/5 px-2 py-0.5 rounded-full border border-blue-500/10">
+          {{ getCurrentNode().category }}
+        </span>
+        <span class="text-xs font-semibold text-slate-500">Node Inspector</span>
+      </div>
+
+      <h3 class="text-lg font-bold text-slate-100 mb-2">{{ getCurrentNode().name }}</h3>
+      <p class="text-xs text-slate-400 leading-relaxed mb-6">{{ getCurrentNode().description }}</p>
+    </div>
+
+    <div>
+      <h4 class="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">Integrated Technologies</h4>
+      <div class="flex flex-wrap gap-1.5">
+        <span *ngFor="let tech of getCurrentNode().techs" class="text-[10px] font-medium px-2 py-1 bg-slate-900 rounded-md border border-slate-800 text-slate-300">
+          {{ tech }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

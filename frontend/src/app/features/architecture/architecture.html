@@ -1,0 +1,148 @@
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16 animate-fade-in">
+  
+  <!-- Page Header -->
+  <div class="text-center max-w-3xl mx-auto space-y-4">
+    <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 text-xs font-semibold border border-purple-500/20">
+      <span>Architectural Overview</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+      How This Platform is <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 font-sans">Engineered</span>
+    </h1>
+    <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+      This application is not just a showcase of previous work—it is itself an example of a production-ready Web App. Here is a breakdown of the architecture, data flows, and build systems.
+    </p>
+  </div>
+
+  <!-- System Topology Block Diagram -->
+  <div class="glass-panel rounded-2xl border-slate-800/80 p-6 md:p-8">
+    <h2 class="text-sm uppercase font-bold tracking-wider text-slate-400 mb-6 text-center">System Integration & Data Topology</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+      <!-- Frontend Block -->
+      <div class="p-5 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col items-center justify-center text-center space-y-2">
+        <div class="w-8 h-8 rounded bg-blue-500/10 text-blue-400 flex items-center justify-center">
+          <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <span class="text-xs font-bold text-slate-200">Angular 20 UI</span>
+        <span class="text-[10px] text-slate-500">Signals State, Standalone Views, Tailwind Styling</span>
+      </div>
+
+      <!-- Arrow -->
+      <div class="hidden md:flex justify-center text-slate-600">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </div>
+
+      <!-- API Gateway / API Server -->
+      <div class="p-5 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col items-center justify-center text-center space-y-2">
+        <div class="w-8 h-8 rounded bg-purple-500/10 text-purple-400 flex items-center justify-center">
+          <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+          </svg>
+        </div>
+        <span class="text-xs font-bold text-slate-200">ASP.NET 10 API</span>
+        <span class="text-[10px] text-slate-500">Clean Architecture Layers, CQRS Patterns, JWT Guards</span>
+      </div>
+
+      <!-- Arrow -->
+      <div class="hidden md:flex justify-center text-slate-600">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </div>
+
+      <!-- Database & Services -->
+      <div class="p-5 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col items-center justify-center text-center space-y-2">
+        <div class="w-8 h-8 rounded bg-blue-500/10 text-blue-400 flex items-center justify-center">
+          <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+          </svg>
+        </div>
+        <span class="text-xs font-bold text-slate-200">Persistence Layer</span>
+        <span class="text-[10px] text-slate-500">PostgreSQL / SQL Server, EF Core DbContext Sync</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detailed Tab System Section -->
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    
+    <!-- Tab Controls (Col Span 3) -->
+    <div class="lg:col-span-3 flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0">
+      <button (click)="selectTab('clean-arch')" id="tab-clean-arch"
+        class="flex-shrink-0 text-left px-4 py-3 rounded-xl border text-xs font-semibold tracking-wide transition-all cursor-pointer w-full"
+        [ngClass]="selectedTab() === 'clean-arch' ? 'bg-blue-500/10 border-blue-500/60 text-slate-100' : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700 hover:bg-slate-900/80'">
+        Clean Architecture
+      </button>
+      <button (click)="selectTab('frontend-arch')" id="tab-frontend-arch"
+        class="flex-shrink-0 text-left px-4 py-3 rounded-xl border text-xs font-semibold tracking-wide transition-all cursor-pointer w-full"
+        [ngClass]="selectedTab() === 'frontend-arch' ? 'bg-blue-500/10 border-blue-500/60 text-slate-100' : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700 hover:bg-slate-900/80'">
+        Angular 20 Framework
+      </button>
+      <button (click)="selectTab('devops-arch')" id="tab-devops-arch"
+        class="flex-shrink-0 text-left px-4 py-3 rounded-xl border text-xs font-semibold tracking-wide transition-all cursor-pointer w-full"
+        [ngClass]="selectedTab() === 'devops-arch' ? 'bg-blue-500/10 border-blue-500/60 text-slate-100' : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700 hover:bg-slate-900/80'">
+        Docker & Deployment
+      </button>
+    </div>
+
+    <!-- Inspector Output (Col Span 9) -->
+    <div class="lg:col-span-9 grid grid-cols-1 xl:grid-cols-2 gap-6 p-6 glass-panel rounded-2xl border-slate-800/80 shadow-2xl relative">
+      <!-- Left side: Description -->
+      <div class="space-y-6 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[10px] uppercase font-bold tracking-wider text-blue-400 bg-blue-500/5 px-2 py-0.5 rounded-full border border-blue-500/10">
+              {{ getCurrentSpec().badge }}
+            </span>
+          </div>
+          <h3 class="text-xl font-bold text-slate-100">{{ getCurrentSpec().title }}</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mt-2">{{ getCurrentSpec().description }}</p>
+        </div>
+
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Technical Highlights</h4>
+          <ul class="space-y-2">
+            <li *ngFor="let bullet of getCurrentSpec().bullets" class="flex items-start text-xs text-slate-400 leading-relaxed">
+              <svg class="h-4 w-4 text-purple-400 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>{{ bullet }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right side: Code block terminal -->
+      <div class="flex flex-col min-h-[300px] bg-slate-950 rounded-xl border border-slate-900 overflow-hidden font-mono text-[10px]">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-slate-900 bg-slate-900/30">
+          <div class="flex items-center space-x-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-slate-800"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-slate-800"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-slate-800"></span>
+          </div>
+          <span class="text-slate-500 font-semibold tracking-wider text-[9px] uppercase">Snippet Inspector</span>
+        </div>
+        <div class="flex-1 p-4 overflow-auto text-emerald-400 select-text max-h-[340px] whitespace-pre leading-relaxed">
+          <code>{{ getCurrentSpec().codeBlock }}</code>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Back to Home link -->
+  <div class="text-center pt-4">
+    <a routerLink="/" class="inline-flex items-center text-xs text-blue-400 hover:text-blue-300 font-semibold transition-colors cursor-pointer">
+      <svg class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+      Return to Main Profile Hub
+    </a>
+  </div>
+
+</div>
