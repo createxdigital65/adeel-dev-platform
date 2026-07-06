@@ -1,0 +1,17 @@
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\bin\Debug\net10.0\AdeelDevPlatform.Infrastructure.deps.json
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\bin\Debug\net10.0\AdeelDevPlatform.Infrastructure.dll
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\bin\Debug\net10.0\AdeelDevPlatform.Infrastructure.pdb
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\bin\Debug\net10.0\AdeelDevPlatform.Application.dll
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\bin\Debug\net10.0\AdeelDevPlatform.Domain.dll
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\bin\Debug\net10.0\AdeelDevPlatform.Application.pdb
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\bin\Debug\net10.0\AdeelDevPlatform.Domain.pdb
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\obj\Debug\net10.0\AdeelDevPlatform.Infrastructure.csproj.AssemblyReference.cache
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\obj\Debug\net10.0\AdeelDevPlatform.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\obj\Debug\net10.0\AdeelDevPlatform.Infrastructure.AssemblyInfoInputs.cache
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\obj\Debug\net10.0\AdeelDevPlatform.Infrastructure.AssemblyInfo.cs
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\obj\Debug\net10.0\AdeelDevPlatform.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\obj\Debug\net10.0\AdeelDev.9CD6BF9F.Up2Date
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\obj\Debug\net10.0\AdeelDevPlatform.Infrastructure.dll
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\obj\Debug\net10.0\refint\AdeelDevPlatform.Infrastructure.dll
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\obj\Debug\net10.0\AdeelDevPlatform.Infrastructure.pdb
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Infrastructure\obj\Debug\net10.0\ref\AdeelDevPlatform.Infrastructure.dll

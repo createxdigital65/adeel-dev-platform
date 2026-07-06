@@ -1,0 +1,11 @@
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Domain\bin\Debug\net10.0\AdeelDevPlatform.Domain.deps.json
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Domain\bin\Debug\net10.0\AdeelDevPlatform.Domain.dll
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Domain\bin\Debug\net10.0\AdeelDevPlatform.Domain.pdb
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Domain\obj\Debug\net10.0\AdeelDevPlatform.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Domain\obj\Debug\net10.0\AdeelDevPlatform.Domain.AssemblyInfoInputs.cache
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Domain\obj\Debug\net10.0\AdeelDevPlatform.Domain.AssemblyInfo.cs
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Domain\obj\Debug\net10.0\AdeelDevPlatform.Domain.csproj.CoreCompileInputs.cache
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Domain\obj\Debug\net10.0\AdeelDevPlatform.Domain.dll
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Domain\obj\Debug\net10.0\refint\AdeelDevPlatform.Domain.dll
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Domain\obj\Debug\net10.0\AdeelDevPlatform.Domain.pdb
+D:\Projects\Adeels.net\adeel-dev-platform\backend\src\Domain\obj\Debug\net10.0\ref\AdeelDevPlatform.Domain.dll
