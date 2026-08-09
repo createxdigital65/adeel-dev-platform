@@ -28,6 +28,7 @@ export default {
 
       // Main handler with robust error handling and fallback
       try {
+        try { console.log('CHAT_REQUEST_RECEIVED'); } catch(e){}
         const payload = await request.json();
         const message = (payload.message || '').toString();
         if (!message || message.length > 1000) {
@@ -39,6 +40,8 @@ export default {
 
         // Load public personal knowledge (may return null)
         const knowledge = await loadKnowledge(request);
+        try { console.log('KNOWLEDGE_LOAD_STATUS', knowledge ? 'ok' : 'missing'); } catch(e){}
+        try { console.log('KNOWLEDGE_KEYS', knowledge ? Object.keys(knowledge) : []); } catch(e){}
 
         const geminiKey = env.GEMINI_API_KEY;
         const openaiKey = env.OPENAI_API_KEY;
@@ -46,6 +49,7 @@ export default {
         // If no provider keys configured, answer from local knowledge
         if (!geminiKey && !openaiKey) {
           const local = answerFromKnowledge(knowledge, message) || "I don't have enough public information in this portfolio to answer that.";
+          try { console.log('FINAL_RESPONSE_MODE', 'local'); } catch(e){}
           return new Response(JSON.stringify({ reply: local, mode: 'local' }), {
             status: 200,
             headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
@@ -57,6 +61,7 @@ export default {
 
         // Try to call provider; on any error fall back to local knowledge
         try {
+          try { console.log('PROVIDER_ATTEMPT', geminiKey ? 'gemini' : 'openai'); } catch(e){}
           let chatbotReply = '';
           if (geminiKey) {
             const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`;
@@ -90,6 +95,8 @@ export default {
           }
 
           if (chatbotReply && chatbotReply.trim().length > 0) {
+            try { console.log('PROVIDER_SUCCESS'); } catch(e){}
+            try { console.log('FINAL_RESPONSE_MODE', 'ai'); } catch(e){}
             return new Response(JSON.stringify({ reply: chatbotReply.trim(), mode: 'ai' }), {
               status: 200,
               headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
@@ -98,15 +105,18 @@ export default {
 
           // If provider returned empty, fall through to local fallback
         } catch (providerErr) {
+          try { console.error('PROVIDER_ERROR', providerErr && (providerErr.message || providerErr.toString())); } catch(e){}
           // Provider failure: attempt local knowledge fallback
           const local = answerFromKnowledge(knowledge, message);
           if (local) {
+            try { console.log('FINAL_RESPONSE_MODE', 'fallback'); } catch(e){}
             return new Response(JSON.stringify({ reply: local, mode: 'fallback' }), {
               status: 200,
               headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
             });
           }
           const unknown = "I don't have enough public information in this portfolio to answer that. Please check the Projects or Services pages, or contact Adeel directly.";
+          try { console.log('FINAL_RESPONSE_MODE', 'fallback'); } catch(e){}
           return new Response(JSON.stringify({ reply: unknown, mode: 'fallback' }), {
             status: 200,
             headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
@@ -158,12 +168,34 @@ async function loadKnowledge(request) {
 // Helper: simple intent-based answer from knowledge
 function answerFromKnowledge(knowledge, message) {
   if (!knowledge) return null;
-  // Normalize message: lowercase, remove punctuation, normalize whitespace
-  let q = (message || '').toLowerCase();
-  q = q.replace(/['’]/g, ''); // remove apostrophes (possessives)
-  q = q.replace(/[^a-z0-9\s]/g, ' ');
-  q = q.replace(/\s+/g, ' ').trim();
-  const matchesAny = (arr) => arr.some(k => q.indexOf(k) !== -1);
+  // Normalize message: lowercase, remove punctuation, collapse whitespace
+  const normalize = (s) => {
+    if (!s) return '';
+    let t = String(s).toLowerCase();
+    t = t.replace(/[\u2018\u2019']/g, ''); // remove apostrophes
+    t = t.replace(/[^a-z0-9\s]/g, ' '); // remove punctuation
+    t = t.replace(/\s+/g, ' ').trim();
+    return t;
+  };
+  const q = normalize(message);
+  const matchesAny = (arr) => arr.some(k => q.indexOf(normalize(k)) !== -1);
+
+  // FAQ-first matching: check curated Q/A pairs before other heuristics
+  if (Array.isArray(knowledge.faq)) {
+    for (const item of knowledge.faq) {
+      try {
+        const qNorm = normalize(item.q || '');
+        const aNorm = normalize(item.a || '');
+        if (!qNorm) continue;
+        // Exact normalized match or containment in either direction
+        if (q === qNorm || q.indexOf(qNorm) !== -1 || qNorm.indexOf(q) !== -1) {
+          return item.a; // return original answer (not normalized)
+        }
+      } catch (e) {
+        // ignore malformed faq items
+      }
+    }
+  }
 
   // Profile / About
   if (matchesAny(['who is', 'tell me about', 'about adeel', 'who the', 'what does', 'what is his background', 'professional background', 'what is his experience'])) {
