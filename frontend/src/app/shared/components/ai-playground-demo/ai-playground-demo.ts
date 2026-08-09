@@ -168,18 +168,23 @@ Resolution Status: Automated draft response generated. Sent troubleshooting tick
         this.logs.update(l => [...l, log]);
       }
 
-      this.http.post<{ reply: string }>('/api/chat', { message: query }).subscribe({
-        next: (res) => {
+      // Attempt server-side API first, but gracefully fallback to local knowledge if unavailable
+      try {
+        const res = await this.http.post<{ reply: string; mode?: string }>('/api/chat', { message: query }).toPromise();
+        if (res && res.reply) {
+          // If response mode indicates local/fallback, do not claim it's AI-generated
           this.agentOutput.set(res.reply);
-          this.isProcessing.set(false);
-        },
-        error: (err) => {
-          console.warn("Serverless AI API failed. Falling back to local responder.", err);
-          const reply = this.getLocalFallbackReply(queryLower, query);
-          this.agentOutput.set(reply);
-          this.isProcessing.set(false);
+        } else {
+          // If API returned empty or malformed response, fallback to local
+          this.agentOutput.set(this.getLocalFallbackReply(queryLower, query));
         }
-      });
+      } catch (err) {
+        console.warn('Serverless AI API failed. Falling back to local responder.', err);
+        const reply = this.getLocalFallbackReply(queryLower, query);
+        this.agentOutput.set(reply);
+      } finally {
+        this.isProcessing.set(false);
+      }
     } 
     else if (scenario === 'lead') {
       logsList = [
@@ -347,7 +352,8 @@ Adeel Sattar designs, builds, and maintains clean-code web applications that don
   }
 
   private getLocalFallbackReply(queryLower: string, originalQuery: string): string {
-    if (this.matchesAny(queryLower, ['who is', 'adeel', 'profile', 'background', 'experience', 'about you', 'who are you', 'who am i'])) {
+    // Enhanced local intent detection: normalized keyword groups
+    if (this.matchesAny(queryLower, ['who is', 'adeel', 'profile', 'background', 'experience', 'about you', 'who are you', 'who am i', 'tell me about'])) {
       return `🤖 **Adeel Sattar Profile Summary**
 
 Adeel Sattar is a seasoned Software Engineer and .NET Full-Stack Developer focused on engineering high-end business architectures and integrations.
@@ -357,7 +363,12 @@ Adeel Sattar is a seasoned Software Engineer and .NET Full-Stack Developer focus
 - **Modern Frontends:** Fluid client-facing SPAs crafted in Angular 20 and styled with Tailwind CSS.
 - **Workflow Automation:** Deploying background worker microservices, lead syncs, and custom OpenAI completions.
 - **Conversion Optimization:** Custom WordPress development and campaign pixel tracking.`;
-    } 
+    }
+
+    // If fallback cannot confidently answer, return helpful navigation guidance
+    if (this.matchesAny(queryLower, ['how', 'what', 'why', 'help', 'suggest', 'recommend', 'which'])) {
+      return `I don't have enough information in the public portfolio to answer that in detail. You can explore the Projects or Services pages, or contact Adeel directly via the Start a Project form or LinkedIn.`;
+    }
     else if (this.matchesAny(queryLower, ['stack', 'tech', 'skills', 'framework', 'net', 'angular', 'database', 'tools', 'languages'])) {
       return `🛠️ **Engineering Technology Stack**
 

@@ -1,0 +1,22 @@
+name = "adeel-dev-platform"
+# NOTE: Set your account_id in the Cloudflare Dashboard or replace below before deploy.
+# account_id = "<YOUR_ACCOUNT_ID>"
+
+type = "javascript"
+compatibility_date = "2026-08-01"
+
+# Build command: build the Angular frontend prior to packaging the Worker
+[build]
+command = "cd frontend && npm ci && npm run build"
+
+# Static assets (Angular production output)
+[assets]
+directory = "frontend/dist/frontend/browser"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+# The Worker entrypoint (this script will handle /api/chat and delegate static asset
+# requests to the ASSETS binding for all other routes).
+main = "worker/index.js"
+
+# Note: set account_id either in this file or provide --account-id when deploying with wrangler.

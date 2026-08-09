@@ -1,0 +1,60 @@
+{
+  "profile": {
+    "name": "Adeel Sattar",
+    "role": ".NET Developer & Full-Stack Engineer",
+    "focus": "Building decoupled enterprise-grade backends, reactive Angular client interfaces, and workflow automations.",
+    "bio": "Adeel Sattar is a .NET Developer and Full-Stack Engineer focused on building high-performance software, AI-powered solutions, and business-driven digital platforms."
+  },
+  "skills": [
+    ".NET 10",
+    "ASP.NET Core",
+    "Angular 20",
+    "TypeScript",
+    "Tailwind CSS",
+    "Entity Framework Core",
+    "PostgreSQL",
+    "Docker",
+    "GitHub Actions",
+    "AI Integrations"
+  ],
+  "projects": [
+    {
+      "title": "SocialMediaAgent",
+      "category": "AI & Automation",
+      "description": "An AI-powered social media automation platform designed for multi-channel publishing.",
+      "techs": [".NET 10", "Angular 20", "OpenAI API", "Entity Framework", "PostgreSQL", "Docker"]
+    },
+    {
+      "title": "CoreERP Integration Engine",
+      "category": "Enterprise Applications",
+      "description": "High-throughput enterprise pipeline synchronization API syncing inventory, processing invoices, and dispatching logistics data to Oracle ERP.",
+      "techs": [".NET 10", "ASP.NET Core", "SQL Server", "RabbitMQ"]
+    },
+    {
+      "title": "GrowthHub Performance CRM",
+      "category": "Web Platforms & Marketing",
+      "description": "Conversion-optimized CRM web portal integrating client tracking, automated email workflows, and Meta Ads attribution metrics.",
+      "techs": ["Angular 20", "Signals", "TypeScript", "Tailwind CSS"]
+    }
+  ],
+  "services": [
+    "Custom Software Development",
+    "Web Applications & APIs",
+    "Business Automation & AI",
+    "WordPress Solutions",
+    "Meta Ads & Growth Systems"
+  ],
+  "contact": {
+    "email": "adeelsattar.dev@gmail.com",
+    "linkedin": "https://pk.linkedin.com/in/adeelsattar-dotnet-angular-developer",
+    "github": "https://github.com/createxdigital65",
+    "whatsapp": "https://wa.me/923176468708",
+    "instagram": "https://instagram.com/adeelsattar.dev"
+  },
+  "faq": [
+    { "q": "Who is Adeel?", "a": "Adeel Sattar is a .NET Developer and Full-Stack Engineer who builds enterprise backends and modern Angular frontends." },
+    { "q": "What technologies does Adeel use?", "a": "He works with .NET 10, ASP.NET Core, Angular 20, TypeScript, Tailwind CSS, and common database and DevOps tooling like PostgreSQL and Docker." },
+    { "q": "What services does Adeel offer?", "a": "Custom software development, web applications & APIs, AI integrations, WordPress solutions, and growth systems." },
+    { "q": "How can I contact Adeel?", "a": "You can email adeelsattar.dev@gmail.com, message on LinkedIn or WhatsApp, or submit the Start a Project form on this site." }
+  ]
+}
