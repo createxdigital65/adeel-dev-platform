@@ -1,0 +1,7 @@
+{
+  "name": "adeel-dev-platform-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloudflare Worker serving the Angular static assets and the /api/chat Profile Chatbot route."
+}

@@ -168,20 +168,21 @@ Resolution Status: Automated draft response generated. Sent troubleshooting tick
         this.logs.update(l => [...l, log]);
       }
 
-      // Attempt server-side API first, but gracefully fallback to local knowledge if unavailable
+      // Server-side /api/chat is authoritative in production (Cloudflare Worker).
+      // During plain `ng serve` there is no backend, so on failure we answer from
+      // the SAME knowledge file / matching rules (see answerFromKnowledge below)
+      // instead of a divergent client-side heuristic.
       try {
         const res = await this.http.post<{ reply: string; mode?: string }>('/api/chat', { message: query }).toPromise();
-        if (res && res.reply) {
-          // If response mode indicates local/fallback, do not claim it's AI-generated
-          this.agentOutput.set(res.reply);
+        if (res && typeof res.reply === 'string' && res.reply.trim()) {
+          this.agentOutput.set(res.reply.trim());
         } else {
-          // If API returned empty or malformed response, fallback to local
-          this.agentOutput.set(this.getLocalFallbackReply(queryLower, query));
+          console.warn('Chat API returned an empty reply; using the local knowledge responder.');
+          this.agentOutput.set(await this.answerFromLocalKnowledge(query));
         }
       } catch (err) {
-        console.warn('Serverless AI API failed. Falling back to local responder.', err);
-        const reply = this.getLocalFallbackReply(queryLower, query);
-        this.agentOutput.set(reply);
+        console.warn('Chat API unavailable locally; using the same knowledge-based responder as the Worker.', err);
+        this.agentOutput.set(await this.answerFromLocalKnowledge(query));
       } finally {
         this.isProcessing.set(false);
       }
@@ -351,64 +352,150 @@ Adeel Sattar designs, builds, and maintains clean-code web applications that don
     }
   }
 
-  private getLocalFallbackReply(queryLower: string, originalQuery: string): string {
-    // Enhanced local intent detection: normalized keyword groups
-    if (this.matchesAny(queryLower, ['who is', 'adeel', 'profile', 'background', 'experience', 'about you', 'who are you', 'who am i', 'tell me about'])) {
-      return `🤖 **Adeel Sattar Profile Summary**
+  // ---------------------------------------------------------------------------
+  // Local knowledge responder - mirrors worker/index.js answerFromKnowledge().
+  // Used only when the /api/chat server cannot be reached (plain `ng serve`), so
+  // localhost and production answer with the SAME knowledge file and rules.
+  // ---------------------------------------------------------------------------
+  private static readonly UNKNOWN_REPLY =
+    "I don't have enough public information in this portfolio to answer that. " +
+    "You can explore the Projects or Services pages, or contact Adeel directly " +
+    "via the Start a Project form or LinkedIn.";
 
-Adeel Sattar is a seasoned Software Engineer and .NET Full-Stack Developer focused on engineering high-end business architectures and integrations.
+  private knowledgeCache: any = null;
 
-**Technical Strengths:**
-- **Enterprise Backends:** Custom C# APIs utilizing Clean Architecture, EF Core, and MediatR (CQRS).
-- **Modern Frontends:** Fluid client-facing SPAs crafted in Angular 20 and styled with Tailwind CSS.
-- **Workflow Automation:** Deploying background worker microservices, lead syncs, and custom OpenAI completions.
-- **Conversion Optimization:** Custom WordPress development and campaign pixel tracking.`;
+  private async answerFromLocalKnowledge(query: string): Promise<string> {
+    const knowledge = await this.loadKnowledge();
+    if (!knowledge) {
+      return "The chat service is temporarily unavailable and the local knowledge source could not be loaded. Please try again in a moment.";
+    }
+    const answer = this.answerFromKnowledge(knowledge, query);
+    return answer || AiPlaygroundDemoComponent.UNKNOWN_REPLY;
+  }
+
+  private async loadKnowledge(): Promise<any> {
+    if (this.knowledgeCache) return this.knowledgeCache;
+    try {
+      const kn = await this.http.get('/personal-knowledge.json', { responseType: 'json' }).toPromise();
+      this.knowledgeCache = kn || null;
+    } catch (err) {
+      console.warn('personal-knowledge.json could not be loaded locally.', err);
+      this.knowledgeCache = null;
+    }
+    return this.knowledgeCache;
+  }
+
+  private answerFromKnowledge(knowledge: any, message: string): string | null {
+    if (!knowledge) return null;
+
+    const normalize = (s: any): string => {
+      if (!s) return '';
+      return String(s).toLowerCase()
+        .replace(/[\u2018\u2019']/g, '')
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    };
+    const q = normalize(message);
+    if (!q) return null;
+    const matchesAny = (arr: string[]) =>
+      arr.some((k) => {
+        const nk = normalize(k);
+        return nk !== '' && q.indexOf(nk) !== -1;
+      });
+
+    const profile = knowledge.profile || {};
+    const skills: string[] = Array.isArray(knowledge.skills) ? knowledge.skills : [];
+    const projects: any[] = Array.isArray(knowledge.projects) ? knowledge.projects : [];
+    const services: string[] = Array.isArray(knowledge.services) ? knowledge.services : [];
+    const contact = knowledge.contact || {};
+
+    // 1) Specific known-technology questions (same order as the Worker).
+    const asksAboutUse =
+      /(^|\b)(does|uses|use|work with|works with|stack|technolog|languages|skills|frameworks|tools|experience|familiar)(\b|$)/.test(q) &&
+      !/projects?\b|portfolio|built|showcase/.test(q);
+    const askedSkill = asksAboutUse
+      ? skills.find((s) => normalize(s).split(/\s+/).some((t) => t.length >= 2 && q.indexOf(t) !== -1))
+      : undefined;
+    if (askedSkill) {
+      return `Yes, Adeel works with ${askedSkill}. His full stack includes: ${skills.join(', ')}.`;
+    }
+    if (/^does\b/.test(q)) {
+      return null; // Unknown technology -> no fabrication.
     }
 
-    // If fallback cannot confidently answer, return helpful navigation guidance
-    if (this.matchesAny(queryLower, ['how', 'what', 'why', 'help', 'suggest', 'recommend', 'which'])) {
-      return `I don't have enough information in the public portfolio to answer that in detail. You can explore the Projects or Services pages, or contact Adeel directly via the Start a Project form or LinkedIn.`;
+    // 2) Curated FAQ.
+    const faqAnswer = this.matchFaq(knowledge.faq, q, normalize);
+    if (faqAnswer) return faqAnswer;
+
+    // 3) Specific project questions.
+    for (const p of projects) {
+      const titleKey = normalize(p.title || '');
+      if (titleKey && (q.indexOf(titleKey) !== -1 || titleKey.indexOf(q) !== -1)) {
+        const techs = Array.isArray(p.techs) && p.techs.length ? p.techs.join(', ') : 'N/A';
+        return `${p.title}: ${p.description || ''} (Category: ${p.category || 'N/A'}). Built with: ${techs}.`;
+      }
     }
-    else if (this.matchesAny(queryLower, ['stack', 'tech', 'skills', 'framework', 'net', 'angular', 'database', 'tools', 'languages'])) {
-      return `🛠️ **Engineering Technology Stack**
 
-Adeel designs applications using a robust, decoupled enterprise ecosystem:
+    // 4) Skills / stack listing.
+    if (matchesAny(['tech stack', 'technolog', 'what stack', 'stack', 'languages', 'skills', 'frameworks', 'tech does', 'tools', 'work with'])) {
+      return `Adeel works with: ${skills.length ? skills.join(', ') : 'N/A'}.`;
+    }
 
-- **Backend Architecture:** .NET 10, ASP.NET Core Web API, Entity Framework Core, CQRS (MediatR), MS SQL Server, PostgreSQL, SQLite.
-- **Client Interfaces:** Angular 20 (Standalone Components, Signals State), TypeScript, Tailwind CSS 4.0, Nginx.
-- **Workflow / AI Engine:** OpenAI API orchestration, C# Background Task Queues.
-- **DevOps Ecosystem:** Docker, Docker Compose, GitHub Actions, Linux VPS Deployment, SSL Certificate routers (Caddy).`;
-    } 
-    else if (this.matchesAny(queryLower, ['projects', 'built', 'portfolio', 'work', 'developed', 'systems', 'showcase'])) {
-      return `📁 **Featured System Architectures**
+    // 5) Services.
+    if (matchesAny(['services', 'offer', 'provide', 'what can adeel', 'what can he', 'can adeel build', 'can he build', 'custom software', 'solutions'])) {
+      return `Services offered by Adeel: ${services.length ? services.join(', ') : 'N/A'}.`;
+    }
 
-Adeel has engineered these showcase systems from scratch:
+    // 6) Profile / background / role.
+    if (matchesAny(['who is', 'tell me about', 'about adeel', 'who the', 'what does adeel', 'background', 'experience', 'role', 'occupation', 'profession', 'job title', 'describe', 'introduce', 'who are you', 'about you', 'profile'])) {
+      const name = profile.name || 'Adeel Sattar';
+      const role = profile.role || '';
+      const focus = (profile.focus || '').replace(/\.$/, '');
+      const bio = profile.bio || '';
+      return `${name} is a ${role} focused on ${focus}. ${bio}`;
+    }
 
-1. **SocialMediaAgent:** AI publishing portal that leverages OpenAI API prompts to compile draft copy, queued inside background processing lists (.NET 10 & Angular 20).
-2. **CoreERP Integration Engine:** High-throughput transactional data sync engine posting invoice ledgers to Oracle ERP under heavy concurrent load.
-3. **GrowthHub Performance CRM:** Analytics management tool hooking into Meta Graph API endpoints to trace ads pixel conversions.`;
-    } 
-    else if (this.matchesAny(queryLower, ['contact', 'hire', 'email', 'linkedin', 'whatsapp', 'reach', 'social', 'phone', 'call', 'talk'])) {
-      return `📞 **Direct Communication Options**
+    // 7) Contact / availability.
+    if (matchesAny(['contact', 'email', 'reach', 'linkedin', 'whatsapp', 'hire', 'freelance', 'available', 'availability', 'social', 'call'])) {
+      return `You can contact Adeel at ${contact.email || ''}${contact.linkedin ? ' or via LinkedIn: ' + contact.linkedin : ''}${contact.whatsapp ? '. WhatsApp: ' + contact.whatsapp : '.'}`;
+    }
 
-Let's discuss roles, partnerships, or scoping details:
+    // 8) Projects (general).
+    if (matchesAny(['project', 'portfolio', 'showcase', 'built', 'worked on', 'developed', 'systems'])) {
+      const list = projects.map((p) => `${p.title} (${p.category || 'N/A'}): ${p.description || ''}`).join('; ');
+      return `Featured projects include: ${projects.length ? list : 'N/A'}.`;
+    }
 
-- **LinkedIn Portfolio:** [pk.linkedin.com/in/adeelsattar-dotnet-angular-developer](https://pk.linkedin.com/in/adeelsattar-dotnet-angular-developer)
-- **GitHub Codebase:** [github.com/createxdigital65](https://github.com/createxdigital65)
-- **Direct WhatsApp:** [+92 317 6468708](https://wa.me/923176468708)
-- **Instagram Handle:** [@adeelsattar.dev](https://instagram.com/adeelsattar.dev)
+    return null;
+  }
 
-*You can also submit your details directly in the **Start a Project** contact form below!*`;
-    } 
-    return `👋 **Adeel's AI Assistant**
-
-I parsed your inquiry: *"${originalQuery}"*
-
-While the live serverless endpoint is offline, I can resolve local info about:
-- **"Who is Adeel?"** (Overview of profile)
-- **"What is his stack?"** (Detailed technical list)
-- **"What projects did he build?"** (System breakdowns)
-- **"How can I contact him?"** (Direct socials links)`;
+  private matchFaq(faqItems: any[], q: string, normalize: (s: any) => string): string | null {
+    if (!Array.isArray(faqItems)) return null;
+    const STOP = new Set([
+      'what', 'is', 'are', 'the', 'a', 'an', 'do', 'does', 'i', 'you', 'he',
+      'his', 'her', 'how', 'can', 'me', 'tell', 'about', 'of', 'on', 'in',
+      'for', 'to', 'that', 'who', 'with', 'and', 'or', 'am', 'my'
+    ]);
+    const tokens = (s: string) => normalize(s).split(/\s+/).filter((w) => w && !STOP.has(w));
+    let best: string | null = null;
+    let bestSim = 0;
+    for (const item of faqItems) {
+      const qn = normalize(item.q || '');
+      if (!qn || !item.a) continue;
+      if (q === qn || q.indexOf(qn) !== -1 || qn.indexOf(q) !== -1) return item.a;
+      const a = tokens(q);
+      const b = tokens(qn);
+      if (!a.length || !b.length) continue;
+      const inter = a.filter((t) => b.indexOf(t) !== -1).length;
+      if (inter < 2) continue;
+      const sim = inter / Math.max(a.length, b.length);
+      if (sim >= 0.5 && sim > bestSim) {
+        best = item.a;
+        bestSim = sim;
+      }
+    }
+    return best;
   }
 
   private matchesAny(text: string, keywords: string[]): boolean {
