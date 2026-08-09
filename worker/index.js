@@ -123,8 +123,12 @@ export default {
 
     // Delegate all other requests to static assets via ASSETS binding
     try {
-      return await ASSETS.fetch(request);
+      // Attempt to fetch the static asset. If ASSETS.fetch fails, log server-side and
+      // return a 404 to the client.
+      const assetRes = await ASSETS.fetch(request);
+      return assetRes;
     } catch (err) {
+      try { console.error('ASSETS.fetch failed', err && err.message); } catch(e) {}
       return new Response('Not found', { status: 404 });
     }
   }
@@ -133,12 +137,20 @@ export default {
 // Helper: load personal knowledge JSON from static assets (cached)
 async function loadKnowledge(request) {
   try {
-    const base = new URL(request.url).origin;
-    const res = await ASSETS.fetch(new Request(base + '/personal-knowledge.json'));
+    // Request the asset using a pathname relative to the current request origin.
+    // Use URL constructor so the origin matches runtime and ASSETS.fetch can resolve it.
+    // Prefer a simple relative request; ASSETS.fetch supports absolute or relative paths.
+    let res = await ASSETS.fetch(new Request('/personal-knowledge.json'));
+    if (!res.ok) {
+      const knowledgeUrl = new URL('/personal-knowledge.json', request.url).toString();
+      res = await ASSETS.fetch(new Request(knowledgeUrl));
+    }
     if (!res.ok) return null;
     const json = await res.json();
     return json;
   } catch (e) {
+    // Log server-side for debugging (Cloudflare logs) but do NOT expose to clients.
+    try { console.error('loadKnowledge error', e && e.message); } catch (err) {}
     return null;
   }
 }
@@ -146,19 +158,43 @@ async function loadKnowledge(request) {
 // Helper: simple intent-based answer from knowledge
 function answerFromKnowledge(knowledge, message) {
   if (!knowledge) return null;
-  const q = message.toLowerCase();
-  if ((q.includes('who is') || (q.includes('who') && q.includes('adeel')) || q.includes('tell me about'))) {
-    return `Adeel Sattar is a ${knowledge.profile.role} focused on ${knowledge.profile.focus}`;
+  // Normalize message: lowercase, remove punctuation, normalize whitespace
+  let q = (message || '').toLowerCase();
+  q = q.replace(/['’]/g, ''); // remove apostrophes (possessives)
+  q = q.replace(/[^a-z0-9\s]/g, ' ');
+  q = q.replace(/\s+/g, ' ').trim();
+  const matchesAny = (arr) => arr.some(k => q.indexOf(k) !== -1);
+
+  // Profile / About
+  if (matchesAny(['who is', 'tell me about', 'about adeel', 'who the', 'what does', 'what is his background', 'professional background', 'what is his experience'])) {
+    return `${knowledge.profile.name} is a ${knowledge.profile.role} focused on ${knowledge.profile.focus}. ${knowledge.profile.bio}`;
   }
-  if (q.includes('stack') || q.includes('technolog') || q.includes('skills')) {
-    return `Adeel's primary technologies include: ${knowledge.skills.join(', ')}.`;
+
+  // Technology / Stack
+  if (matchesAny(['what tech', 'what technologies', 'what technology', 'what is his stack', 'tech does', 'technolog']) || matchesAny(['.net', 'c#', 'angular', 'typescript'])) {
+    const skills = Array.isArray(knowledge.skills) ? knowledge.skills.join(', ') : '';
+    return `Adeel works with: ${skills}.`;
   }
-  if (q.includes('project') || q.includes('portfolio') || q.includes('work')) {
-    return `Featured projects: ${knowledge.projects.map(p => p.title).join(', ')}.`;
+
+  // Services
+  if (matchesAny(['services', 'what services', 'can help', 'what can he', 'offer'])) {
+    const services = Array.isArray(knowledge.services) ? knowledge.services.join(', ') : '';
+    return `Services offered: ${services}.`;
   }
-  if (q.includes('contact') || q.includes('hire') || q.includes('email')) {
-    return `Contact Adeel at ${knowledge.contact.email} or via LinkedIn: ${knowledge.contact.linkedin}`;
+
+  // Projects
+  if (matchesAny(['project', 'projects', 'portfolio', 'what has he built', 'showcase'])) {
+    const projects = Array.isArray(knowledge.projects) ? knowledge.projects.map(p => `${p.title} (${p.category})`).join('; ') : '';
+    return `Featured projects include: ${projects}.`;
   }
+
+  // Contact
+  if (matchesAny(['contact', 'hire', 'email', 'linkedin', 'whatsapp', 'how can i'])) {
+    const email = knowledge.contact && knowledge.contact.email ? knowledge.contact.email : '';
+    const linkedin = knowledge.contact && knowledge.contact.linkedin ? knowledge.contact.linkedin : '';
+    return `You can contact Adeel at ${email} or via LinkedIn: ${linkedin}.`;
+  }
+
   return null;
 }
 
