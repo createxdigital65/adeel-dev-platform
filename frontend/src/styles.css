@@ -33,16 +33,71 @@
   }
 }
 
+:root {
+  --panel-bg: rgba(15, 23, 42, 0.65);
+  --panel-border: rgba(30, 41, 59, 0.5);
+  --card-bg: rgba(15, 23, 42, 0.45);
+  --card-border: rgba(30, 41, 59, 0.4);
+}
+
+/* Semantic theme-aware text tokens */
+:root {
+  /* Dark mode defaults (site default) - explicit colors for reliable contrast */
+  --text-primary: #e6eef8; /* near-white for primary text on dark bg */
+  --text-secondary: #9fb0c6; /* readable secondary */
+  --text-muted: #7b8793; /* muted but legible */
+  --text-accent: var(--color-blue-500);
+  --card-text: #e6eef8;
+  --card-secondary: #94a3b8;
+  --input-bg: rgba(255,255,255,0.02);
+  --input-border: rgba(148,163,184,0.06);
+}
+
+html, body {
+  background-color: var(--color-slate-950);
+  color: var(--color-slate-50);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.light {
+  --color-slate-950: #f8fafc;
+  --color-slate-900: #ffffff;
+  --color-slate-800: #f1f5f9;
+  --color-slate-700: #cbd5e1;
+  --color-slate-600: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-400: #475569;
+  --color-slate-300: #334155;
+  --color-slate-200: #1e293b;
+  --color-slate-100: #0f172a;
+  --color-slate-50: #0f172a;
+
+  --panel-bg: rgba(255, 255, 255, 0.7);
+  --panel-border: rgba(226, 232, 240, 0.8);
+  --card-bg: rgba(255, 255, 255, 0.5);
+  --card-border: rgba(226, 232, 240, 0.7);
+
+  /* Light mode semantic overrides - explicit colors for reliable contrast */
+  --text-primary: #0f172a; /* dark slate for primary headings */
+  --text-secondary: #334155; /* medium-dark for secondary text */
+  --text-muted: #64748b; /* muted but legible */
+  --text-accent: var(--color-blue-500);
+  --card-text: #0f172a;
+  --card-secondary: #334155;
+  --input-bg: rgba(255,255,255,0.96);
+  --input-border: rgba(15,23,42,0.06);
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: var(--color-slate-950);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: var(--color-slate-800);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -51,22 +106,23 @@
 
 /* Premium Glassmorphism and UI classes */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.65);
+  background: var(--panel-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(30, 41, 59, 0.5);
+  border: 1px solid var(--panel-border);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .glass-card {
-  background: rgba(15, 23, 42, 0.45);
+  background: var(--card-bg);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(30, 41, 59, 0.4);
+  border: 1px solid var(--card-border);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card-hover:hover {
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--card-bg);
   border-color: rgba(59, 130, 246, 0.4);
   box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15);
   transform: translateY(-2px);
@@ -93,3 +149,107 @@
 .glow-card:hover::before {
   opacity: 1;
 }
+
+/* Semantic utility classes that adapt to theme */
+.ui-text-primary { color: var(--text-primary) !important; }
+.ui-text-secondary { color: var(--text-secondary) !important; }
+.ui-text-muted { color: var(--text-muted) !important; }
+.ui-text-accent { color: var(--text-accent) !important; }
+.ui-card-text { color: var(--card-text) !important; }
+.ui-card-secondary { color: var(--card-secondary) !important; }
+
+/* Header / nav utilities */
+.nav-link { color: var(--text-secondary); transition: color 0.18s ease; }
+.nav-link:hover { color: var(--text-primary); }
+.logo-text { color: var(--text-primary); transition: color 0.18s ease; }
+.logo-text .accent { color: var(--color-blue-500); }
+
+/* Footer link */
+.footer-link { color: var(--text-secondary); transition: color 0.18s ease; }
+.footer-link:hover { color: var(--text-primary); }
+
+/* Theme toggle styling (consistent button appearance) */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  transition: all 160ms ease;
+}
+.theme-toggle svg { width: 20px; height: 20px; }
+
+/* Light theme appearance when html.light is present */
+html.light .theme-toggle {
+  background: #0f172a; /* dark */
+  color: #f8fafc;
+  border: 1px solid rgba(15,23,42,0.06);
+}
+
+/* Dark theme appearance when html.light is NOT present */
+html:not(.light) .theme-toggle {
+  background: #ffffff; /* light */
+  color: #0f172a;
+  border: 1px solid rgba(226,232,240,0.6);
+}
+
+/* Polished light-mode design for the toggle: add an inner circular anchor behind the icon
+   so the control reads as a small framed square with a subtle inner circle (matching reference).
+*/
+.theme-toggle { position: relative; }
+html.light .theme-toggle {
+  background: transparent;
+  border-color: rgba(59,130,246,0.06);
+  box-shadow: none;
+}
+html.light .theme-toggle::after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* subtle blue-tinted inner circle for light theme compatibility */
+  background: linear-gradient(180deg, rgba(59,130,246,0.12), rgba(59,130,246,0.06));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 6px 18px rgba(2,6,23,0.12);
+  pointer-events: none;
+}
+html.light .theme-toggle svg { position: relative; z-index: 2; color: var(--color-blue-500); }
+
+/* Hover/active states amplify depth without changing base color logic */
+html.light .theme-toggle:hover::after { box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 10px 30px rgba(2,6,23,0.5); }
+html:not(.light) .theme-toggle:hover { box-shadow: 0 6px 18px rgba(2,6,23,0.06); }
+
+/* Form controls styled to follow theme tokens */
+.form-label { color: var(--text-secondary); font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+.form-input { width: 100%; padding: .75rem; border-radius: .5rem; background: var(--input-bg); border: 1px solid var(--input-border); color: var(--text-primary); }
+.form-input::placeholder { color: var(--text-muted); }
+.form-input:focus { outline: none; box-shadow: 0 6px 18px rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.4); }
+
+.form-error { color: #ef4444; font-size: 12px; }
+
+/* Dark-mode safety overrides for Tailwind utility classes
+   Some components used bg-white / text-slate-900 utilities which become
+   visually broken when the site uses a custom html.light toggle instead of
+   Tailwind's 'dark' class. These rules map common light-mode utilities to
+   appropriate dark-theme tokens when html.light is NOT present.
+*/
+html:not(.light) .bg-white { background-color: var(--card-bg) !important; }
+html:not(.light) .bg-slate-50 { background-color: rgba(255,255,255,0.03) !important; }
+html:not(.light) .text-slate-900 { color: var(--text-primary) !important; }
+html:not(.light) .text-slate-700,
+html:not(.light) .text-slate-600,
+html:not(.light) .text-slate-500,
+html:not(.light) .text-slate-400 {
+  color: var(--text-secondary) !important;
+}
+html:not(.light) .border-slate-200 { border-color: var(--card-border) !important; }
+html:not(.light) .bg-slate-900 { background-color: rgba(15,23,42,0.6) !important; }
+
+/* Ensure boxed card shadows and rounded surfaces remain distinguishable */
+html:not(.light) .shadow-sm { box-shadow: 0 6px 18px rgba(2,6,23,0.6) !important; }
+
+

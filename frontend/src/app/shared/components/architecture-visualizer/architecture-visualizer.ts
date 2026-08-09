@@ -9,6 +9,7 @@ interface TechNode {
   techs: string[];
   x: number;
   y: number;
+  status?: 'current' | 'previous';
 }
 
 @Component({
@@ -19,58 +20,93 @@ interface TechNode {
   styleUrls: []
 })
 export class ArchitectureVisualizerComponent {
-  selectedNode = signal<string>('frontend');
+  // No default selection so the inspector shows a prompt
+  selectedNode = signal<string>('');
   activeFlow = signal<boolean>(true);
-
+  // Current (interactive) architecture nodes
   nodes: TechNode[] = [
     {
       id: 'frontend',
       name: 'Angular Frontend',
       category: 'Client Layer',
-      description: 'Responsive SPA engineered with Angular 20, Signals for state management, Standalone Components, and Tailwind CSS. Optimised for performance, accessibility, and high visual engagement.',
-      techs: ['Angular 20', 'Signals', 'TypeScript', 'Tailwind CSS'],
-      x: 10, y: 15
+      description: 'Modern static portfolio built with Angular, TypeScript and Tailwind CSS.',
+      techs: ['Angular', 'TypeScript', 'Tailwind CSS'],
+      x: 10, y: 15,
+      status: 'current'
     },
     {
-      id: 'api',
+      id: 'cloudflare',
+      name: 'Cloudflare Pages',
+      category: 'Hosting',
+      description: 'Global static hosting and edge delivery for the portfolio website.',
+      techs: ['Cloudflare Pages', 'CDN / Edge Delivery', 'HTTPS'],
+      x: 50, y: 15,
+      status: 'current'
+    },
+    {
+      id: 'ai-provider',
+      name: 'AI Provider',
+      category: 'AI Layer',
+      description: 'External AI model used by the AI Playground to generate responses based on approved portfolio knowledge.',
+      techs: [],
+      x: 90, y: 15,
+      status: 'current'
+    },
+    {
+      id: 'worker',
+      name: 'AI Edge Function',
+      category: 'Serverless',
+      description: 'Secure serverless layer between the public AI Playground and the AI provider, keeping private API credentials away from the browser.',
+      techs: ['Cloudflare Workers / Pages Functions', 'Serverless / Edge Runtime', 'Secrets'],
+      x: 10, y: 65,
+      status: 'current'
+    },
+    {
+      id: 'playground',
+      name: 'AI Playground',
+      category: 'Client App',
+      description: "Interactive AI assistant designed to answer questions about Adeel, his skills, projects, services and professional experience.",
+      techs: ['Angular', 'AI integration', 'Serverless communication'],
+      x: 90, y: 65,
+      status: 'current'
+    }
+  ];
+
+  // Previous (deprecated) architecture nodes - informational only
+  previousNodes: TechNode[] = [
+    {
+      id: 'prev-api',
       name: '.NET Web API',
-      category: 'Application Layer',
-      description: 'Robust RESTful API designed with ASP.NET Core 10, implementing Clean Architecture. Features CQRS pattern, structured validation, token auth, and enterprise routing.',
-      techs: ['.NET 10', 'ASP.NET Core', 'Clean Architecture', 'MediatR'],
-      x: 50, y: 15
+      category: 'Application Layer (Deprecated)',
+      description: 'Previous implementation using an ASP.NET Core backend for server-side logic and APIs.',
+      techs: ['.NET', 'ASP.NET Core'],
+      x: 0, y: 0,
+      status: 'previous'
     },
     {
-      id: 'db',
-      name: 'SQL Server / Postgres',
-      category: 'Data Layer',
-      description: 'Persistent database storage utilizing Entity Framework Core. Structured for transactional integrity, optimized indexing, and robust relations.',
-      techs: ['EF Core', 'PostgreSQL', 'SQL Server', 'Migrations'],
-      x: 90, y: 15
-    },
-    {
-      id: 'ai',
-      name: 'AI Agent Service',
-      category: 'Automation Layer',
-      description: 'Asynchronous integrations with OpenAI APIs, background workflows, semantic parsing, and intelligent agent routines coordinated via background tasks.',
-      techs: ['OpenAI API', 'AI Workflows', 'Background Services', 'Semantic Agents'],
-      x: 50, y: 65
-    },
-    {
-      id: 'deployment',
-      name: 'Docker Infrastructure',
-      category: 'DevOps Layer',
-      description: 'Multi-stage Docker containerization deployed on a secured Linux VPS. Managed via Docker Compose with automated CI/CD pipelines.',
-      techs: ['Docker', 'Docker Compose', 'Linux VPS', 'CI/CD Pipelines'],
-      x: 10, y: 65
+      id: 'prev-db',
+      name: 'Database',
+      category: 'Data Layer (Deprecated)',
+      description: 'Traditional relational database previously used to persist portfolio data.',
+      techs: ['SQL Server', 'Postgres'],
+      x: 0, y: 0,
+      status: 'previous'
     }
   ];
 
   selectNode(id: string) {
-    this.selectedNode.set(id);
+    // Prevent selecting deprecated previous architecture nodes
+    if (id.startsWith('prev-')) return;
+    // toggle selection: clicking already-selected node will deselect
+    if (this.selectedNode() === id) {
+      this.selectedNode.set('');
+    } else {
+      this.selectedNode.set(id);
+    }
   }
 
-  getCurrentNode(): TechNode {
-    return this.nodes.find(n => n.id === this.selectedNode()) || this.nodes[0];
+  getCurrentNode(): TechNode | null {
+    return this.nodes.find(n => n.id === this.selectedNode()) || null;
   }
 
   toggleFlow() {

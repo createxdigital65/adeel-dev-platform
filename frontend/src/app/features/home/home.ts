@@ -155,39 +155,69 @@ export class HomeComponent implements OnInit {
     event.preventDefault();
     if (this.isSubmitting() || !this.contactName() || !this.contactEmail()) return;
 
+    // Basic client-side validation
+    const name = this.contactName().trim();
+    const email = this.contactEmail().trim();
+    const details = this.contactDetails().trim();
+    const company = this.contactCompany().trim();
+
+    if (!name) {
+      this.submitSuccess.set(false);
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      this.submitSuccess.set(false);
+      return;
+    }
+
+    if (!details) {
+      this.submitSuccess.set(false);
+      return;
+    }
+
     this.isSubmitting.set(true);
     this.submitSuccess.set(null);
 
-    const payload = {
-      name: this.contactName(),
-      email: this.contactEmail(),
-      company: this.contactCompany(),
-      details: this.contactDetails()
-    };
+    // Build Gmail compose URL
+    const recipient = 'adeelsattar.dev@gmail.com';
+    const subject = encodeURIComponent(`New Project Inquiry — ${company || 'General'}`);
+    const bodyLines = [
+      `Hello Adeel,`,
+      ``,
+      `I would like to discuss a project.`,
+      ``,
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Company: ${company || 'N/A'}`,
+      ``,
+      `Project Details:`,
+      details,
+      ``,
+      `Sent from: adeelsattar.dev`
+    ];
 
-    this.contactService.submitRequest(payload).subscribe({
-      next: (id) => {
-        this.submitSuccess.set(true);
-        // Reset form
-        this.contactName.set('');
-        this.contactEmail.set('');
-        this.contactCompany.set('');
-        this.contactDetails.set('');
-        this.isSubmitting.set(false);
-      },
-      error: (err) => {
-        console.error('API submission failed. Falling back to simulated successful delivery.', err);
-        // Fallback for demo when API not actively listening
-        setTimeout(() => {
-          this.submitSuccess.set(true);
-          this.contactName.set('');
-          this.contactEmail.set('');
-          this.contactCompany.set('');
-          this.contactDetails.set('');
-          this.isSubmitting.set(false);
-        }, 1000);
-      }
-    });
+    const body = encodeURIComponent(bodyLines.join('\n'));
+
+    // Gmail compose URL (web) with parameters
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${subject}&body=${body}`;
+
+    // Open Gmail compose in a new tab/window
+    try {
+      window.open(gmailUrl, '_blank');
+      // Indicate draft ready state and reset form
+      this.submitSuccess.set(true);
+      this.contactName.set('');
+      this.contactEmail.set('');
+      this.contactCompany.set('');
+      this.contactDetails.set('');
+    } catch (err) {
+      console.error('Could not open Gmail compose URL', err);
+      this.submitSuccess.set(false);
+    } finally {
+      this.isSubmitting.set(false);
+    }
   }
 
   // Mouse move tracker for card glow effects (Bento Grid)

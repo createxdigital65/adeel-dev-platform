@@ -14,9 +14,12 @@ export interface ContactPayload {
 })
 export class ContactService {
   private readonly http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:5000/api/contact';
+  private readonly apiUrl = '/api/contact';
 
-  submitRequest(payload: ContactPayload): Observable<string> {
-    return this.http.post<string>(this.apiUrl, payload);
+  // For static deployments, do not attempt to call a backend by default.
+  // Keep this method for backwards compatibility but mark it as unused in the static flow.
+  submitRequest(payload: ContactPayload): Observable<any> {
+    // Intentionally returns an observable error if used on a static site.
+    return this.http.post<any>(this.apiUrl, payload);
   }
 }
