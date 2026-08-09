@@ -1,4 +1,4 @@
-<div class="w-full p-6 glass-panel rounded-2xl border-slate-800/80 shadow-2xl relative overflow-hidden">
+<div class="w-full p-4 sm:p-6 glass-panel rounded-2xl border-slate-800/80 shadow-2xl relative overflow-hidden">
   <!-- Glowing background details -->
   <div class="absolute -top-40 -left-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
   <div class="absolute -bottom-40 -right-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -13,8 +13,8 @@
         <div class="text-xs ui-text-secondary">The architecture powering this portfolio today</div>
       </div>
     </div>
-    <div class="lg:col-span-4 flex items-center justify-end">
-      <div class="text-xs ui-text-secondary text-right">
+    <div class="lg:col-span-4 flex items-center justify-start lg:justify-end">
+      <div class="text-xs ui-text-secondary text-left lg:text-right">
         <div class="font-semibold ui-text-primary">ARCHITECTURE INSPECTOR</div>
         <div class="text-[11px] ui-text-secondary">Select any LIVE node to see details</div>
       </div>
@@ -22,7 +22,7 @@
 
     <!-- Main content: flows (left/center) and inspector (right) -->
     <div class="lg:col-span-8 bg-transparent">
-      <div class="grid grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- MAIN WEBSITE column -->
         <div class="flex flex-col space-y-4">
           <div class="flex items-center space-x-2"><span class="text-sm font-medium text-slate-700 dark:text-slate-200">MAIN WEBSITE</span></div>
@@ -33,9 +33,9 @@
               <div class="w-10 h-10 rounded-md bg-blue-50 dark:bg-blue-900/20 text-blue-500 flex items-center justify-center">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
               </div>
-              <div class="flex-1">
-                <div class="font-semibold ui-card-text">Angular Frontend</div>
-                <div class="text-xs ui-card-secondary">SPA Application</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold ui-card-text break-words">Angular Frontend</div>
+                <div class="text-xs ui-card-secondary break-words">SPA Application</div>
               </div>
             </button>
 
@@ -50,9 +50,9 @@
               <div class="w-10 h-10 rounded-md bg-purple-50 dark:bg-purple-900/20 text-purple-500 flex items-center justify-center">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
               </div>
-              <div class="flex-1">
-                <div class="font-semibold ui-card-text">Cloudflare Pages</div>
-                <div class="text-xs ui-card-secondary">Static Hosting</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold ui-card-text break-words">Cloudflare Pages</div>
+                <div class="text-xs ui-card-secondary break-words">Static Hosting</div>
               </div>
             </button>
           </div>
@@ -67,13 +67,13 @@
               <div class="w-10 h-10 rounded-md bg-blue-50 dark:bg-blue-900/20 text-blue-500 flex items-center justify-center">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
               </div>
-              <div class="flex-1">
-                <div class="font-semibold ui-card-text">AI Playground</div>
-                <div class="text-xs ui-card-secondary">Angular UI</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold ui-card-text break-words">AI Playground</div>
+                <div class="text-xs ui-card-secondary break-words">Angular UI</div>
               </div>
             </button>
 
-            <div class="flex items-center justify-center">
+            <div class="flex items-center justify-center w-full md:w-auto">
               <svg width="24" height="36" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 0v12" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="4 6"/></svg>
             </div>
 
@@ -82,13 +82,13 @@
               <div class="w-10 h-10 rounded-md bg-purple-50 dark:bg-purple-900/20 text-purple-500 flex items-center justify-center">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
               </div>
-              <div class="flex-1">
-                <div class="font-semibold ui-card-text">Cloudflare Worker</div>
-                <div class="text-xs ui-card-secondary">Edge Function</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold ui-card-text break-words">Cloudflare Worker</div>
+                <div class="text-xs ui-card-secondary break-words">Edge Function</div>
               </div>
             </button>
 
-            <div class="flex items-center justify-center">
+            <div class="flex items-center justify-center w-full md:w-auto">
               <svg width="24" height="36" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 0v12" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="4 6"/></svg>
             </div>
 
@@ -97,9 +97,9 @@
               <div class="w-10 h-10 rounded-md bg-blue-50 dark:bg-blue-900/20 text-blue-500 flex items-center justify-center">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
               </div>
-              <div class="flex-1">
-                <div class="font-semibold ui-card-text">AI Provider</div>
-                <div class="text-xs ui-card-secondary">AI Model API</div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold ui-card-text break-words">AI Provider</div>
+                <div class="text-xs ui-card-secondary break-words">AI Model API</div>
               </div>
             </button>
           </div>
@@ -152,7 +152,7 @@
 
     <!-- Previous Architecture row spans full width -->
     <div class="lg:col-span-12 mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
-      <div class="mb-3 flex items-center justify-between">
+      <div class="mb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
         <div>
           <div class="text-[11px] font-bold text-slate-700 dark:text-slate-200">PREVIOUS ARCHITECTURE</div>
           <div class="text-[10px] text-slate-400">DEPRECATED</div>
@@ -160,13 +160,13 @@
         <div class="text-xs text-slate-500">Historical architecture (for reference only)</div>
       </div>
 
-      <div class="flex items-center justify-start gap-6 py-3 opacity-80">
-        <div class="flex items-center gap-4">
-          <div class="w-28 h-12 rounded-lg border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/20 flex items-center justify-center text-[12px] text-slate-600 dark:text-slate-300">Angular Frontend</div>
-          <div class="h-0.5 w-12 bg-slate-200 dark:bg-slate-800" style="border-bottom:1px dashed rgba(148,163,184,0.35)"></div>
-          <div class="w-28 h-12 rounded-lg border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/20 flex items-center justify-center text-[12px] text-slate-600 dark:text-slate-300">.NET API</div>
-          <div class="h-0.5 w-12 bg-slate-200 dark:bg-slate-800" style="border-bottom:1px dashed rgba(148,163,184,0.35)"></div>
-          <div class="w-28 h-12 rounded-lg border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/20 flex items-center justify-center text-[12px] text-slate-600 dark:text-slate-300">Database</div>
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-start gap-3 md:gap-6 py-3 opacity-80 w-full">
+        <div class="flex flex-col md:flex-row items-center gap-2 md:gap-4 w-full md:w-auto">
+          <div class="w-full md:w-28 h-12 rounded-lg border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/20 flex items-center justify-center text-center text-[11px] md:text-[12px] text-slate-600 dark:text-slate-300">Angular Frontend</div>
+          <div class="h-4 w-px md:h-0.5 md:w-12 border-l border-dashed border-slate-300 dark:border-slate-700 md:border-l-0 md:border-b"></div>
+          <div class="w-full md:w-28 h-12 rounded-lg border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/20 flex items-center justify-center text-center text-[11px] md:text-[12px] text-slate-600 dark:text-slate-300">.NET API</div>
+          <div class="h-4 w-px md:h-0.5 md:w-12 border-l border-dashed border-slate-300 dark:border-slate-700 md:border-l-0 md:border-b"></div>
+          <div class="w-full md:w-28 h-12 rounded-lg border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/20 flex items-center justify-center text-center text-[11px] md:text-[12px] text-slate-600 dark:text-slate-300">Database</div>
         </div>
       </div>
     </div>
