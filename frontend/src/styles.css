@@ -231,6 +231,37 @@ html:not(.light) .theme-toggle:hover { box-shadow: 0 6px 18px rgba(2,6,23,0.06);
 
 .form-error { color: #ef4444; font-size: 12px; }
 
+/* Form button styling (theme-aware) */
+.form-button {
+  border-radius: .5rem;
+  padding: .75rem 1rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+/* Light mode: dark primary button */
+html.light .form-button { background: var(--color-blue-500); color: #fff; border: 1px solid rgba(59,130,246,0.9); }
+html.light .form-button:hover { background: #2563eb; box-shadow: 0 8px 30px rgba(37,99,235,0.12); }
+html.light .form-button:disabled { background: rgba(59,130,246,0.45); color: rgba(255,255,255,0.8); border-color: rgba(59,130,246,0.45); cursor: not-allowed; }
+
+/* Dark mode: light primary button */
+html:not(.light) .form-button { background: #0f172a; color: #fff; border: 1px solid rgba(255,255,255,0.06); }
+html:not(.light) .form-button:hover { background: rgba(255,255,255,0.03); box-shadow: 0 8px 30px rgba(2,6,23,0.6); }
+html:not(.light) .form-button:disabled { background: rgba(15,23,42,0.6); color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.04); cursor: not-allowed; }
+
+/* Form outline (secondary) buttons used as anchors - ensure hover states match theme */
+.form-ghost {
+  background: transparent; border-radius: .5rem; padding: .6rem .9rem; border:1px solid transparent;
+}
+html.light .form-ghost { color: var(--text-primary); }
+html.light .form-ghost:hover { background: rgba(15,23,42,0.04); border-color: rgba(15,23,42,0.06); }
+html:not(.light) .form-ghost { color: var(--text-primary); }
+html:not(.light) .form-ghost:hover { background: rgba(255,255,255,0.02); border-color: rgba(255,255,255,0.04); }
+
 /* Dark-mode safety overrides for Tailwind utility classes
    Some components used bg-white / text-slate-900 utilities which become
    visually broken when the site uses a custom html.light toggle instead of
