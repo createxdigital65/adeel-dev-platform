@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdeelDevPlatform.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b8d14ac0556aee86d14f28aba5544f77a7b27c38")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84d1ebb626cee466083527ed8ac1a3164a261bc7")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdeelDevPlatform.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdeelDevPlatform.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

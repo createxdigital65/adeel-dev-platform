@@ -1,22 +1,22 @@
 name = "adeel-dev-platform"
-# NOTE: Set your account_id in the Cloudflare Dashboard or replace below before deploy.
+# NOTE: Set your account_id in the Cloudflare Dashboard or provide it to the deploy command.
 # account_id = "<YOUR_ACCOUNT_ID>"
 
-type = "javascript"
 compatibility_date = "2026-08-01"
 
-# Build command: build the Angular frontend prior to packaging the Worker
-[build]
-command = "cd frontend && npm ci && npm run build"
+# Worker entrypoint - this is the single Worker script that routes /api/chat and
+# delegates static asset requests to the ASSETS binding for the Angular SPA.
+main = "worker/index.js"
 
-# Static assets (Angular production output)
+# Static assets configuration (Angular production output). Wrangler will upload
+# files from this directory and provide an ASSETS binding available to the Worker.
 [assets]
 directory = "frontend/dist/frontend/browser"
 binding = "ASSETS"
 not_found_handling = "single-page-application"
 
-# The Worker entrypoint (this script will handle /api/chat and delegate static asset
-# requests to the ASSETS binding for all other routes).
-main = "worker/index.js"
-
-# Note: set account_id either in this file or provide --account-id when deploying with wrangler.
+# IMPORTANT: Cloudflare CI / your Pages pipeline should run the frontend build step
+# before running `npx wrangler deploy`. Do NOT duplicate the build here. Removing
+# the `[build]` command prevents Wrangler from attempting `cd frontend && npm ci && npm run build`
+# which caused the previous deployment error in the CI environment where the working
+# directory differed.
