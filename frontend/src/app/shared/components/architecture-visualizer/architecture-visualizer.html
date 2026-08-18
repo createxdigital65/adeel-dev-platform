@@ -1,58 +1,97 @@
-<div class="w-full p-4 sm:p-6 glass-panel rounded-2xl border-slate-800/80 shadow-2xl relative overflow-hidden">
-  <!-- Glowing background details -->
+﻿<!-- Mobile/Tablet Bento Architecture Card Stack View -->
+<!-- Summary: how I build (visible until the graph is opened) -->
+<div *ngIf="!showGraph()" class="w-full p-6 sm:p-8 glass-panel rounded-2xl border-slate-200 dark:border-slate-800/80 shadow-2xl relative overflow-hidden transition-all duration-300">
+  <div class="space-y-5">
+    <span class="chip chip-accent">How I build</span>
+    <h3 class="text-xl sm:text-2xl font-bold ui-text-primary">Modern, cloud-ready architecture</h3>
+    <p class="text-sm ui-text-secondary max-w-2xl leading-relaxed">
+      I design systems that are reliable, secure, and easy to maintain - combining .NET, Angular, AI, and cloud infrastructure to solve business problems at scale.
+    </p>
+    <div class="flex flex-wrap gap-2">
+      <span class="chip">.NET Backend</span>
+      <span class="chip">Angular Frontend</span>
+      <span class="chip">AI Workflows</span>
+      <span class="chip">Cloud &amp; DevOps</span>
+    </div>
+    <button (click)="toggleGraph()" type="button" class="btn btn-secondary cursor-pointer">
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+      </svg>
+      Explore the Architecture
+    </button>
+  </div>
+</div><!-- Full Interactive Node Inspector View (opened on demand) -->
+<div *ngIf="showGraph()"
+  class="w-full p-4 sm:p-6 glass-panel rounded-2xl border-slate-200 dark:border-slate-800/80 shadow-2xl relative overflow-hidden transition-all duration-300">
+  
   <div class="absolute -top-40 -left-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
   <div class="absolute -bottom-40 -right-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
-  <!-- Card grid: header row and main three-column layout -->
-  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+  <!-- Back to summary control (visible whenever the graph is open) -->
+<div class="flex justify-end mb-4">
+  <button (click)="toggleGraph()" type="button" class="btn-sm btn-sm-secondary cursor-pointer">
+    <svg class="h-3.5 w-3.5 -ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+    </svg>
+    Back to summary
+  </button>
+</div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 relative z-10">
     <!-- Header -->
-    <div class="lg:col-span-8 flex items-center justify-start space-x-4">
-      <div>
-        <div class="text-[12px] font-bold ui-text-primary">CURRENT ARCHITECTURE</div>
-        <div class="text-[10px] text-emerald-500 font-semibold">● LIVE</div>
-        <div class="text-xs ui-text-secondary">The architecture powering this portfolio today</div>
-      </div>
+      <div class="lg:col-span-8 flex items-center justify-start">
+    <div>
+      <div class="kicker">System design</div>
+      <div class="text-[11px] ui-text-secondary mt-1">The architecture that powers this website.</div>
     </div>
+  </div>
     <div class="lg:col-span-4 flex items-center justify-start lg:justify-end">
       <div class="text-xs ui-text-secondary text-left lg:text-right">
-        <div class="font-semibold ui-text-primary">ARCHITECTURE INSPECTOR</div>
-        <div class="text-[11px] ui-text-secondary">Select any LIVE node to see details</div>
+        <div class="font-semibold ui-text-primary">NODE INSPECTOR</div>
+        <div class="text-[10px] ui-text-muted mt-0.5">Select a block to inspect its details</div>
       </div>
     </div>
 
-    <!-- Main content: flows (left/center) and inspector (right) -->
-    <div class="lg:col-span-8 bg-transparent">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Main Content Grid -->
+    <div class="lg:col-span-8 bg-transparent space-y-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        
         <!-- MAIN WEBSITE column -->
         <div class="flex flex-col space-y-4">
-          <div class="flex items-center space-x-2"><span class="text-sm font-medium text-slate-700 dark:text-slate-200">MAIN WEBSITE</span></div>
+          <div class="flex items-center space-x-2"><span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">MAIN WEBSITE</span></div>
           <div class="flex flex-col space-y-4">
+            
             <!-- Angular Frontend card -->
-            <button (click)="selectNode('frontend')" (keydown.enter)="selectNode('frontend')" tabindex="0" class="w-full text-left rounded-lg p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex items-start gap-4"
-              [ngClass]="selectedNode() === 'frontend' ? 'ring-2 ring-blue-300 dark:ring-blue-700' : ''" aria-label="Angular Frontend">
-              <div class="w-10 h-10 rounded-md bg-blue-50 dark:bg-blue-900/20 text-blue-500 flex items-center justify-center">
+            <button (click)="selectNode('frontend')" (keydown.enter)="selectNode('frontend')" tabindex="0"
+              class="w-full text-left rounded-xl p-4 node-card shadow-sm hover:shadow-md transition-all flex items-start gap-4 cursor-pointer"
+              [ngClass]="selectedNode() === 'frontend' ? 'ring-2 ring-blue-500 border-blue-500' : ''" aria-label="Angular Frontend">
+              <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center border border-blue-500/10">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
               </div>
               <div class="flex-1 min-w-0">
-                <div class="font-semibold ui-card-text break-words">Angular Frontend</div>
-                <div class="text-xs ui-card-secondary break-words">SPA Application</div>
+                <div class="font-bold ui-card-text break-words text-sm">Angular Frontend</div>
+                <div class="text-[10px] ui-card-secondary break-words uppercase tracking-wider font-semibold">Web Client App</div>
               </div>
             </button>
 
             <!-- connector -->
             <div class="flex items-center justify-center">
-              <svg width="24" height="36" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 0v26" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="4 6"/></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-slate-300 dark:text-slate-800">
+                <path d="M12 0v24" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4" />
+              </svg>
             </div>
 
             <!-- Cloudflare Pages -->
-            <button (click)="selectNode('cloudflare')" (keydown.enter)="selectNode('cloudflare')" tabindex="0" class="w-full text-left rounded-lg p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex items-start gap-4"
-              [ngClass]="selectedNode() === 'cloudflare' ? 'ring-2 ring-purple-200 dark:ring-purple-700' : ''" aria-label="Cloudflare Pages">
-              <div class="w-10 h-10 rounded-md bg-purple-50 dark:bg-purple-900/20 text-purple-500 flex items-center justify-center">
+            <button (click)="selectNode('cloudflare')" (keydown.enter)="selectNode('cloudflare')" tabindex="0"
+              class="w-full text-left rounded-xl p-4 node-card shadow-sm hover:shadow-md transition-all flex items-start gap-4 cursor-pointer"
+              [ngClass]="selectedNode() === 'cloudflare' ? 'ring-2 ring-purple-500 border-purple-500' : ''" aria-label="Cloudflare Pages">
+              <div class="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center border border-purple-500/10">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
               </div>
               <div class="flex-1 min-w-0">
-                <div class="font-semibold ui-card-text break-words">Cloudflare Pages</div>
-                <div class="text-xs ui-card-secondary break-words">Static Hosting</div>
+                <div class="font-bold ui-card-text break-words text-sm">Cloudflare Pages</div>
+                <div class="text-[10px] ui-card-secondary break-words uppercase tracking-wider font-semibold">Static CDN Edge</div>
               </div>
             </button>
           </div>
@@ -60,115 +99,150 @@
 
         <!-- AI PLAYGROUND column -->
         <div class="flex flex-col space-y-4">
-          <div class="flex items-center space-x-2"><span class="text-sm font-medium text-slate-700 dark:text-slate-200">AI PLAYGROUND</span></div>
+          <div class="flex items-center space-x-2"><span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">AI PLAYGROUND</span></div>
           <div class="flex flex-col space-y-4 items-start">
-            <button (click)="selectNode('playground')" (keydown.enter)="selectNode('playground')" tabindex="0" class="w-full text-left rounded-lg p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex items-start gap-4"
-              [ngClass]="selectedNode() === 'playground' ? 'ring-2 ring-blue-200 dark:ring-blue-700' : ''" aria-label="AI Playground">
-              <div class="w-10 h-10 rounded-md bg-blue-50 dark:bg-blue-900/20 text-blue-500 flex items-center justify-center">
+            
+            <!-- AI Playground -->
+            <button (click)="selectNode('playground')" (keydown.enter)="selectNode('playground')" tabindex="0"
+              class="w-full text-left rounded-xl p-4 node-card shadow-sm hover:shadow-md transition-all flex items-start gap-4 cursor-pointer"
+              [ngClass]="selectedNode() === 'playground' ? 'ring-2 ring-blue-500 border-blue-500' : ''" aria-label="AI Playground">
+              <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center border border-blue-500/10">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
               </div>
               <div class="flex-1 min-w-0">
-                <div class="font-semibold ui-card-text break-words">AI Playground</div>
-                <div class="text-xs ui-card-secondary break-words">Angular UI</div>
+                <div class="font-bold ui-card-text break-words text-sm">AI Playground</div>
+                <div class="text-[10px] ui-card-secondary break-words uppercase tracking-wider font-semibold">Interactive UI</div>
               </div>
             </button>
 
-            <div class="flex items-center justify-center w-full md:w-auto">
-              <svg width="24" height="36" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 0v12" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="4 6"/></svg>
+            <!-- connector -->
+            <div class="flex items-center justify-center w-full">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-slate-300 dark:text-slate-800">
+                <path d="M12 0v24" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4" />
+              </svg>
             </div>
 
-            <button (click)="selectNode('worker')" (keydown.enter)="selectNode('worker')" tabindex="0" class="w-full text-left rounded-lg p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex items-start gap-4"
-              [ngClass]="selectedNode() === 'worker' ? 'ring-2 ring-purple-200 dark:ring-purple-700' : ''" aria-label="AI Edge Function">
-              <div class="w-10 h-10 rounded-md bg-purple-50 dark:bg-purple-900/20 text-purple-500 flex items-center justify-center">
+            <!-- Cloudflare Worker -->
+            <button (click)="selectNode('worker')" (keydown.enter)="selectNode('worker')" tabindex="0"
+              class="w-full text-left rounded-xl p-4 node-card shadow-sm hover:shadow-md transition-all flex items-start gap-4 cursor-pointer"
+              [ngClass]="selectedNode() === 'worker' ? 'ring-2 ring-purple-500 border-purple-500' : ''" aria-label="AI Edge Function">
+              <div class="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center border border-purple-500/10">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
               </div>
               <div class="flex-1 min-w-0">
-                <div class="font-semibold ui-card-text break-words">Cloudflare Worker</div>
-                <div class="text-xs ui-card-secondary break-words">Edge Function</div>
+                <div class="font-bold ui-card-text break-words text-sm">AI Edge Function</div>
+                <div class="text-[10px] ui-card-secondary break-words uppercase tracking-wider font-semibold">Serverless Proxy</div>
               </div>
             </button>
 
-            <div class="flex items-center justify-center w-full md:w-auto">
-              <svg width="24" height="36" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 0v12" stroke="#CBD5E1" stroke-width="2" stroke-dasharray="4 6"/></svg>
+            <!-- connector -->
+            <div class="flex items-center justify-center w-full">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-slate-300 dark:text-slate-800">
+                <path d="M12 0v24" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4" />
+              </svg>
             </div>
 
-            <button (click)="selectNode('ai-provider')" (keydown.enter)="selectNode('ai-provider')" tabindex="0" class="w-full text-left rounded-lg p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md transition-all flex items-start gap-4"
-              [ngClass]="selectedNode() === 'ai-provider' ? 'ring-2 ring-blue-200 dark:ring-blue-700' : ''" aria-label="AI Provider">
-              <div class="w-10 h-10 rounded-md bg-blue-50 dark:bg-blue-900/20 text-blue-500 flex items-center justify-center">
+            <!-- AI Provider -->
+            <button (click)="selectNode('ai-provider')" (keydown.enter)="selectNode('ai-provider')" tabindex="0"
+              class="w-full text-left rounded-xl p-4 node-card shadow-sm hover:shadow-md transition-all flex items-start gap-4 cursor-pointer"
+              [ngClass]="selectedNode() === 'ai-provider' ? 'ring-2 ring-blue-500 border-blue-500' : ''" aria-label="AI Provider">
+              <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center border border-blue-500/10">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
               </div>
               <div class="flex-1 min-w-0">
-                <div class="font-semibold ui-card-text break-words">AI Provider</div>
-                <div class="text-xs ui-card-secondary break-words">AI Model API</div>
+                <div class="font-bold ui-card-text break-words text-sm">AI Provider</div>
+                <div class="text-[10px] ui-card-secondary break-words uppercase tracking-wider font-semibold">Gemini API</div>
               </div>
             </button>
           </div>
         </div>
+
       </div>
     </div>
 
-    <!-- Inspector column -->
-    <div class="lg:col-span-4">
-      <div class="h-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-5 shadow-sm">
+    <!-- Inspector Column (Lg: col span 4) -->
+    <div class="lg:col-span-4 h-full">
+      <div class="h-full node-card rounded-xl p-5 shadow-inner min-h-[220px] flex flex-col justify-between">
         <ng-container *ngIf="getCurrentNode() as node; else emptyInspector">
-          <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-[10px] uppercase font-bold tracking-wider text-blue-400 bg-blue-50 dark:bg-blue-900/10 px-2 py-0.5 rounded-full border border-blue-100 dark:border-blue-800">{{ node.category }}</span>
+          <div class="space-y-4">
+            <div class="flex items-center">
+              <span class="text-[9px] uppercase font-bold tracking-wider text-blue-500 bg-blue-500/10 px-2 py-0.5 rounded-full border border-blue-500/20">{{ node.category }}</span>
             </div>
 
-            <h3 class="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">{{ node.name }}</h3>
-            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">{{ node.description }}</p>
+            <h3 class="text-base font-bold text-slate-900 dark:text-slate-100">{{ node.name }}</h3>
+            <p class="text-xs ui-text-secondary leading-relaxed">{{ node.description }}</p>
           </div>
 
-          <div>
-            <h4 class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wide">TECHNOLOGIES</h4>
-            <div class="flex flex-wrap gap-2">
-              <span *ngFor="let tech of node.techs" class="text-[11px] font-medium px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200">{{ tech }}</span>
+          <div class="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800/80">
+            <h4 class="text-[10px] font-bold text-slate-400 dark:text-slate-500 mb-2 uppercase tracking-widest">TECHNOLOGIES</h4>
+            <div class="flex flex-wrap gap-1.5">
+              <span *ngFor="let tech of node.techs" class="text-[10px] font-semibold px-2 py-1 chip">{{ tech }}</span>
             </div>
-          </div>
-
-          <div class="mt-4 border-t border-slate-100 dark:border-slate-800 pt-4">
-            <h4 class="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wide">RESPONSIBILITIES</h4>
-            <ul class="text-sm text-slate-600 dark:text-slate-400 space-y-2">
-              <li>UI Rendering</li>
-              <li>State Management</li>
-              <li>Routing</li>
-              <li>API Communication (Serverless)</li>
-            </ul>
           </div>
         </ng-container>
 
         <ng-template #emptyInspector>
-          <div class="flex flex-col items-center justify-center h-full text-center">
-            <div class="w-16 h-16 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center mb-3 text-blue-500">
-              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18" /></svg>
+          <div class="flex flex-col items-center justify-center h-full text-center py-6">
+            <div class="w-12 h-12 rounded-full bg-blue-500/5 text-blue-500 flex items-center justify-center mb-3 border border-blue-500/10">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" /></svg>
             </div>
-            <div class="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Select a node</div>
-            <p class="text-sm text-slate-500">Click any LIVE node to view its role, technologies and responsibilities.</p>
+            <div class="text-sm font-bold text-slate-900 dark:text-slate-100 mb-1">Select a Node</div>
+            <p class="text-[10px] ui-text-secondary max-w-[200px]">Click any block to see what it does and which technologies it uses.</p>
           </div>
         </ng-template>
       </div>
     </div>
 
-    <!-- Previous Architecture row spans full width -->
-    <div class="lg:col-span-12 mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
-      <div class="mb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
+    <!-- Deprecated Historical Layer (Dashed connection lines, grayscale, non-interactive) -->
+    <div class="lg:col-span-12 mt-6 pt-6 border-t border-slate-200 dark:border-slate-800/80">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
         <div>
-          <div class="text-[11px] font-bold text-slate-700 dark:text-slate-200">PREVIOUS ARCHITECTURE</div>
-          <div class="text-[10px] text-slate-400">DEPRECATED</div>
+          <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">PREVIOUS ARCHITECTURE</div>
+          <div class="inline-flex items-center mt-1 px-2.5 py-0.5 rounded-full bg-slate-500/10 text-slate-500 dark:text-slate-400 text-[9px] font-bold border border-slate-500/20 tracking-wider">
+            â—‹ FOR CONTEXT
+          </div>
         </div>
-        <div class="text-xs text-slate-500">Historical architecture (for reference only)</div>
+        <p class="text-[11px] ui-text-secondary max-w-sm sm:text-right">
+          Traditional full-stack architecture previously supporting backend APIs and physical database instances. Now replaced with edge routing.
+        </p>
       </div>
 
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-start gap-3 md:gap-6 py-3 opacity-80 w-full">
-        <div class="flex flex-col md:flex-row items-center gap-2 md:gap-4 w-full md:w-auto">
-          <div class="w-full md:w-28 h-12 rounded-lg border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/20 flex items-center justify-center text-center text-[11px] md:text-[12px] text-slate-600 dark:text-slate-300">Angular Frontend</div>
-          <div class="h-4 w-px md:h-0.5 md:w-12 border-l border-dashed border-slate-300 dark:border-slate-700 md:border-l-0 md:border-b"></div>
-          <div class="w-full md:w-28 h-12 rounded-lg border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/20 flex items-center justify-center text-center text-[11px] md:text-[12px] text-slate-600 dark:text-slate-300">.NET API</div>
-          <div class="h-4 w-px md:h-0.5 md:w-12 border-l border-dashed border-slate-300 dark:border-slate-700 md:border-l-0 md:border-b"></div>
-          <div class="w-full md:w-28 h-12 rounded-lg border border-dashed border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/20 flex items-center justify-center text-center text-[11px] md:text-[12px] text-slate-600 dark:text-slate-300">Database</div>
+      <!-- Grayscale muted non-interactive flow -->
+      <div class="p-4 rounded-xl bg-slate-100/40 dark:bg-slate-900/10 border border-dashed border-slate-200 dark:border-slate-800/50 opacity-40 select-none pointer-events-none">
+        <div class="flex flex-col md:flex-row items-center justify-around gap-4 md:gap-2">
+          
+          <!-- Angular node -->
+          <div class="flex items-center space-x-2.5 p-3 rounded-lg border border-dashed border-slate-300 dark:border-slate-800 bg-transparent min-w-[140px] justify-center text-center">
+            <span class="text-xs font-bold text-slate-500">Angular Client</span>
+          </div>
+
+          <!-- Muted connector -->
+          <div class="text-slate-300 dark:text-slate-800 rotate-90 md:rotate-0">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </div>
+
+          <!-- .NET API node -->
+          <div class="flex items-center space-x-2.5 p-3 rounded-lg border border-dashed border-slate-300 dark:border-slate-800 bg-transparent min-w-[140px] justify-center text-center">
+            <span class="text-xs font-bold text-slate-500">.NET Web API</span>
+          </div>
+
+          <!-- Muted connector -->
+          <div class="text-slate-300 dark:text-slate-800 rotate-90 md:rotate-0">
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </div>
+
+          <!-- Database node -->
+          <div class="flex items-center space-x-2.5 p-3 rounded-lg border border-dashed border-slate-300 dark:border-slate-800 bg-transparent min-w-[140px] justify-center text-center">
+            <span class="text-xs font-bold text-slate-500">SQL Server / DB</span>
+          </div>
+          
         </div>
       </div>
     </div>
+
   </div>
 </div>

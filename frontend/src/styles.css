@@ -51,6 +51,21 @@
   --card-secondary: #94a3b8;
   --input-bg: rgba(255,255,255,0.02);
   --input-border: rgba(148,163,184,0.06);
+
+  /* Semantic surfaces (dark defaults) */
+  --chip-bg: rgba(148,163,184,0.10);
+  --chip-border: rgba(148,163,184,0.22);
+  --chip-text: #cbd5e1;
+  --btn-secondary-bg: rgba(255,255,255,0.04);
+  --btn-secondary-border: rgba(148,163,184,0.25);
+  --btn-secondary-text: #e6eef8;
+  --btn-secondary-hover-bg: rgba(255,255,255,0.08);
+  --btn-secondary-hover-border: rgba(148,163,184,0.4);
+  --inset-bg: rgba(15,23,42,0.55);
+  --inset-border: rgba(30,41,59,0.6);
+  --node-bg: rgba(15,23,42,0.6);
+  --node-border: rgba(148,163,184,0.16);
+  --node-hover-bg: rgba(59,130,246,0.08);
 }
 
 html, body {
@@ -86,6 +101,21 @@ html.light {
   --card-secondary: #334155;
   --input-bg: rgba(255,255,255,0.96);
   --input-border: rgba(15,23,42,0.06);
+
+  /* Semantic surfaces (light override) */
+  --chip-bg: rgba(15,23,42,0.05);
+  --chip-border: rgba(15,23,42,0.1);
+  --chip-text: #334155;
+  --btn-secondary-bg: rgba(255,255,255,0.7);
+  --btn-secondary-border: rgba(15,23,42,0.12);
+  --btn-secondary-text: #0f172a;
+  --btn-secondary-hover-bg: rgba(255,255,255,0.95);
+  --btn-secondary-hover-border: rgba(15,23,42,0.2);
+  --inset-bg: rgba(241,245,249,0.8);
+  --inset-border: rgba(226,232,240,0.9);
+  --node-bg: rgba(255,255,255,0.7);
+  --node-border: rgba(226,232,240,0.9);
+  --node-hover-bg: rgba(59,130,246,0.06);
 }
 
 /* Custom Scrollbar */
@@ -128,27 +158,166 @@ html.light {
   transform: translateY(-2px);
 }
 
-/* Bento grid custom glow effect */
-.glow-card {
-  position: relative;
-  overflow: hidden;
+/* ---------- Consolidated semantic UI components (theme-aware) ----------- */
+
+/* Primary action button */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  height: 2.75rem;
+  padding: 0 1.375rem;
+  border-radius: .625rem;
+  font-size: .8125rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
-.glow-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
+.btn:disabled,
+.btn[disabled],
+.btn.disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background-color: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 8px 24px -10px rgba(59,130,246,0.55);
+}
+.btn-primary:hover:not(:disabled):not([disabled]) { background-color: #3b82f6; }
+.btn-secondary {
+  background: var(--btn-secondary-bg);
+  border-color: var(--btn-secondary-border);
+  color: var(--btn-secondary-text);
+}
+.btn-secondary:hover:not(:disabled):not([disabled]) {
+  background: var(--btn-secondary-hover-bg);
+  border-color: var(--btn-secondary-hover-border);
+}
+
+/* Small inline action button (cards, rows) */
+.btn-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  height: 2.25rem;
+  padding: 0 .9rem;
+  border-radius: .5rem;
+  font-size: .8125rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+.btn-sm-primary {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+.btn-sm-primary:hover:not(:disabled):not([disabled]) { background-color: #3b82f6; }
+.btn-sm-secondary {
+  background: var(--btn-secondary-bg);
+  border-color: var(--btn-secondary-border);
+  color: var(--btn-secondary-text);
+}
+.btn-sm-secondary:hover:not(:disabled):not([disabled]) {
+  background: var(--btn-secondary-hover-bg);
+  border-color: var(--btn-secondary-hover-border);
+}
+
+/* Chip / small label badge */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  padding: .3rem .625rem;
+  border-radius: 9999px;
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-border);
+  color: var(--chip-text);
+  font-size: .6875rem;
+  font-weight: 600;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+.chip-accent {
+  color: var(--text-accent);
+  background: rgba(59,130,246,0.08);
+  border-color: rgba(59,130,246,0.25);
+}
+.chip-blue {
+  background: rgba(59,130,246,0.08);
+  border-color: rgba(59,130,246,0.25);
+}
+
+/* Form fields */
+.field {
   width: 100%;
-  height: 100%;
-  background: radial-gradient(800px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255, 255, 255, 0.06), transparent 40%);
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.5s ease;
+  padding: .7rem .875rem;
+  border-radius: .625rem;
+  font-size: .875rem;
+  color: var(--text-primary);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
 }
-.glow-card:hover::before {
-  opacity: 1;
+.field::placeholder { color: var(--text-muted); }
+.field:focus {
+  outline: none;
+  border-color: rgba(59,130,246,0.55);
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
 }
+.field-label {
+  display: block;
+  margin-bottom: .4rem;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--text-secondary);
+}
+
+/* Section kicker (small uppercase captions) */
+.kicker {
+  display: block;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Inset panel for expanded drawers / detail areas */
+.panel-inset {
+  background: var(--inset-bg);
+  border-color: var(--inset-border);
+}
+
+/* Dark code/console surface (kept dark intentionally in both themes) */
+.console {
+  background: #0b1120;
+  border: 1px solid #1e293b;
+}
+.console-title {
+  color: #94a3b8;
+  font-weight: 600;
+  letter-spacing: .08em;
+  font-size: .6875rem;
+  text-transform: uppercase;
+}
+
+/* Architecture graph node cards */
+.node-card {
+  background: var(--node-bg);
+  border: 1px solid var(--node-border);
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+.node-card:hover { border-color: rgba(59,130,246,0.5); background: var(--node-hover-bg); }
 
 /* Semantic utility classes that adapt to theme */
 .ui-text-primary { color: var(--text-primary) !important; }

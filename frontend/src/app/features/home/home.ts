@@ -1,4 +1,4 @@
-import { Component, signal, HostListener, ElementRef, ViewChild, inject, OnInit } from '@angular/core';
+﻿import { Component, signal, ElementRef, ViewChild, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -29,7 +29,8 @@ export class HomeComponent implements OnInit {
   // Contact Form Model
   contactName = signal('');
   contactEmail = signal('');
-  contactCompany = signal('');
+  contactBudget = signal('< $1k');
+  contactTimeline = signal('As soon as possible');
   contactDetails = signal('');
   isSubmitting = signal(false);
   submitSuccess = signal<boolean | null>(null);
@@ -77,55 +78,36 @@ export class HomeComponent implements OnInit {
     }
   ]);
 
-  // Skill groupings
-  skillGroups = [
-    {
-      title: 'Software Engineering',
-      skills: ['.NET 10', 'ASP.NET Core', 'Web APIs', 'Entity Framework', 'SQL Server', 'Clean Architecture', 'CQRS', 'Design Patterns']
-    },
-    {
-      title: 'Frontend Development',
-      skills: ['Angular 20', 'TypeScript', 'Tailwind CSS', 'Angular Signals', 'Zoneless Change Detection', 'HTML5 / Semantic HTML', 'Web APIs Integration']
-    },
-    {
-      title: 'AI & Automation',
-      skills: ['OpenAI Integrations', 'AI Agents Orchestration', 'Prompt Engineering', 'LangChain Concepts', 'Background Automation Workers']
-    },
-    {
-      title: 'DevOps & Infrastructure',
-      skills: ['Docker & Compose', 'Linux VPS Admin', 'GitHub Actions CI/CD', 'SSL/Caddy Configuration', 'Log Monitoring']
-    },
-    {
-      title: 'Business & Growth',
-      skills: ['WordPress Solutions', 'Meta Advertising Campaigns', 'Conversion Funnel Auditing', 'Technical Product Strategy']
-    }
-  ];
-
-  // Services offerings
+  // Services offerings (business-outcome first)
   services = [
     {
-      title: 'Custom Software Development',
-      description: 'Architecting high-performance enterprise systems using Clean Architecture, strong typing, and robust testing protocols.',
+      title: 'Custom Software',
+      description: 'Internal tools, enterprise applications, and business platforms built around the way you work.',
+      techs: '.NET - C# - SQL',
       icon: 'code'
     },
     {
-      title: 'Web Applications & APIs',
-      description: 'Creating high-fidelity, standalone Angular single page applications communicating with secure, versioned Web APIs.',
-      icon: 'globe'
-    },
-    {
-      title: 'Business Automation & AI',
-      description: 'Automating high-friction operational workflows, integrating LLMs, qualifying marketing leads, and drafting text logs automatically.',
+      title: 'AI & Automation',
+      description: 'Automate repetitive workflows and introduce AI where it creates measurable value.',
+      techs: 'AI, .NET, Integrations',
       icon: 'cpu'
     },
     {
+      title: 'Web Platforms',
+      description: 'Fast, conversion-focused websites and web apps - from marketing sites to complex portals.',
+      techs: 'Angular, TypeScript',
+      icon: 'globe'
+    },
+    {
       title: 'WordPress Solutions',
-      description: 'Designing highly-customized WordPress architectures, configuring hosting pipelines, and improving caching parameters.',
+      description: 'High-performance WordPress websites, custom themes, and clean hosting setups.',
+      techs: 'WordPress, PHP',
       icon: 'wordpress'
     },
     {
-      title: 'Meta Ads & Growth Systems',
-      description: 'Structuring pixel triggers, setting up server-to-server Conversions API, and analyzing funnel bottlenecks for marketing returns.',
+      title: 'Growth & Digital Systems',
+      description: 'Connect your website, analytics, automation, and advertising into one measurable system.',
+      techs: 'Meta Ads, Analytics',
       icon: 'trending'
     }
   ];
@@ -159,7 +141,6 @@ export class HomeComponent implements OnInit {
     const name = this.contactName().trim();
     const email = this.contactEmail().trim();
     const details = this.contactDetails().trim();
-    const company = this.contactCompany().trim();
 
     if (!name) {
       this.submitSuccess.set(false);
@@ -182,7 +163,7 @@ export class HomeComponent implements OnInit {
 
     // Build Gmail compose URL
     const recipient = 'adeelsattar.dev@gmail.com';
-    const subject = encodeURIComponent(`New Project Inquiry — ${company || 'General'}`);
+    const subject = encodeURIComponent('New Project Inquiry');
     const bodyLines = [
       `Hello Adeel,`,
       ``,
@@ -190,7 +171,8 @@ export class HomeComponent implements OnInit {
       ``,
       `Name: ${name}`,
       `Email: ${email}`,
-      `Company: ${company || 'N/A'}`,
+      `Project Budget Range: ${this.contactBudget()}`,
+      `Timeline: ${this.contactTimeline()}`,
       ``,
       `Project Details:`,
       details,
@@ -210,7 +192,8 @@ export class HomeComponent implements OnInit {
       this.submitSuccess.set(true);
       this.contactName.set('');
       this.contactEmail.set('');
-      this.contactCompany.set('');
+      this.contactBudget.set('< $1k');
+      this.contactTimeline.set('As soon as possible');
       this.contactDetails.set('');
     } catch (err) {
       console.error('Could not open Gmail compose URL', err);
@@ -218,18 +201,5 @@ export class HomeComponent implements OnInit {
     } finally {
       this.isSubmitting.set(false);
     }
-  }
-
-  // Mouse move tracker for card glow effects (Bento Grid)
-  @HostListener('mousemove', ['$event'])
-  onMouseMove(e: MouseEvent) {
-    const cards = document.querySelectorAll('.glow-card');
-    cards.forEach(card => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
-      (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
-    });
   }
 }

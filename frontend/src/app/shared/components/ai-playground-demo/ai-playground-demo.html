@@ -2,18 +2,18 @@
   <!-- Left Side: Config & Input (Col Span 5) -->
   <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
     <div>
-      <h3 class="text-lg font-bold text-slate-100 mb-1">AI Automation Playground</h3>
-      <p class="text-xs text-slate-400">Select an automation scenario or use the chatbot to test the capabilities of integrated AI agent workflows.</p>
+      <h3 class="text-lg font-bold ui-text-primary mb-1">Live AI Demos</h3>
+      <p class="text-xs ui-text-secondary">Pick a practical example, or ask the assistant questions about Adeel and his work.</p>
     </div>
 
     <!-- Mode Selectors -->
     <div class="space-y-2">
-      <label class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Select Workflow Scenario</label>
+      <label class="text-[10px] uppercase font-bold tracking-wider ui-text-muted">Pick a demo</label>
       <div class="flex flex-col space-y-2">
         <button *ngFor="let uc of useCases" (click)="selectCase(uc.id)" type="button" [id]="'btn-scenario-' + uc.id"
           class="flex items-start text-left p-3 rounded-xl border transition-all duration-200 cursor-pointer"
-          [ngClass]="selectedCaseId() === uc.id ? 'bg-blue-500/10 border-blue-500/60 text-slate-100 shadow-sm' : 'bg-slate-900/60 border-slate-800 hover:border-slate-700 text-slate-400 hover:bg-slate-900'">
-          <div class="mt-0.5 mr-3 w-5 h-5 rounded bg-slate-850 flex items-center justify-center border border-slate-800">
+          [ngClass]="selectedCaseId() === uc.id ? 'bg-blue-500/10 border-blue-500/60 ui-text-primary shadow-sm' : 'node-card ui-text-secondary hover:border-blue-500/40'">
+          <div class="mt-0.5 mr-3 w-5 h-5 rounded bg-slate-900 flex items-center justify-center border border-slate-800">
             <span class="w-1.5 h-1.5 rounded-full" [ngClass]="selectedCaseId() === uc.id ? 'bg-blue-500' : 'bg-slate-600'"></span>
           </div>
           <div>
@@ -26,7 +26,7 @@
 
     <!-- Quick Suggestions for Chatbot -->
     <div *ngIf="selectedCaseId() === 'chatbot'" class="space-y-2 animate-fade-in">
-      <label class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Quick Profile Enquiries</label>
+      <label class="text-[10px] uppercase font-bold tracking-wider ui-text-muted">Quick questions</label>
       <div class="flex flex-wrap gap-2">
         <button (click)="askPresetQuestion('Who is Adeel Sattar?')" [disabled]="isProcessing()" type="button"
           class="text-[10px] px-2.5 py-1.5 rounded-lg form-ghost transition-colors cursor-pointer">
@@ -49,38 +49,38 @@
 
     <!-- Input text area -->
     <div class="space-y-2">
-      <label class="text-[10px] uppercase font-bold tracking-wider text-slate-500">Test Input Data</label>
+      <label class="text-[10px] uppercase font-bold tracking-wider ui-text-muted">Try it</label>
       <textarea [(ngModel)]="userInput" [placeholder]="getCurrentCase().placeholder" [disabled]="isProcessing()" id="txt-playground-input"
-        class="w-full h-24 p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-200 placeholder-slate-600 focus:outline-none focus:border-blue-500/50 resize-none transition-colors">
+        class="field h-24 font-mono text-xs resize-none">
       </textarea>
     </div>
 
     <!-- Trigger -->
     <button (click)="runAgent()" [disabled]="isProcessing() || !userInput()" id="btn-run-agent"
-      class="w-full py-3 px-4 rounded-xl font-semibold text-xs tracking-wide transition-all duration-300 flex items-center justify-center cursor-pointer shadow-lg"
-      [ngClass]="isProcessing() || !userInput() ? 'bg-slate-800 text-slate-500 border border-slate-700/50 cursor-not-allowed' : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white shadow-blue-500/10'">
-      <svg *ngIf="isProcessing()" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+      class="btn btn-primary w-full"
+      [ngClass]="isProcessing() || !userInput() ? 'opacity-50 cursor-not-allowed' : ''">
+      <svg *ngIf="isProcessing()" class="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
       </svg>
-      {{ isProcessing() ? (selectedCaseId() === 'chatbot' ? 'Consulting Agent Bio...' : 'Running Agent Workflows...') : (selectedCaseId() === 'chatbot' ? 'Execute Chatbot Query' : 'Execute Agent Workflow') }}
+      {{ isProcessing() ? 'Working...' : (selectedCaseId() === 'chatbot' ? 'Ask the Assistant' : 'Run Demo') }}
     </button>
   </div>
 
   <!-- Right Side: Terminal Logs & Results (Col Span 7) -->
   <div class="lg:col-span-7 flex flex-col space-y-4">
     <!-- Log Console Window -->
-    <div class="flex-1 flex flex-col min-h-[160px] bg-slate-950 rounded-xl border border-slate-900 overflow-hidden font-mono text-[10px]">
+    <div class="flex-1 flex flex-col min-h-[160px] console rounded-xl overflow-hidden font-mono text-[11px]">
       <div class="flex items-center justify-between px-4 py-2 border-b border-slate-900 bg-slate-900/30">
         <div class="flex items-center space-x-1.5">
           <span class="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
           <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></span>
           <span class="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
         </div>
-        <span class="text-slate-500 font-semibold tracking-wider text-[9px] uppercase">Agent Console Logs</span>
+        <span class="console-title">Activity</span>
       </div>
       <div class="flex-1 p-4 overflow-y-auto space-y-1.5 text-slate-400 select-text max-h-[180px]">
-        <div *ngIf="logs().length === 0" class="text-slate-600 italic">Console idle. Awaiting execution trigger...</div>
+        <div *ngIf="logs().length === 0" class="text-slate-600 italic">Ready. Run a demo to see it in action.</div>
         <div *ngFor="let log of logs()" class="animate-fade-in">
           <span class="text-blue-500">></span> {{ log }}
         </div>
@@ -89,13 +89,13 @@
     </div>
 
     <!-- Agent Output Result Window -->
-    <div class="flex-1 flex flex-col min-h-[220px] bg-slate-950 rounded-xl border border-slate-900 overflow-hidden font-mono text-xs">
+    <div class="flex-1 flex flex-col min-h-[220px] console rounded-xl overflow-hidden font-mono text-xs">
       <div class="flex items-center justify-between px-4 py-2 border-b border-slate-900 bg-slate-900/30">
-        <span class="text-slate-300 font-semibold">Structured Output</span>
-        <span class="text-slate-500 text-[9px] uppercase tracking-wider">Markdown / JSON</span>
+        <span class="text-slate-300 font-semibold">AI Response</span>
+        <span class="text-slate-500 text-[9px] uppercase tracking-wider">Live output</span>
       </div>
       <div class="flex-1 p-4 overflow-y-auto bg-slate-950/40 text-slate-300 select-text max-h-[220px] whitespace-pre-wrap leading-relaxed">
-        <div *ngIf="!agentOutput()" class="text-slate-600 italic flex items-center justify-center h-full">Output will stream here after analysis...</div>
+        <div *ngIf="!agentOutput()" class="text-slate-600 italic flex items-center justify-center h-full">Run a demo to see the response here...</div>
         <code *ngIf="agentOutput()" class="text-emerald-400 font-normal">{{ agentOutput() }}</code>
       </div>
     </div>

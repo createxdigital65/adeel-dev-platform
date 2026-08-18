@@ -30,15 +30,15 @@ export class AiPlaygroundDemoComponent {
   useCases: AgentUseCase[] = [
     {
       id: 'chatbot',
-      name: 'Adeel Profile Chatbot',
-      description: 'Personalized interactive chat agent addressing expertise, background, portfolio systems, and contact availability.',
+      name: 'Portfolio Assistant',
+      description: 'Answers anything about who I am, what I build, and how to reach me.',
       placeholder: 'Ask me anything (e.g. "What is Adeel\'s stack?", "Show me his projects", "How to hire him?")...',
       mockOutputs: []
     },
     {
       id: 'lead',
       name: 'Lead Qualification',
-      description: 'Parses inbound project descriptions, extract budget constraints, determines stack alignment, and tags business potential.',
+      description: 'Paste a project description and see how I assess fit, budget, and next steps.',
       placeholder: 'Enter a project description or proposal (e.g. "Need a C# developer to build an API")...',
       mockOutputs: [
         {
@@ -92,8 +92,8 @@ Result? Maintainable, unit-testable code ready for scale. 💻 #DotNet10 #CleanA
     },
     {
       id: 'support',
-      name: 'Support Automation',
-      description: 'Analyzes user complaints, extracts emotional tone, drafts automated debugging answers, and updates ticketing systems.',
+      name: 'Support Assistant',
+      description: 'Give a customer issue and watch it shape a clear, structured reply.',
       placeholder: 'Enter user issue (e.g. My login fails on Safari with JWT error, or My app returns 404)...',
       mockOutputs: [
         {

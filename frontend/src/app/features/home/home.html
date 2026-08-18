@@ -1,153 +1,156 @@
 <div class="space-y-24 pb-20 overflow-x-hidden">
-  
-  <!-- Hero Section -->
+
+  <!-- 1. Hero Section -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-20">
-    <div class="grid grid-cols-1 xl:grid-cols-12 gap-12 items-center">
-      <!-- Hero Copy (Col Span 5) -->
-      <div class="xl:col-span-5 space-y-10 text-center xl:text-left animate-fade-in-up px-4 md:px-0">
-        <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold border border-blue-200 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20">
-          <span class="flex h-2 w-2 relative">
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600 shadow-sm"></span>
-          </span>
-          <span class="text-[11px]">Available for Roles &amp; Consulting</span>
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <!-- Hero Copy -->
+      <div class="xl:col-span-7 space-y-6 text-center xl:text-left animate-fade-in-up">
+        <div class="inline-flex justify-center xl:justify-start">
+          <span class="chip chip-accent">Full-Stack Software Engineer</span>
         </div>
 
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight max-w-2xl mx-auto xl:mx-0">
-          <span class="block ui-text-primary">Building Scalable Applications,</span>
-          <span class="block bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-500 to-purple-500">Intelligent Automation</span>
-          <span class="block ui-text-secondary">and Modern Experiences.</span>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight ui-text-primary leading-tight font-sans">
+          Building software that solves
+          <span class="text-blue-600">real business problems</span>.
         </h1>
 
-        <p class="text-sm sm:text-base ui-text-secondary max-w-2xl mx-auto xl:mx-0 leading-relaxed">
-          I'm Adeel Sattar, a .NET Developer and Full-Stack Engineer focused on building high-performance software, AI-powered solutions, and business-driven digital platforms.
+        <p class="text-sm sm:text-base ui-text-secondary max-w-3xl mx-auto xl:mx-0 leading-relaxed font-light">
+          Adeel Sattar is a .NET &amp; Angular engineer building enterprise applications, AI-powered workflows, and modern web platforms.
         </p>
-        
-        <div class="flex flex-col sm:flex-row items-center justify-center xl:justify-start gap-4">
-          <a (click)="scrollToContact()" id="btn-hero-talk" class="w-full sm:w-auto px-6 py-3 text-center rounded-xl bg-blue-600 hover:bg-blue-500 font-semibold text-xs tracking-wide text-white transition-all shadow-lg shadow-blue-500/15 cursor-pointer">
-            Let's Talk
+
+        <!-- Primary CTA hierarchy -->
+        <div class="flex flex-col sm:flex-row items-center justify-center xl:justify-start gap-3">
+          <a (click)="scrollToContact()" id="btn-hero-talk" class="btn btn-primary w-full sm:w-auto cursor-pointer">
+            Start a Project
           </a>
-          <a routerLink="/" fragment="projects" id="btn-hero-projects" class="w-full sm:w-auto px-6 py-3 text-center rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 font-semibold text-xs tracking-wide text-slate-300 hover:text-slate-100 transition-all cursor-pointer">
-            View Projects
+          <a routerLink="/" fragment="projects" id="btn-hero-work" class="btn btn-secondary w-full sm:w-auto cursor-pointer">
+            Explore My Work
           </a>
         </div>
       </div>
 
-      <!-- Hero Visualizer (Col Span 7) -->
-      <div class="xl:col-span-7 w-full flex justify-center items-start animate-fade-in">
-        <app-architecture-visualizer class="w-full max-w-3xl"></app-architecture-visualizer>
+      <!-- Hero visual: calm capability summary (large screens only) -->
+      <div class="hidden xl:flex xl:col-span-5 w-full justify-center animate-fade-in">
+        <div class="w-full glass-panel rounded-2xl p-6 shadow-2xl relative">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+            <span class="kicker">What I build</span>
+          </div>
+          <div class="space-y-5 pt-5">
+            <div class="flex items-start space-x-3">
+              <span class="w-9 h-9 rounded-lg bg-blue-500/10 text-blue-600 flex items-center justify-center flex-shrink-0">
+                <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+              </span>
+              <div>
+                <div class="text-sm font-semibold ui-text-primary">Custom software</div>
+                <div class="text-xs ui-text-secondary">Enterprise applications and internal tools built to fit your workflow.</div>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <span class="w-9 h-9 rounded-lg bg-purple-500/10 text-purple-600 flex items-center justify-center flex-shrink-0">
+                <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                </svg>
+              </span>
+              <div>
+                <div class="text-sm font-semibold ui-text-primary">AI &amp; automation</div>
+                <div class="text-xs ui-text-secondary">Practical AI workflows that remove repetitive work and create measurable value.</div>
+              </div>
+            </div>
+            <div class="flex items-start space-x-3">
+              <span class="w-9 h-9 rounded-lg bg-emerald-500/10 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                </svg>
+              </span>
+              <div>
+                <div class="text-sm font-semibold ui-text-primary">Web platforms</div>
+                <div class="text-xs ui-text-secondary">Fast, conversion-focused websites and web applications that work.</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- About Section -->
+  <!-- 2. About Section -->
   <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-    <div class="max-w-3xl mx-auto text-center space-y-6">
-      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-100">
-        About <span class="text-blue-500">Me</span>
+    <div class="max-w-3xl mx-auto text-center space-y-5">
+      <p class="kicker">About</p>
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
+        Software that runs <span class="text-blue-500">your business</span>
       </h2>
-      <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">The Journey & Core Values</p>
-      
-      <div class="text-slate-400 text-sm sm:text-base text-justify space-y-4 leading-relaxed font-light">
+
+      <div class="ui-text-secondary text-sm sm:text-base space-y-4 leading-relaxed font-light text-left">
         <p>
-          My journey started in Computer Science, discovering the foundations of software design, algorithmic complexities, and database paradigms. From the start, I was obsessed with how lines of code translate directly into operational business efficiencies.
+          I'm Adeel Sattar — a full-stack software engineer and agency lead. I build enterprise applications, automate workflows with AI, and ship modern web platforms that solve real business problems.
         </p>
         <p>
-          To bridge technical solutions with real-world marketing funnels, I spent significant time building robust, performant websites using WordPress, and orchestrating Meta advertising campaigns. This phase instilled a deep understanding of customer conversion loops and client goals.
+          My background spans computer science, hands-on marketing and growth work, and deep .NET and Angular engineering. That mix means I build systems that are technically solid <em>and</em> aligned with what your business actually needs.
         </p>
-        <p>
-          Recognizing the need for enterprise-level scaling, I focused on the .NET ecosystem and Angular framework. Combining C#'s memory safety, compiler optimizations, and Clean Architecture patterns with Angular's reactive Signals paradigm allows me to construct secure systems that solve tangible problems.
-        </p>
-        <p>
-          Today, I actively integrate AI-powered automations and AI Agents, transforming manual workflows into background worker microservices that boost business scalability.
-        </p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-2 pt-2">
+        <span class="chip chip-blue">.NET · C#</span>
+        <span class="chip chip-blue">Angular · TypeScript</span>
+        <span class="chip chip-blue">AI &amp; Automation</span>
+        <span class="chip chip-blue">Cloud · Docker</span>
       </div>
     </div>
   </section>
 
-  <!-- Skills Bento Grid -->
-  <section id="skills" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-    <div class="text-center space-y-3 mb-12">
-      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-100">
-        Engineered <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Skills Matrix</span>
-      </h2>
-      <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">Modern stack expertise categorized by technical scope</p>
-    </div>
-
-    <!-- Bento Grid Layout -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let group of skillGroups; let i = index" 
-        [ngClass]="{'lg:col-span-2': i === 0 || i === 4, 'glass-card glow-card': true}"
-        class="rounded-2xl p-6 border border-slate-900 bg-slate-900/20 relative group hover:border-slate-800/80 hover:bg-slate-900/35 transition-all duration-300">
-        
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-sm font-bold text-slate-200 tracking-wide uppercase">{{ group.title }}</h3>
-          <span class="text-[10px] text-slate-500 font-semibold">0{{ i + 1 }}</span>
-        </div>
-
-        <div class="flex flex-wrap gap-2 relative z-10">
-          <span *ngFor="let skill of group.skills" class="text-xs px-3 py-1.5 rounded-lg bg-slate-950/80 text-slate-300 border border-slate-850 group-hover:border-slate-800 transition-colors">
-            {{ skill }}
-          </span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Featured Projects -->
+  <!-- 3. Featured Projects -->
   <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
     <div class="text-center space-y-3 mb-12">
-      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-100 font-sans">
-        Featured <span class="text-blue-500">Projects</span>
+      <p class="kicker">Projects</p>
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
+        Work that delivers <span class="text-blue-500">real results</span>
       </h2>
-      <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">High performance production architectures built from scratch</p>
+      <p class="text-sm ui-text-secondary max-w-2xl mx-auto">A look at the problems I solve — from enterprise integrations to AI-powered platforms.</p>
     </div>
 
     <!-- Projects Grid -->
     <div class="grid grid-cols-1 gap-8">
-      <div *ngFor="let proj of projects()" 
-        class="glass-card rounded-2xl border border-slate-900 bg-slate-900/10 overflow-hidden hover:border-slate-800/80 transition-all duration-300">
+      <div *ngFor="let proj of projects()"
+        class="glass-card rounded-2xl overflow-hidden hover:border-blue-500/40 transition-all duration-300">
         <div class="p-6 md:p-8 flex flex-col md:flex-row md:items-start justify-between gap-6">
-          
+
           <!-- Left Content -->
           <div class="flex-1 space-y-4">
-            <div class="flex items-center space-x-3">
-              <span class="text-[10px] uppercase font-bold tracking-wider text-blue-400 bg-blue-500/5 px-2 py-0.5 rounded-full border border-blue-500/10">
-                {{ proj.category }}
-              </span>
-            </div>
+            <span class="chip chip-blue">{{ proj.category }}</span>
 
-            <h3 class="text-xl font-bold text-slate-100">{{ proj.title }}</h3>
-            <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">{{ proj.description }}</p>
+            <h3 class="text-xl font-bold ui-text-primary">{{ proj.title }}</h3>
+            <p class="text-sm ui-text-secondary leading-relaxed">{{ proj.description }}</p>
 
             <!-- Tech badges -->
-            <div class="flex flex-wrap gap-1.5 pt-2">
-              <span *ngFor="let tech of proj.techs" class="text-[10px] px-2.5 py-1 bg-slate-950/80 rounded border border-slate-850 text-slate-300">
-                {{ tech }}
-              </span>
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span *ngFor="let tech of proj.techs" class="chip">{{ tech }}</span>
             </div>
           </div>
 
           <!-- Right Action & Expand Trigger -->
           <div class="flex items-center md:self-center">
             <button (click)="toggleProject(proj)" [id]="'btn-expand-' + proj.title"
-              class="w-full md:w-auto px-5 py-2.5 rounded-xl bg-slate-950 border border-slate-850 hover:border-blue-500/40 text-xs font-semibold text-slate-300 hover:text-slate-100 transition-all flex items-center justify-center space-x-2 cursor-pointer">
-              <span>{{ proj.expanded ? 'Hide Design Architecture' : 'Inspect Design Architecture' }}</span>
-              <svg class="h-3 w-3 transform transition-transform" [ngClass]="proj.expanded ? 'rotate-180 text-blue-400' : 'text-slate-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              class="btn-sm btn-sm-secondary w-full md:w-auto">
+              <span>{{ proj.expanded ? 'Hide Details' : 'View Details' }}</span>
+              <svg class="h-3.5 w-3.5 transform transition-transform" [ngClass]="proj.expanded ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
           </div>
         </div>
 
-        <!-- Expanded Architectural Details Drawer -->
-        <div *ngIf="proj.expanded" class="border-t border-slate-900 bg-slate-950/60 p-6 md:p-8 space-y-6 animate-fade-in">
+        <!-- Expanded Project Details -->
+        <div *ngIf="proj.expanded" class="panel-inset border-t border-slate-200 dark:border-slate-800 p-6 md:p-8 space-y-6 animate-fade-in">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Left Info -->
             <div class="space-y-4">
-              <h4 class="text-xs uppercase font-bold tracking-wider text-slate-500">Key Features Implemented</h4>
+              <h4 class="kicker">Key Features</h4>
               <ul class="space-y-2.5">
-                <li *ngFor="let feature of proj.features" class="flex items-start text-xs text-slate-400">
-                  <svg class="h-4 w-4 text-blue-400 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <li *ngFor="let feature of proj.features" class="flex items-start text-sm ui-text-secondary">
+                  <svg class="h-4.5 w-4.5 text-blue-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <span>{{ feature }}</span>
@@ -158,12 +161,12 @@
             <!-- Right Info -->
             <div class="space-y-4">
               <div>
-                <h4 class="text-xs uppercase font-bold tracking-wider text-red-400 mb-1.5">The Engineering Challenge</h4>
-                <p class="text-xs text-slate-400 leading-relaxed">{{ proj.challenges }}</p>
+                <h4 class="kicker text-red-500 dark:text-red-400 mb-1.5">The Challenge</h4>
+                <p class="text-sm ui-text-secondary leading-relaxed">{{ proj.challenges }}</p>
               </div>
               <div>
-                <h4 class="text-xs uppercase font-bold tracking-wider text-emerald-400 mb-1.5">Lessons Learned & Solutions</h4>
-                <p class="text-xs text-slate-400 leading-relaxed">{{ proj.lessons }}</p>
+                <h4 class="kicker text-emerald-600 dark:text-emerald-400 mb-1.5">The Solution</h4>
+                <p class="text-sm ui-text-secondary leading-relaxed">{{ proj.lessons }}</p>
               </div>
             </div>
           </div>
@@ -173,21 +176,43 @@
     </div>
   </section>
 
-  <!-- Services Section -->
-  <section id="services" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+  <!-- 4. Architecture Inspector (How I Build) -->
+  <section id="architecture-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
     <div class="text-center space-y-3 mb-12">
-      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-100">
-        Professional <span class="text-blue-500">Services</span>
+      <p class="kicker">How I build</p>
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
+        Modern engineering, <span class="text-blue-500">built to scale</span>
       </h2>
-      <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">Adding tangible value via engineering and growth automation</p>
+      <p class="text-sm ui-text-secondary max-w-2xl mx-auto">Solid software needs a solid foundation. Here's how I structure .NET, Angular, AI, and cloud systems.</p>
     </div>
 
+    <app-architecture-visualizer></app-architecture-visualizer>
+  </section>
+
+  <!-- 5. Services -->
+  <section id="services" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+    <div class="text-center space-y-3 mb-12">
+      <p class="kicker">Services</p>
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
+        What I can <span class="text-blue-500">help you build</span>
+      </h2>
+      <p class="text-sm ui-text-secondary max-w-2xl mx-auto">Clear outcomes, no technical jargon — here's how I add value to businesses.</p>
+    </div>
+
+    <!-- Delivery note -->
+    <div class="max-w-3xl mx-auto mb-12 text-center">
+      <p class="text-xs ui-text-secondary leading-relaxed">
+        Enterprise software and AI systems are delivered by me directly. Web and growth projects are executed with a small team of vetted specialists under my technical direction.
+      </p>
+    </div>
+
+    <!-- Services Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let serv of services; let idx = index" 
-        class="glass-card rounded-2xl p-6 border border-slate-900 bg-slate-900/10 flex flex-col justify-between hover:border-slate-800/80 transition-all duration-300">
+      <div *ngFor="let serv of services"
+        class="glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:border-blue-500/40">
         <div class="space-y-4">
-          <!-- Icon placeholder (simulating custom styling) -->
-          <div class="w-10 h-10 rounded-xl bg-blue-500/5 text-blue-400 flex items-center justify-center border border-blue-500/10">
+          <!-- Icon -->
+          <div class="w-10 h-10 rounded-xl bg-blue-500/5 text-blue-500 flex items-center justify-center border border-blue-500/10">
             <svg *ngIf="serv.icon === 'code'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
             </svg>
@@ -205,117 +230,111 @@
             </svg>
           </div>
 
-          <h3 class="text-sm font-bold text-slate-200 tracking-wide">{{ serv.title }}</h3>
-          <p class="text-xs text-slate-400 leading-relaxed">{{ serv.description }}</p>
+          <h3 class="text-base font-bold ui-text-primary tracking-wide">{{ serv.title }}</h3>
+          <p class="text-sm ui-text-secondary leading-relaxed">{{ serv.description }}</p>
         </div>
+
+        <div class="text-xs ui-text-muted font-medium mt-5">{{ serv.techs }}</div>
       </div>
     </div>
   </section>
 
-  <!-- AI Playground Component Embedding -->
+  <!-- 6. AI Playground (Practical Demos) -->
   <section id="ai-playground" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
     <div class="text-center space-y-3 mb-12">
-      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-100">
-        AI <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Playground</span>
+      <p class="kicker">See AI in Action</p>
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
+        AI <span class="text-blue-500">Playground</span>
       </h2>
-      <p class="text-xs text-slate-500 uppercase tracking-widest font-bold">Observe real-time automation simulation models in action</p>
+      <p class="text-sm ui-text-secondary max-w-2xl mx-auto">A few practical examples of how I build AI into real software workflows.</p>
     </div>
-    
+
     <app-ai-playground-demo></app-ai-playground-demo>
   </section>
 
-  <!-- Contact Form Section -->
+  <!-- 7. Contact / Start a Project -->
   <section #contactSection id="contact" class="max-w-3xl mx-auto px-4 sm:px-6 scroll-mt-24">
-    <div class="glass-panel rounded-2xl border-slate-800/80 p-6 md:p-8 shadow-2xl relative">
+    <div class="glass-panel rounded-2xl p-6 md:p-8 shadow-2xl relative">
       <div class="text-center space-y-2 mb-8">
-        <h2 class="text-xl sm:text-2xl font-bold text-slate-100">Start a Project</h2>
-        <p class="text-xs text-slate-400">Provide details below to trigger lead sync automation workflows</p>
-        
-        <!-- Social Contact Links -->
-        <div class="flex flex-wrap items-center justify-center gap-3 pt-4">
-          <a href="https://github.com/createxdigital65" target="_blank" rel="noopener noreferrer" 
-            class="form-ghost flex items-center space-x-1.5 px-3 py-1.5 rounded-lg" aria-label="GitHub">
-            <svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
-              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482C19.138 20.197 22 16.44 22 12.017 22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
-            </svg>
-            <span>GitHub</span>
-          </a>
-          <a href="https://pk.linkedin.com/in/adeelsattar-dotnet-angular-developer" target="_blank" rel="noopener noreferrer" 
-            class="form-ghost flex items-center space-x-1.5 px-3 py-1.5 rounded-lg" aria-label="LinkedIn">
-            <svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-            </svg>
-            <span>LinkedIn</span>
-          </a>
-          <a href="https://instagram.com/adeelsattar.dev" target="_blank" rel="noopener noreferrer" 
-            class="form-ghost flex items-center space-x-1.5 px-3 py-1.5 rounded-lg" aria-label="Instagram">
-            <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
-            <span>Instagram</span>
-          </a>
-          <a href="https://wa.me/923176468708" target="_blank" rel="noopener noreferrer" 
-            class="text-xs text-slate-400 hover:text-white transition-all flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-850 hover:border-slate-800">
-            <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-            </svg>
-            <span>WhatsApp</span>
-          </a>
+        <h2 class="text-xl sm:text-2xl font-bold ui-text-primary">Start a Project</h2>
+        <p class="text-sm ui-text-secondary max-w-md mx-auto">Tell me about your project and I'll get back to you personally within 12 hours.</p>
+
+        <div class="flex items-center justify-center gap-2 pt-3">
+          <a href="https://pk.linkedin.com/in/adeelsattar-dotnet-angular-developer" target="_blank" rel="noopener noreferrer" class="chip hover:border-blue-500/50 transition-colors">LinkedIn</a>
+          <a href="https://wa.me/923176468708" target="_blank" rel="noopener noreferrer" class="chip hover:border-blue-500/50 transition-colors">WhatsApp</a>
         </div>
       </div>
 
-      <form (submit)="submitContactForm($event)" class="space-y-4">
+      <form (submit)="submitContactForm($event)" class="space-y-5">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <!-- Name -->
-          <div class="space-y-1">
-            <label for="contact-name" class="form-label">Your Name *</label>
+          <div>
+            <label for="contact-name" class="field-label">Your name *</label>
             <input type="text" id="contact-name" name="name" required [disabled]="isSubmitting()"
-              [(ngModel)]="contactName"
-              class="form-input text-sm" placeholder="Your full name">
+              [(ngModel)]="contactName" class="field" placeholder="Jane Doe">
           </div>
           <!-- Email -->
-          <div class="space-y-1">
-            <label for="contact-email" class="form-label">Your Email *</label>
+          <div>
+            <label for="contact-email" class="field-label">Your email *</label>
             <input type="email" id="contact-email" name="email" required [disabled]="isSubmitting()"
-              [(ngModel)]="contactEmail"
-              class="form-input text-sm" placeholder="name@company.com">
+              [(ngModel)]="contactEmail" class="field" placeholder="jane@company.com">
           </div>
         </div>
 
-        <!-- Company -->
-        <div class="space-y-1">
-          <label for="contact-company" class="form-label">Company / Organization</label>
-          <input type="text" id="contact-company" name="company" [disabled]="isSubmitting()"
-            [(ngModel)]="contactCompany"
-            class="form-input text-sm" placeholder="Optional">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Budget -->
+          <div>
+            <label for="contact-budget" class="field-label">Project budget</label>
+            <select id="contact-budget" name="budget" [disabled]="isSubmitting()"
+              [(ngModel)]="contactBudget" class="field cursor-pointer">
+              <option value="< $1k">&lt; $1k</option>
+              <option value="$1k - $3k">$1k - $3k</option>
+              <option value="$3k - $5k">$3k - $5k</option>
+              <option value="Enterprise / Retainer">Enterprise / Retainer</option>
+            </select>
+          </div>
+          <!-- Timeline -->
+          <div>
+            <label for="contact-timeline" class="field-label">Timeline</label>
+            <select id="contact-timeline" name="timeline" [disabled]="isSubmitting()"
+              [(ngModel)]="contactTimeline" class="field cursor-pointer">
+              <option value="As soon as possible">As soon as possible</option>
+              <option value="Within 1 month">Within 1 month</option>
+              <option value="1 - 3 months">1 - 3 months</option>
+              <option value="Just exploring">Just exploring</option>
+            </select>
+          </div>
         </div>
 
         <!-- Project details -->
-        <div class="space-y-1">
-          <label for="contact-details" class="form-label">Project Details & Requirements</label>
+        <div>
+          <label for="contact-details" class="field-label">What do you need help with? *</label>
           <textarea id="contact-details" name="details" rows="4" [disabled]="isSubmitting()"
-            [(ngModel)]="contactDetails"
-            class="form-input text-sm resize-none" placeholder="Tell me about what you are looking to build..."></textarea>
+            [(ngModel)]="contactDetails" class="field resize-none"
+            placeholder="Tell me about your idea, problem, or project...">
+          </textarea>
         </div>
 
         <!-- Feedback Alert status -->
-        <div *ngIf="submitSuccess() !== null" class="p-3.5 rounded-lg text-xs font-semibold animate-fade-in"
-          [ngClass]="submitSuccess() ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'">
-          <span *ngIf="submitSuccess()">✅ Your email draft is ready in Gmail. Review and click Send.</span>
-          <span *ngIf="!submitSuccess()">⚠️ Unable to open Gmail. You can email me directly at <a href="mailto:adeelsattar.dev@gmail.com" class="underline">adeelsattar.dev@gmail.com</a>.</span>
+        <div *ngIf="submitSuccess() !== null" class="p-3.5 rounded-lg text-sm font-semibold animate-fade-in"
+          [ngClass]="submitSuccess() ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20' : 'bg-red-500/10 text-red-600 border border-red-500/20'">
+          <span *ngIf="submitSuccess()">Your email draft is ready - I'll reply personally within 12 hours.</span>
+          <span *ngIf="!submitSuccess()">Something went wrong. Message me directly on LinkedIn or WhatsApp instead.</span>
         </div>
 
-        <!-- Submit Button -->
-        <button type="submit" [disabled]="isSubmitting() || !contactName() || !contactEmail()" id="btn-submit-contact"
-          class="form-button w-full py-3 px-4 rounded-lg font-semibold text-sm tracking-wide transition-all duration-300 flex items-center justify-center shadow-lg">
-          <svg *ngIf="isSubmitting()" class="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
-          {{ isSubmitting() ? 'Preparing Email...' : 'Send Project Inquiry' }}
-        </button>
+        <!-- Submit Button & micro-copy -->
+        <div class="space-y-2">
+          <button type="submit" [disabled]="isSubmitting() || !contactName() || !contactEmail()" id="btn-submit-contact"
+            class="btn btn-primary w-full">
+            <svg *ngIf="isSubmitting()" class="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            {{ isSubmitting() ? 'Preparing your email draft...' : 'Start a Conversation' }}
+          </button>
+
+          <p class="text-xs text-center ui-text-muted">No spam, no sales funnels - just a direct conversation with me.</p>
+        </div>
       </form>
     </div>
   </section>
