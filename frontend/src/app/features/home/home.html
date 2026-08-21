@@ -1,122 +1,179 @@
 <div class="space-y-24 pb-20 overflow-x-hidden">
-
   <!-- 1. Hero Section -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-20">
-    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-12 items-center">
-      <!-- Hero Copy -->
-      <div class="xl:col-span-7 space-y-6 text-center xl:text-left animate-fade-in-up">
-        <div class="inline-flex justify-center xl:justify-start">
-          <span class="chip chip-accent">Full-Stack Software Engineer</span>
+  <section #heroScene id="hero" class="relative isolate">
+    <!-- Ambient depth layers (decorative, non-interactive) -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0">
+      <!-- BACKGROUND · fine blueprint grid (fastest depth) -->
+      <div class="hero-depth-grid-far">
+        <div class="hero-grid-texture hero-grid-fine"></div>
+      </div>
+
+      <!-- BACKGROUND · base blueprint grid -->
+      <div class="hero-depth-grid">
+        <div class="hero-grid-texture"></div>
+      </div>
+
+      <!-- BACKGROUND · floating technical particles (two depth fields) -->
+      <div class="hero-depth-far">
+        <div class="hero-particles hero-particles-far"></div>
+      </div>
+      <div class="hero-depth-mid">
+        <div class="hero-particles hero-particles-near"></div>
+      </div>
+
+      <!-- BACKGROUND · occasional light streak -->
+      <div class="hero-depth-streak">
+        <div class="hero-streak"></div>
+        <div class="hero-streak hero-streak-b"></div>
+      </div>
+
+      <!-- MIDGROUND · aurora orbs + technical accents -->
+      <div class="hero-depth-far">
+        <div class="hero-orb hero-orb-a"></div>
+      </div>
+      <div class="hero-depth-mid">
+        <div class="hero-orb hero-orb-b"></div>
+        <div class="hero-ring"></div>
+        <div class="hero-plus hero-plus-a"></div>
+      </div>
+      <div class="hero-depth-soft">
+        <div class="hero-orb hero-orb-c"></div>
+        <div class="hero-plus hero-plus-b"></div>
+      </div>
+
+      <!-- MIDGROUND · radial light behind the headline -->
+      <div class="hero-depth-glow">
+        <div class="hero-headlight"></div>
+      </div>
+
+      <!-- Static film grain -->
+      <div class="hero-noise-texture"></div>
+    </div>
+
+    <!-- Foreground content (moves minimally, counter to the backdrop) -->
+    <div
+      class="hero-content max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-10 text-center"
+    >
+      <div class="space-y-6 animate-fade-in-up">
+        <div class="inline-flex justify-center">
+          <span class="chip chip-accent">Software Engineer</span>
         </div>
 
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight ui-text-primary leading-tight font-sans">
+        <h1
+          class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight ui-text-primary leading-tight font-sans"
+        >
           Building software that solves
-          <span class="text-blue-600">real business problems</span>.
+          <span class="headline-gradient">real business problems</span>.
         </h1>
 
-        <p class="text-sm sm:text-base ui-text-secondary max-w-3xl mx-auto xl:mx-0 leading-relaxed font-light">
-          Adeel Sattar is a .NET &amp; Angular engineer building enterprise applications, AI-powered workflows, and modern web platforms.
+        <p
+          class="text-sm sm:text-base ui-text-secondary max-w-2xl mx-auto leading-relaxed font-light"
+        >
+          I help businesses modernize legacy systems, build high-performance .NET and Angular
+          applications, and automate operations with practical AI.
         </p>
 
         <!-- Primary CTA hierarchy -->
-        <div class="flex flex-col sm:flex-row items-center justify-center xl:justify-start gap-3">
-          <a (click)="scrollToContact()" id="btn-hero-talk" class="btn btn-primary w-full sm:w-auto cursor-pointer">
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <a
+            (click)="scrollToContact()"
+            id="btn-hero-talk"
+            class="btn btn-primary cta-glow w-full sm:w-auto cursor-pointer"
+          >
             Start a Project
           </a>
-          <a routerLink="/" fragment="projects" id="btn-hero-work" class="btn btn-secondary w-full sm:w-auto cursor-pointer">
+          <a
+            routerLink="/"
+            fragment="projects"
+            id="btn-hero-work"
+            class="btn btn-secondary w-full sm:w-auto cursor-pointer"
+          >
             Explore My Work
           </a>
-        </div>
-      </div>
-
-      <!-- Hero visual: calm capability summary (large screens only) -->
-      <div class="hidden xl:flex xl:col-span-5 w-full justify-center animate-fade-in">
-        <div class="w-full glass-panel rounded-2xl p-6 shadow-2xl relative">
-          <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
-            <span class="kicker">What I build</span>
-          </div>
-          <div class="space-y-5 pt-5">
-            <div class="flex items-start space-x-3">
-              <span class="w-9 h-9 rounded-lg bg-blue-500/10 text-blue-600 flex items-center justify-center flex-shrink-0">
-                <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                </svg>
-              </span>
-              <div>
-                <div class="text-sm font-semibold ui-text-primary">Custom software</div>
-                <div class="text-xs ui-text-secondary">Enterprise applications and internal tools built to fit your workflow.</div>
-              </div>
-            </div>
-            <div class="flex items-start space-x-3">
-              <span class="w-9 h-9 rounded-lg bg-purple-500/10 text-purple-600 flex items-center justify-center flex-shrink-0">
-                <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                </svg>
-              </span>
-              <div>
-                <div class="text-sm font-semibold ui-text-primary">AI &amp; automation</div>
-                <div class="text-xs ui-text-secondary">Practical AI workflows that remove repetitive work and create measurable value.</div>
-              </div>
-            </div>
-            <div class="flex items-start space-x-3">
-              <span class="w-9 h-9 rounded-lg bg-emerald-500/10 text-emerald-600 flex items-center justify-center flex-shrink-0">
-                <svg class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                </svg>
-              </span>
-              <div>
-                <div class="text-sm font-semibold ui-text-primary">Web platforms</div>
-                <div class="text-xs ui-text-secondary">Fast, conversion-focused websites and web applications that work.</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 2. About Section -->
+  <!-- 2. Business Outcomes -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div appReveal class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+      <div class="space-y-1">
+        <div class="text-2xl font-bold text-blue-600">
+          <span appCountUp [countTo]="3" suffix="x">3x</span>
+        </div>
+        <div class="text-xs ui-text-muted">Faster Delivery</div>
+      </div>
+      <div class="space-y-1">
+        <div class="text-2xl font-bold text-blue-600">
+          <span appCountUp [countTo]="50" suffix="%">50%</span>
+        </div>
+        <div class="text-xs ui-text-muted">Less Code</div>
+      </div>
+      <div class="space-y-1">
+        <div class="text-2xl font-bold text-blue-600">
+          <span appCountUp [countTo]="99.9" [decimals]="1" suffix="%">99.9%</span>
+        </div>
+        <div class="text-xs ui-text-muted">Uptime</div>
+      </div>
+      <div class="space-y-1">
+        <div class="text-2xl font-bold text-blue-600">
+          <span appCountUp [countTo]="12" suffix="h">12h</span>
+        </div>
+        <div class="text-xs ui-text-muted">Response Time</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. About Section -->
   <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-    <div class="max-w-3xl mx-auto text-center space-y-5">
+    <div appReveal class="max-w-3xl mx-auto text-center space-y-5">
       <p class="kicker">About</p>
       <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
         Software that runs <span class="text-blue-500">your business</span>
       </h2>
 
-      <div class="ui-text-secondary text-sm sm:text-base space-y-4 leading-relaxed font-light text-left">
+      <div
+        class="ui-text-secondary text-sm sm:text-base space-y-4 leading-relaxed font-light text-left"
+      >
         <p>
-          I'm Adeel Sattar — a full-stack software engineer and agency lead. I build enterprise applications, automate workflows with AI, and ship modern web platforms that solve real business problems.
+          I'm Adeel Sattar — a full-stack software engineer and agency lead. I build enterprise
+          applications, automate workflows with AI, and ship modern web platforms that solve real
+          business problems.
         </p>
         <p>
-          My background spans computer science, hands-on marketing and growth work, and deep .NET and Angular engineering. That mix means I build systems that are technically solid <em>and</em> aligned with what your business actually needs.
+          My background spans computer science, hands-on marketing and growth work, and deep .NET
+          and Angular engineering. That mix means I build systems that are technically solid
+          <em>and</em> aligned with what your business actually needs.
         </p>
       </div>
 
-      <div class="flex flex-wrap justify-center gap-2 pt-2">
-        <span class="chip chip-blue">.NET · C#</span>
-        <span class="chip chip-blue">Angular · TypeScript</span>
-        <span class="chip chip-blue">AI &amp; Automation</span>
-        <span class="chip chip-blue">Cloud · Docker</span>
-      </div>
+      <p class="text-xs ui-text-muted pt-2">
+        Engineering in .NET 10, ASP.NET Core, Angular 20, AI, PostgreSQL, Docker, and Cloudflare.
+      </p>
     </div>
   </section>
 
-  <!-- 3. Featured Projects -->
+  <!-- 4. Featured Projects -->
   <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-    <div class="text-center space-y-3 mb-12">
+    <div appReveal class="text-center space-y-3 mb-12">
       <p class="kicker">Projects</p>
       <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
         Work that delivers <span class="text-blue-500">real results</span>
       </h2>
-      <p class="text-sm ui-text-secondary max-w-2xl mx-auto">A look at the problems I solve — from enterprise integrations to AI-powered platforms.</p>
+      <p class="text-sm ui-text-secondary max-w-2xl mx-auto">
+        A look at the problems I solve — from enterprise integrations to AI-powered platforms.
+      </p>
     </div>
 
     <!-- Projects Grid -->
     <div class="grid grid-cols-1 gap-8">
-      <div *ngFor="let proj of projects()"
-        class="glass-card rounded-2xl overflow-hidden hover:border-blue-500/40 transition-all duration-300">
+      <div
+        *ngFor="let proj of projects()"
+        appReveal
+        class="glass-card rounded-2xl overflow-hidden hover:border-blue-500/40 transition-all duration-300"
+      >
         <div class="p-6 md:p-8 flex flex-col md:flex-row md:items-start justify-between gap-6">
-
           <!-- Left Content -->
           <div class="flex-1 space-y-4">
             <span class="chip chip-blue">{{ proj.category }}</span>
@@ -124,34 +181,66 @@
             <h3 class="text-xl font-bold ui-text-primary">{{ proj.title }}</h3>
             <p class="text-sm ui-text-secondary leading-relaxed">{{ proj.description }}</p>
 
-            <!-- Tech badges -->
-            <div class="flex flex-wrap gap-1.5 pt-1">
-              <span *ngFor="let tech of proj.techs" class="chip">{{ tech }}</span>
+            <!-- Tech stack (supporting proof, de-emphasized) -->
+            <div class="flex flex-wrap gap-1 pt-1">
+              <span *ngFor="let tech of proj.techs" class="text-[10px] ui-text-muted font-medium">{{
+                tech
+              }}</span>
             </div>
           </div>
 
           <!-- Right Action & Expand Trigger -->
           <div class="flex items-center md:self-center">
-            <button (click)="toggleProject(proj)" [id]="'btn-expand-' + proj.title"
-              class="btn-sm btn-sm-secondary w-full md:w-auto">
+            <button
+              (click)="toggleProject(proj)"
+              [id]="'btn-expand-' + proj.title"
+              class="btn-sm btn-sm-secondary w-full md:w-auto"
+            >
               <span>{{ proj.expanded ? 'Hide Details' : 'View Details' }}</span>
-              <svg class="h-3.5 w-3.5 transform transition-transform" [ngClass]="proj.expanded ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              <svg
+                class="h-3.5 w-3.5 transform transition-transform"
+                [ngClass]="proj.expanded ? 'rotate-180' : ''"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
           </div>
         </div>
 
         <!-- Expanded Project Details -->
-        <div *ngIf="proj.expanded" class="panel-inset border-t border-slate-200 dark:border-slate-800 p-6 md:p-8 space-y-6 animate-fade-in">
+        <div
+          *ngIf="proj.expanded"
+          class="panel-inset border-t border-slate-200 p-6 md:p-8 space-y-6 animate-fade-in"
+        >
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Left Info -->
             <div class="space-y-4">
               <h4 class="kicker">Key Features</h4>
               <ul class="space-y-2.5">
-                <li *ngFor="let feature of proj.features" class="flex items-start text-sm ui-text-secondary">
-                  <svg class="h-4.5 w-4.5 text-blue-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <li
+                  *ngFor="let feature of proj.features"
+                  class="flex items-start text-sm ui-text-secondary"
+                >
+                  <svg
+                    class="h-4.5 w-4.5 text-blue-500 mr-2 flex-shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                   <span>{{ feature }}</span>
                 </li>
@@ -161,72 +250,122 @@
             <!-- Right Info -->
             <div class="space-y-4">
               <div>
-                <h4 class="kicker text-red-500 dark:text-red-400 mb-1.5">The Challenge</h4>
+                <h4 class="kicker text-red-500 mb-1.5">The Challenge</h4>
                 <p class="text-sm ui-text-secondary leading-relaxed">{{ proj.challenges }}</p>
               </div>
               <div>
-                <h4 class="kicker text-emerald-600 dark:text-emerald-400 mb-1.5">The Solution</h4>
+                <h4 class="kicker text-emerald-600 mb-1.5">The Solution</h4>
                 <p class="text-sm ui-text-secondary leading-relaxed">{{ proj.lessons }}</p>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- 4. Architecture Inspector (How I Build) -->
-  <section id="architecture-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-    <div class="text-center space-y-3 mb-12">
-      <p class="kicker">How I build</p>
-      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
-        Modern engineering, <span class="text-blue-500">built to scale</span>
-      </h2>
-      <p class="text-sm ui-text-secondary max-w-2xl mx-auto">Solid software needs a solid foundation. Here's how I structure .NET, Angular, AI, and cloud systems.</p>
-    </div>
-
-    <app-architecture-visualizer></app-architecture-visualizer>
-  </section>
-
   <!-- 5. Services -->
   <section id="services" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-    <div class="text-center space-y-3 mb-12">
+    <div appReveal class="text-center space-y-3 mb-12">
       <p class="kicker">Services</p>
       <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
         What I can <span class="text-blue-500">help you build</span>
       </h2>
-      <p class="text-sm ui-text-secondary max-w-2xl mx-auto">Clear outcomes, no technical jargon — here's how I add value to businesses.</p>
+      <p class="text-sm ui-text-secondary max-w-2xl mx-auto">
+        Clear outcomes, no technical jargon — here's how I add value to businesses.
+      </p>
     </div>
 
     <!-- Delivery note -->
-    <div class="max-w-3xl mx-auto mb-12 text-center">
+    <div appReveal class="max-w-3xl mx-auto mb-12 text-center">
       <p class="text-xs ui-text-secondary leading-relaxed">
-        Enterprise software and AI systems are delivered by me directly. Web and growth projects are executed with a small team of vetted specialists under my technical direction.
+        Enterprise software and AI systems are delivered by me directly. Web and growth projects are
+        executed with a small team of vetted specialists under my technical direction.
       </p>
     </div>
 
     <!-- Services Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let serv of services"
-        class="glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:border-blue-500/40">
+      <div
+        *ngFor="let serv of services; let i = index"
+        appReveal
+        [revealDelay]="i * 80"
+        class="glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:border-blue-500/40"
+      >
         <div class="space-y-4">
           <!-- Icon -->
-          <div class="w-10 h-10 rounded-xl bg-blue-500/5 text-blue-500 flex items-center justify-center border border-blue-500/10">
-            <svg *ngIf="serv.icon === 'code'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+          <div
+            class="w-10 h-10 rounded-xl bg-blue-500/5 text-blue-500 flex items-center justify-center border border-blue-500/10"
+          >
+            <svg
+              *ngIf="serv.icon === 'code'"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+              />
             </svg>
-            <svg *ngIf="serv.icon === 'globe'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+            <svg
+              *ngIf="serv.icon === 'globe'"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+              />
             </svg>
-            <svg *ngIf="serv.icon === 'cpu'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+            <svg
+              *ngIf="serv.icon === 'cpu'"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+              />
             </svg>
-            <svg *ngIf="serv.icon === 'wordpress'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            <svg
+              *ngIf="serv.icon === 'legacy'"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m0 0h6m-6 0h-6"
+              />
             </svg>
-            <svg *ngIf="serv.icon === 'trending'" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            <svg
+              *ngIf="serv.icon === 'trending'"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+              />
             </svg>
           </div>
 
@@ -239,29 +378,62 @@
     </div>
   </section>
 
-  <!-- 6. AI Playground (Practical Demos) -->
+  <!-- 6. Architecture Inspector (How I Build) -->
+  <section id="architecture-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+    <div appReveal class="text-center space-y-3 mb-12">
+      <p class="kicker">How I build</p>
+      <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
+        Modern engineering, <span class="text-blue-500">built to scale</span>
+      </h2>
+      <p class="text-sm ui-text-secondary max-w-2xl mx-auto">
+        Solid software needs a solid foundation. Here's how I structure .NET, Angular, AI, and cloud
+        systems.
+      </p>
+    </div>
+
+    <app-architecture-visualizer appReveal></app-architecture-visualizer>
+  </section>
+
+  <!-- 7. AI Playground (Practical Demos) -->
   <section id="ai-playground" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
-    <div class="text-center space-y-3 mb-12">
+    <div appReveal class="text-center space-y-3 mb-12">
       <p class="kicker">See AI in Action</p>
       <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
         AI <span class="text-blue-500">Playground</span>
       </h2>
-      <p class="text-sm ui-text-secondary max-w-2xl mx-auto">A few practical examples of how I build AI into real software workflows.</p>
+      <p class="text-sm ui-text-secondary max-w-2xl mx-auto">
+        A few practical examples of how I build AI into real software workflows.
+      </p>
     </div>
 
-    <app-ai-playground-demo></app-ai-playground-demo>
+    <app-ai-playground-demo appReveal></app-ai-playground-demo>
   </section>
 
-  <!-- 7. Contact / Start a Project -->
+  <!-- 8. Contact / Start a Project -->
   <section #contactSection id="contact" class="max-w-3xl mx-auto px-4 sm:px-6 scroll-mt-24">
-    <div class="glass-panel rounded-2xl p-6 md:p-8 shadow-2xl relative">
+    <div appReveal class="glass-panel rounded-2xl p-6 md:p-8 shadow-2xl relative">
       <div class="text-center space-y-2 mb-8">
         <h2 class="text-xl sm:text-2xl font-bold ui-text-primary">Start a Project</h2>
-        <p class="text-sm ui-text-secondary max-w-md mx-auto">Tell me about your project and I'll get back to you personally within 12 hours.</p>
+        <p class="text-sm ui-text-secondary max-w-md mx-auto">
+          ⚡ Powered by AI Lead Sync — Adeel will personally review your project requirements and
+          respond within 12 hours.
+        </p>
 
         <div class="flex items-center justify-center gap-2 pt-3">
-          <a href="https://pk.linkedin.com/in/adeelsattar-dotnet-angular-developer" target="_blank" rel="noopener noreferrer" class="chip hover:border-blue-500/50 transition-colors">LinkedIn</a>
-          <a href="https://wa.me/923176468708" target="_blank" rel="noopener noreferrer" class="chip hover:border-blue-500/50 transition-colors">WhatsApp</a>
+          <a
+            href="https://pk.linkedin.com/in/adeelsattar-dotnet-angular-developer"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="chip hover:border-blue-500/50 transition-colors"
+            >LinkedIn</a
+          >
+          <a
+            href="https://wa.me/923176468708"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="chip hover:border-blue-500/50 transition-colors"
+            >WhatsApp</a
+          >
         </div>
       </div>
 
@@ -270,14 +442,30 @@
           <!-- Name -->
           <div>
             <label for="contact-name" class="field-label">Your name *</label>
-            <input type="text" id="contact-name" name="name" required [disabled]="isSubmitting()"
-              [(ngModel)]="contactName" class="field" placeholder="Jane Doe">
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              required
+              [disabled]="isSubmitting()"
+              [(ngModel)]="contactName"
+              class="field"
+              placeholder="Jane Doe"
+            />
           </div>
           <!-- Email -->
           <div>
             <label for="contact-email" class="field-label">Your email *</label>
-            <input type="email" id="contact-email" name="email" required [disabled]="isSubmitting()"
-              [(ngModel)]="contactEmail" class="field" placeholder="jane@company.com">
+            <input
+              type="email"
+              id="contact-email"
+              name="email"
+              required
+              [disabled]="isSubmitting()"
+              [(ngModel)]="contactEmail"
+              class="field"
+              placeholder="jane@company.com"
+            />
           </div>
         </div>
 
@@ -285,19 +473,29 @@
           <!-- Budget -->
           <div>
             <label for="contact-budget" class="field-label">Project budget</label>
-            <select id="contact-budget" name="budget" [disabled]="isSubmitting()"
-              [(ngModel)]="contactBudget" class="field cursor-pointer">
+            <select
+              id="contact-budget"
+              name="budget"
+              [disabled]="isSubmitting()"
+              [(ngModel)]="contactBudget"
+              class="field cursor-pointer"
+            >
               <option value="< $1k">&lt; $1k</option>
-              <option value="$1k - $3k">$1k - $3k</option>
-              <option value="$3k - $5k">$3k - $5k</option>
+              <option value="$1k–$3k">$1k–$3k</option>
+              <option value="$3k–$5k">$3k–$5k</option>
               <option value="Enterprise / Retainer">Enterprise / Retainer</option>
             </select>
           </div>
           <!-- Timeline -->
           <div>
             <label for="contact-timeline" class="field-label">Timeline</label>
-            <select id="contact-timeline" name="timeline" [disabled]="isSubmitting()"
-              [(ngModel)]="contactTimeline" class="field cursor-pointer">
+            <select
+              id="contact-timeline"
+              name="timeline"
+              [disabled]="isSubmitting()"
+              [(ngModel)]="contactTimeline"
+              class="field cursor-pointer"
+            >
               <option value="As soon as possible">As soon as possible</option>
               <option value="Within 1 month">Within 1 month</option>
               <option value="1 - 3 months">1 - 3 months</option>
@@ -309,34 +507,72 @@
         <!-- Project details -->
         <div>
           <label for="contact-details" class="field-label">What do you need help with? *</label>
-          <textarea id="contact-details" name="details" rows="4" [disabled]="isSubmitting()"
-            [(ngModel)]="contactDetails" class="field resize-none"
-            placeholder="Tell me about your idea, problem, or project...">
+          <textarea
+            id="contact-details"
+            name="details"
+            rows="4"
+            [disabled]="isSubmitting()"
+            [(ngModel)]="contactDetails"
+            class="field resize-none"
+            placeholder="Tell me about your idea, problem, or project..."
+          >
           </textarea>
         </div>
 
         <!-- Feedback Alert status -->
-        <div *ngIf="submitSuccess() !== null" class="p-3.5 rounded-lg text-sm font-semibold animate-fade-in"
-          [ngClass]="submitSuccess() ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20' : 'bg-red-500/10 text-red-600 border border-red-500/20'">
-          <span *ngIf="submitSuccess()">Your email draft is ready - I'll reply personally within 12 hours.</span>
-          <span *ngIf="!submitSuccess()">Something went wrong. Message me directly on LinkedIn or WhatsApp instead.</span>
+        <div
+          *ngIf="submitSuccess() !== null"
+          class="p-3.5 rounded-lg text-sm font-semibold animate-fade-in"
+          [ngClass]="
+            submitSuccess()
+              ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20'
+              : 'bg-red-500/10 text-red-600 border border-red-500/20'
+          "
+        >
+          <span *ngIf="submitSuccess()"
+            >Your email draft is ready — I'll reply personally within 12 hours.</span
+          >
+          <span *ngIf="!submitSuccess()"
+            >Something went wrong. Message me directly on LinkedIn or WhatsApp instead.</span
+          >
         </div>
 
         <!-- Submit Button & micro-copy -->
         <div class="space-y-2">
-          <button type="submit" [disabled]="isSubmitting() || !contactName() || !contactEmail()" id="btn-submit-contact"
-            class="btn btn-primary w-full">
-            <svg *ngIf="isSubmitting()" class="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          <button
+            type="submit"
+            [disabled]="isSubmitting() || !contactName() || !contactEmail()"
+            id="btn-submit-contact"
+            class="btn btn-primary w-full"
+          >
+            <svg
+              *ngIf="isSubmitting()"
+              class="animate-spin -ml-1 mr-2 h-4 w-4"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
             </svg>
             {{ isSubmitting() ? 'Preparing your email draft...' : 'Start a Conversation' }}
           </button>
 
-          <p class="text-xs text-center ui-text-muted">No spam, no sales funnels - just a direct conversation with me.</p>
+          <p class="text-xs text-center ui-text-muted">
+            No spam, no sales funnels - just a direct conversation with me.
+          </p>
         </div>
       </form>
     </div>
   </section>
-
 </div>

@@ -3,11 +3,15 @@
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
       <div class="flex-shrink-0 flex items-center">
-          <a routerLink="/" (click)="closeMobileMenu()" class="flex items-center space-x-2 group">
-          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
+        <a routerLink="/" (click)="closeMobileMenu()" class="flex items-center space-x-2 group">
+          <div
+            class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300"
+          >
             AS
           </div>
-          <span class="text-sm font-semibold tracking-wide logo-text group-hover:logo-text-primary transition-colors">
+          <span
+            class="text-sm font-semibold tracking-wide logo-text group-hover:logo-text-primary transition-colors"
+          >
             adeelsattar<span class="accent">.dev</span>
           </span>
         </a>
@@ -15,32 +19,98 @@
 
       <!-- Desktop Nav -->
       <nav class="hidden lg:flex space-x-1">
-        <a routerLink="/" fragment="about" class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200">About</a>
-        <a routerLink="/" fragment="projects" class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200">Projects</a>
-        <a routerLink="/" fragment="services" class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200">Services</a>
-        <a routerLink="/" fragment="contact" class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200">Contact</a>
+        <a
+          routerLink="/"
+          fragment="about"
+          [class.active]="activeSection() === 'about'"
+          class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200"
+          >About</a
+        >
+        <a
+          routerLink="/"
+          fragment="projects"
+          [class.active]="activeSection() === 'projects'"
+          class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200"
+          >Projects</a
+        >
+        <a
+          routerLink="/"
+          fragment="services"
+          [class.active]="activeSection() === 'services'"
+          class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200"
+          >Services</a
+        >
+        <a
+          routerLink="/"
+          fragment="ai-playground"
+          [class.active]="activeSection() === 'ai-playground'"
+          class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200"
+          >AI Playground</a
+        >
+        <a
+          routerLink="/"
+          fragment="contact"
+          [class.active]="activeSection() === 'contact'"
+          class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200"
+          >Contact</a
+        >
       </nav>
 
       <!-- Desktop CTA & Theme Toggle -->
       <div class="hidden lg:flex items-center space-x-3">
         <!-- Theme Toggle Button -->
-        <button (click)="toggleTheme()" type="button" aria-label="Toggle theme"
-          [ngClass]="isLightTheme() ? 'p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-100 hover:border-blue-500/40 hover:text-white' : 'p-2 rounded-lg bg-white border border-slate-200 text-slate-900 hover:border-blue-500/40 hover:text-slate-900'"
-          class="theme-toggle transition-all cursor-pointer">
+        <button
+          (click)="toggleTheme()"
+          type="button"
+          aria-label="Toggle theme"
+          [ngClass]="
+            isLightTheme()
+              ? 'p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-100 hover:border-blue-500/40 hover:text-white'
+              : 'p-2 rounded-lg bg-white border border-slate-200 text-slate-900 hover:border-blue-500/40 hover:text-slate-900'
+          "
+          class="theme-toggle transition-all cursor-pointer"
+        >
           <!-- Sun icon (shows in light mode, toggles to dark) -->
-          <svg *ngIf="isLightTheme()" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707m12.728 12.728A9 9 0 115.636 5.636a9 9 0 0112.728 12.728z" />
+          <svg
+            *ngIf="isLightTheme()"
+            class="h-4.5 w-4.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707m12.728 12.728A9 9 0 115.636 5.636a9 9 0 0112.728 12.728z"
+            />
           </svg>
           <!-- Moon icon (shows in dark mode, toggles to light) -->
-          <svg *ngIf="!isLightTheme()" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          <svg
+            *ngIf="!isLightTheme()"
+            class="h-4.5 w-4.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            />
           </svg>
         </button>
 
         <a routerLink="/" fragment="contact" class="btn-sm btn-sm-primary">
           Start a Project
           <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            />
           </svg>
         </a>
       </div>
@@ -48,26 +118,84 @@
       <!-- Mobile Nav Controls -->
       <div class="lg:hidden flex items-center space-x-2">
         <!-- Mobile Theme Toggle -->
-        <button (click)="toggleTheme()" type="button" aria-label="Toggle theme"
-          [ngClass]="isLightTheme() ? 'p-2 rounded-md text-slate-100 bg-slate-900 hover:text-white hover:bg-slate-800/50 focus:outline-none' : 'p-2 rounded-md text-slate-900 bg-white hover:text-slate-900 hover:bg-slate-50 focus:outline-none'"
-          class="theme-toggle cursor-pointer">
-          <svg *ngIf="isLightTheme()" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707m12.728 12.728A9 9 0 115.636 5.636a9 9 0 0112.728 12.728z" />
+        <button
+          (click)="toggleTheme()"
+          type="button"
+          aria-label="Toggle theme"
+          [ngClass]="
+            isLightTheme()
+              ? 'p-2 rounded-md text-slate-100 bg-slate-900 hover:text-white hover:bg-slate-800/50 focus:outline-none'
+              : 'p-2 rounded-md text-slate-900 bg-white hover:text-slate-900 hover:bg-slate-50 focus:outline-none'
+          "
+          class="theme-toggle cursor-pointer"
+        >
+          <svg
+            *ngIf="isLightTheme()"
+            class="h-4.5 w-4.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707m12.728 12.728A9 9 0 115.636 5.636a9 9 0 0112.728 12.728z"
+            />
           </svg>
-          <svg *ngIf="!isLightTheme()" class="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          <svg
+            *ngIf="!isLightTheme()"
+            class="h-4.5 w-4.5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            />
           </svg>
         </button>
 
-        <button (click)="toggleMobileMenu()" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 focus:outline-none" aria-controls="mobile-menu" [aria-expanded]="isMobileMenuOpen()">
+        <button
+          (click)="toggleMobileMenu()"
+          type="button"
+          class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 focus:outline-none"
+          aria-controls="mobile-menu"
+          [aria-expanded]="isMobileMenuOpen()"
+        >
           <span class="sr-only">Open main menu</span>
           <!-- Menu icon -->
-          <svg [class.hidden]="isMobileMenuOpen()" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          <svg
+            [class.hidden]="isMobileMenuOpen()"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
           </svg>
           <!-- Close icon -->
-          <svg [class.hidden]="!isMobileMenuOpen()" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <svg
+            [class.hidden]="!isMobileMenuOpen()"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
       </div>
@@ -75,13 +203,47 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div [class.hidden]="!isMobileMenuOpen()" class="lg:hidden glass-panel border-t border-slate-800/80" id="mobile-menu">
+  <div
+    [class.hidden]="!isMobileMenuOpen()"
+    class="lg:hidden glass-panel border-t border-slate-800/80"
+    id="mobile-menu"
+  >
     <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-      <a routerLink="/" fragment="about" (click)="closeMobileMenu()" class="block px-3 py-2.5 rounded-md text-sm font-medium nav-link">About</a>
-      <a routerLink="/" fragment="projects" (click)="closeMobileMenu()" class="block px-3 py-2.5 rounded-md text-sm font-medium nav-link">Projects</a>
-      <a routerLink="/" fragment="services" (click)="closeMobileMenu()" class="block px-3 py-2.5 rounded-md text-sm font-medium nav-link">Services</a>
-      <a routerLink="/" fragment="ai-playground" (click)="closeMobileMenu()" class="block px-3 py-2.5 rounded-md text-sm font-medium nav-link">AI Playground</a>
-      <a routerLink="/" fragment="contact" (click)="closeMobileMenu()" class="block px-3 py-2.5 rounded-md text-sm font-semibold text-blue-600 bg-blue-500/10 mt-1 hover:bg-blue-500/20">Start a Project</a>
+      <a
+        routerLink="/"
+        fragment="about"
+        (click)="closeMobileMenu()"
+        class="block px-3 py-2.5 rounded-md text-sm font-medium nav-link"
+        >About</a
+      >
+      <a
+        routerLink="/"
+        fragment="projects"
+        (click)="closeMobileMenu()"
+        class="block px-3 py-2.5 rounded-md text-sm font-medium nav-link"
+        >Projects</a
+      >
+      <a
+        routerLink="/"
+        fragment="services"
+        (click)="closeMobileMenu()"
+        class="block px-3 py-2.5 rounded-md text-sm font-medium nav-link"
+        >Services</a
+      >
+      <a
+        routerLink="/"
+        fragment="ai-playground"
+        (click)="closeMobileMenu()"
+        class="block px-3 py-2.5 rounded-md text-sm font-medium nav-link"
+        >AI Playground</a
+      >
+      <a
+        routerLink="/"
+        fragment="contact"
+        (click)="closeMobileMenu()"
+        class="block px-3 py-2.5 rounded-md text-sm font-semibold text-blue-600 bg-blue-500/10 mt-1 hover:bg-blue-500/20"
+        >Start a Project</a
+      >
     </div>
   </div>
 </header>
