@@ -101,6 +101,62 @@ const EMBEDDED_KNOWLEDGE = {
   ]
 };
 
+// ---------------------------------------------------------------------------
+// SECURITY HEADERS
+// Applied by applySecurityHeaders() to EVERY response this Worker emits -
+// Angular HTML, hashed static assets, favicons, personal-knowledge.json, and
+// the /api/chat JSON API - so the policy cannot drift between layers.
+//
+// CSP rationale (audited against the actual production build):
+//   - script-src 'self': single ES-module bundle (main-*.js), no lazy chunks;
+//     no inline scripts or handlers because critical-CSS/font inlining are off.
+//   - style-src 'self' https://fonts.googleapis.com: bundled Tailwind CSS plus
+//     the Inter stylesheet linked from Google Fonts in index.html.
+//   - font-src 'self' https://fonts.gstatic.com: woff2 files referenced by the
+//     Inter @font-face rules.
+//   - img-src 'self' data:: self-hosted favicons plus the inline SVG noise
+//     texture used as a background-image in styles.css.
+//   - connect-src 'self': HttpClient calls to /api/chat and
+//     /personal-knowledge.json are same-origin.
+//   - No web workers, media, frames, plugins, or web app manifest exist, so
+//     those contexts stay denied via default-src 'none'.
+//   - HSTS intentionally omits `preload`: permanent HTTPS coverage of every
+//     subdomain has not been verified for HSTS Preload eligibility.
+// ---------------------------------------------------------------------------
+const CONTENT_SECURITY_POLICY =
+  "default-src 'none'" +
+  "; script-src 'self'" +
+  "; style-src 'self' https://fonts.googleapis.com" +
+  "; font-src 'self' https://fonts.gstatic.com" +
+  "; img-src 'self' data:" +
+  "; connect-src 'self'" +
+  "; base-uri 'self'" +
+  "; form-action 'self'" +
+  "; frame-ancestors 'none'" +
+  "; object-src 'none'";
+
+const SECURITY_HEADERS = {
+  "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+  "Content-Security-Policy": CONTENT_SECURITY_POLICY,
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY"
+};
+
+// Returns an equivalent Response (identical status, body, and all other
+// headers such as Content-Type/CORS/caching) with the security headers set.
+// Same-named upstream headers are overridden so no layer can bypass policy.
+function applySecurityHeaders(response) {
+  const headers = new Headers(response.headers);
+  for (const name of Object.keys(SECURITY_HEADERS)) {
+    headers.set(name, SECURITY_HEADERS[name]);
+  }
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers
+  });
+}
+
 function jsonResponse(obj, status) {
   return new Response(JSON.stringify(obj), {
     status,
@@ -116,19 +172,19 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === "/api/chat") {
-      return handleChat(request, env);
+      return applySecurityHeaders(await handleChat(request, env));
     }
 
     // Delegate all other requests to the Angular static build via the ASSETS binding.
     const assets = getAssetsBinding(env);
     if (!assets) {
-      return new Response("Not found", { status: 404 });
+      return applySecurityHeaders(new Response("Not found", { status: 404 }));
     }
     try {
-      return await assets.fetch(request);
+      return applySecurityHeaders(await assets.fetch(request));
     } catch (err) {
       try { console.error("ASSETS.fetch failed", err && err.message); } catch (e) {}
-      return new Response("Not found", { status: 404 });
+      return applySecurityHeaders(new Response("Not found", { status: 404 }));
     }
   }
 };
