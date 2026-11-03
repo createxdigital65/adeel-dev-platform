@@ -1,6 +1,8 @@
-import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, signal, inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { Meta, Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
+import { AnalyticsService } from '../../core/services/analytics.service';
 
 interface TechSpec {
   title: string;
@@ -18,18 +20,43 @@ interface TechSpec {
   styleUrls: []
 })
 export class ArchitectureComponent {
+  private readonly analyticsService = inject(AnalyticsService);
+  private readonly title = inject(Title);
+  private readonly meta = inject(Meta);
+  private readonly document = inject(DOCUMENT);
   selectedTab = signal<string>('clean-arch');
+
+  constructor() {
+    const pageTitle = 'Software Architecture & System Design | Adeel Sattar';
+    const description =
+      'Explore the architecture behind Adeel Sattar’s consulting platform: Angular, ASP.NET Core, cloud deployment, and maintainable system design.';
+
+    this.title.setTitle(pageTitle);
+    this.meta.updateTag({ name: 'description', content: description });
+    this.meta.updateTag({ property: 'og:title', content: pageTitle });
+    this.meta.updateTag({ property: 'og:description', content: description });
+    this.meta.updateTag({ property: 'og:url', content: 'https://adeelsattar.dev/architecture' });
+    this.meta.updateTag({ name: 'twitter:url', content: 'https://adeelsattar.dev/architecture' });
+    this.meta.updateTag({
+      name: 'twitter:title',
+      content: pageTitle,
+    });
+    this.meta.updateTag({ name: 'twitter:description', content: description });
+    this.document
+      .querySelector<HTMLLinkElement>('link[rel="canonical"]')
+      ?.setAttribute('href', 'https://adeelsattar.dev/architecture');
+  }
 
   specs: Record<string, TechSpec> = {
     'clean-arch': {
       title: 'Clean Architecture Pattern',
       badge: 'Core Pattern',
-      description: 'The backend separates concerns into distinct layers: Domain, Application, Infrastructure, and Api. Dependencies point inward, ensuring business rules are isolated and highly testable.',
+      description: 'The backend separates business rules from application workflows, infrastructure, and HTTP endpoints. Dependencies point inward so core decisions remain testable.',
       bullets: [
-        'Domain Layer: Contains only pure business entities, specifications, and values. Zero dependencies.',
-        'Application Layer: Defines orchestration contracts, interfaces, validation rules, CQRS commands, and MediatR handlers.',
-        'Infrastructure Layer: Implements external integrations like Entity Framework core database connectivity, file-storage adapters, and email client interfaces.',
-        'Api Layer: Serves as the outer HTTP interface containing endpoints, middlewares, authentication mapping, and documentation outputs.'
+        'Domain: Business entities and rules, kept independent of databases and frameworks.',
+        'Application: Use cases, validation, and the interfaces that workflows depend on.',
+        'Infrastructure: Database access and adapters for external services.',
+        'API: HTTP endpoints, authentication, and the boundary to client applications.'
       ],
       codeBlock: `// Typical Application Request Handler Flow
 public class CreateProjectCommandHandler 
@@ -62,16 +89,16 @@ public class CreateProjectCommandHandler
 }`
     },
     'frontend-arch': {
-      title: 'Reactive Angular Architecture',
+      title: 'Angular application structure',
       badge: 'Client Stack',
-      description: 'Built on Angular 20, using Standalone Components to eliminate NgModule boilerplate and Angular Signals for precise, reactive state propagation.',
+      description: 'The client uses standalone Angular components and signals to keep related state close to the views that use it.',
       bullets: [
-        'Standalone Setup: Components define their imports directly, enhancing modularity and lazy-loading boundaries.',
-        'Angular Signals: Writable and computed signals ensure target UI sections update instantly without expensive global change detection ticks.',
-        'HTTP Interceptors: Automatic injection of JWT tokens, centralized error handling, and performance logging.',
-        'Zoneless Execution: Prepared to run without zone.js, relying entirely on signal graph notifications for optimal performance.'
+        'Standalone components declare their own dependencies and can be loaded independently.',
+        'Signals make local UI state explicit and update the views that depend on it.',
+        'HTTP interceptors provide a shared place for request concerns such as authentication and error handling.',
+        'Small component boundaries make features easier to test and change.'
       ],
-      codeBlock: `// Angular 20 Standalone Component using Signals
+      codeBlock: `// Standalone Angular component using signals
 import { Component, signal, computed } from '@angular/core';
 
 @Component({
@@ -92,14 +119,14 @@ export class CounterComponent {
 }`
     },
     'devops-arch': {
-      title: 'Dockerized Deployment Strategy',
+      title: 'Container builds and deployment',
       badge: 'Infrastructure',
-      description: 'Standardized infrastructure deployment utilizing multi-stage Docker builds compiled under Linux environments and managed with Docker Compose.',
+      description: 'A multi-stage container build keeps SDK tooling out of the runtime image and provides a repeatable path from source to deployment.',
       bullets: [
-        'Multi-stage Dockerfiles: Shrinks final production image sizes by using temporary SDK build containers and lightweight runtime-only release containers.',
-        'Reverse Proxy: Employs a lightweight Caddy or Nginx router to proxy frontend client requests and API queries, handling automatic HTTPS certificates.',
-        'Dev-Prod Parity: Guarantees that local environment execution mirrors the target Linux VPS runtime setup, avoiding configuration drift.',
-        'CI/CD Pipelines: Automated lint, test, container build, and remote server composition via SSH deploy scripts.'
+        'Multi-stage Dockerfiles separate compilation tools from the final runtime image.',
+        'A reverse proxy can route client and API traffic and manage HTTPS.',
+        'Using the same container setup locally and in deployment helps surface environment differences early.',
+        'Build and deployment checks can automate linting, tests, and image publishing.'
       ],
       codeBlock: `# Multi-stage backend build Dockerfile snippet
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build-env
@@ -124,6 +151,15 @@ ENTRYPOINT ["dotnet", "Backend.Api.dll"]`
 
   selectTab(tabId: string) {
     this.selectedTab.set(tabId);
+    this.analyticsService.trackCtaClick(`architecture_tab_${tabId}`, 'architecture-page');
+  }
+
+  trackContactClick(): void {
+    this.analyticsService.trackCtaClick('Contact from architecture page', 'architecture-page');
+  }
+
+  trackRelatedClick(destination: 'case-studies' | 'services'): void {
+    this.analyticsService.trackCtaClick(`Explore ${destination}`, 'architecture-page');
   }
 
   getCurrentSpec(): TechSpec {

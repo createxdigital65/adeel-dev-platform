@@ -5,9 +5,9 @@
 
   --color-slate-950: #020617;
   --color-slate-900: #0f172a;
-  --color-blue-500: #3b82f6;
+  --color-blue-500: #2563eb;
   --color-purple-500: #8b5cf6;
-  --color-slate-50: #f8fafc;
+  --color-slate-50: #fafaf9;
   --color-slate-800: #1e293b;
 
   --animate-fade-in-up: fade-in-up 0.5s ease-out forwards;
@@ -42,7 +42,7 @@
 
 /* Semantic theme-aware text tokens */
 :root {
-  /* Dark mode defaults (site default) - explicit colors for reliable contrast */
+  /* Dark-theme semantic defaults; the document starts with the light theme class. */
   --text-primary: #e6eef8; /* near-white for primary text on dark bg */
   --text-secondary: #9fb0c6; /* readable secondary */
   --text-muted: #7b8793; /* muted but legible */
@@ -78,7 +78,7 @@ body {
 }
 
 html.light {
-  --color-slate-950: #f8fafc;
+  --color-slate-950: #fafaf9;
   --color-slate-900: #ffffff;
   --color-slate-800: #f1f5f9;
   --color-slate-700: #cbd5e1;
@@ -90,35 +90,68 @@ html.light {
   --color-slate-100: #0f172a;
   --color-slate-50: #0f172a;
 
-  --panel-bg: rgba(255, 255, 255, 0.7);
-  --panel-border: rgba(226, 232, 240, 0.8);
-  --card-bg: rgba(255, 255, 255, 0.5);
-  --card-border: rgba(226, 232, 240, 0.7);
+  --panel-bg: rgba(255, 255, 255, 0.94);
+  --panel-border: #e2e8f0;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --inset-bg: #f5f5f4;
+  --inset-border: #e7e5e4;
 
   /* Light mode semantic overrides - explicit colors for reliable contrast */
   --text-primary: #0f172a; /* dark slate for primary headings */
   --text-secondary: #334155; /* medium-dark for secondary text */
-  --text-muted: #64748b; /* muted but legible */
+  --text-muted: #475569;
   --text-accent: var(--color-blue-500);
   --card-text: #0f172a;
   --card-secondary: #334155;
   --input-bg: rgba(255, 255, 255, 0.96);
-  --input-border: rgba(15, 23, 42, 0.06);
+  --input-border: #94a3b8;
 
   /* Semantic surfaces (light override) */
   --chip-bg: rgba(15, 23, 42, 0.05);
   --chip-border: rgba(15, 23, 42, 0.1);
   --chip-text: #334155;
   --btn-secondary-bg: rgba(255, 255, 255, 0.7);
-  --btn-secondary-border: rgba(15, 23, 42, 0.12);
+  --btn-secondary-border: #94a3b8;
   --btn-secondary-text: #0f172a;
   --btn-secondary-hover-bg: rgba(255, 255, 255, 0.95);
   --btn-secondary-hover-border: rgba(15, 23, 42, 0.2);
   --inset-bg: rgba(241, 245, 249, 0.8);
   --inset-border: rgba(226, 232, 240, 0.9);
   --node-bg: rgba(255, 255, 255, 0.7);
-  --node-border: rgba(226, 232, 240, 0.9);
+  --node-border: #cbd5e1;
   --node-hover-bg: rgba(59, 130, 246, 0.06);
+}
+
+html.light,
+html.light body {
+  background-color: #fafaf9;
+  color: #0f172a;
+}
+
+html.light .text-blue-400,
+html.light .hover\:text-blue-300:hover {
+  color: #1d4ed8 !important;
+}
+
+html.light .text-purple-400,
+html.light .text-purple-500 {
+  color: #6d28d9 !important;
+}
+
+html.light .text-red-500 {
+  color: #b91c1c !important;
+}
+
+html.light .text-red-600 {
+  color: #b91c1c !important;
+}
+
+html.light .text-emerald-500,
+html.light .text-emerald-600,
+html.light .text-green-500,
+html.light .text-green-600 {
+  color: #047857 !important;
 }
 
 /* Custom Scrollbar */
@@ -153,14 +186,44 @@ html.light {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--card-border);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.035),
+    0 8px 24px -18px rgba(15, 23, 42, 0.22);
+  transition:
+    transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .glass-card-hover:hover {
   background: var(--card-bg);
-  border-color: rgba(59, 130, 246, 0.4);
-  box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.15);
-  transform: translateY(-2px);
+  border-color: rgba(37, 99, 235, 0.35);
+  box-shadow:
+    0 2px 6px rgba(15, 23, 42, 0.04),
+    0 18px 36px -22px rgba(15, 23, 42, 0.3);
+  transform: translateY(-3px);
+}
+
+.glass-card-hover:focus-within {
+  border-color: rgba(37, 99, 235, 0.55);
+  box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.18);
+}
+
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* ---------- Consolidated semantic UI components (theme-aware) ----------- */
@@ -181,10 +244,14 @@ html.light {
   cursor: pointer;
   border: 1px solid transparent;
   transition:
-    background-color 180ms ease,
-    color 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease;
+    background-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.btn:hover:not(:disabled):not([disabled]) {
+  transform: translateY(-1px);
 }
 .btn:disabled,
 .btn[disabled],
@@ -198,7 +265,7 @@ html.light {
   box-shadow: 0 8px 24px -10px rgba(59, 130, 246, 0.55);
 }
 .btn-primary:hover:not(:disabled):not([disabled]) {
-  background-color: #3b82f6;
+  background-color: #1d4ed8;
 }
 .btn-secondary {
   background: var(--btn-secondary-bg);
@@ -235,7 +302,7 @@ html.light {
   color: #ffffff;
 }
 .btn-sm-primary:hover:not(:disabled):not([disabled]) {
-  background-color: #3b82f6;
+  background-color: #1d4ed8;
 }
 .btn-sm-secondary {
   background: var(--btn-secondary-bg);
@@ -350,6 +417,9 @@ select.field:hover:not(:disabled) {
 .console {
   background: #0b1120;
   border: 1px solid #1e293b;
+  box-shadow:
+    inset 0 1px 0 rgba(148, 163, 184, 0.06),
+    0 12px 30px -20px rgba(2, 6, 23, 0.5);
 }
 .console-title {
   color: #94a3b8;
@@ -364,12 +434,16 @@ select.field:hover:not(:disabled) {
   background: var(--node-bg);
   border: 1px solid var(--node-border);
   transition:
-    border-color 180ms ease,
-    background-color 180ms ease;
+    border-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .node-card:hover {
-  border-color: rgba(59, 130, 246, 0.5);
+  border-color: rgba(37, 99, 235, 0.55);
   background: var(--node-hover-bg);
+  box-shadow: 0 8px 22px -16px rgba(15, 23, 42, 0.35);
+  transform: translateY(-2px);
 }
 
 /* Semantic utility classes that adapt to theme */
@@ -1148,5 +1222,624 @@ html.light .hero-streak {
   }
   .hero-noise-texture {
     opacity: 0.04;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE LAYOUT & VIEWPORT ENHANCEMENTS
+   ========================================================================== */
+
+/* Universal Reset Safeguards against Horizontal Overflow */
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 1. MOBILE SCREENS (Sized up to 480px) */
+@media (max-width: 480px) {
+  /* Prevent aggressive heading wrapping and clipping */
+  h1, h2, h3, .headline-gradient {
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 7.5vw, 2.15rem) !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  h2 {
+    font-size: clamp(1.35rem, 5.5vw, 1.75rem) !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Force single-column stacking on all grid components */
+  .grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  /* Full-width responsive buttons to prevent truncation */
+  .btn {
+    width: 100% !important;
+    white-space: normal !important;
+    height: auto !important;
+    min-height: 2.75rem;
+    padding: 0.75rem 1rem !important;
+    text-align: center;
+  }
+
+  /* Compact padding for cards and panels to preserve viewport space */
+  .glass-card,
+  .glass-panel {
+    padding: 1.25rem !important;
+  }
+
+  /* Constrain hero ambient glow to mobile viewport width */
+  .hero-headlight {
+    width: 100vw !important;
+    margin-left: -50vw !important;
+  }
+}
+
+/* 2. LAPTOPS (Sized 1024px to 1440px) */
+@media (min-width: 1024px) and (max-width: 1440px) {
+  /* Balanced side gutters across containers */
+  section,
+  .max-w-7xl,
+  .max-w-5xl,
+  .max-w-3xl {
+    padding-left: clamp(1.5rem, 3vw, 2.5rem);
+    padding-right: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  /* Typographic measure limit for enhanced reading comfort */
+  p,
+  .ui-text-secondary {
+    max-width: 70ch;
+  }
+
+  /* Keep centered text blocks centered */
+  .text-center p,
+  .mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* 3. LARGE COMPUTER LCD SCREENS (Sized 1920px and above) */
+@media (min-width: 1920px) {
+  /* Centered max-width boundary prevents elements from stretching indefinitely */
+  main {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+  /* Align fixed header and footer inner containers to the 1440px grid */
+  header > div,
+  footer > div {
+    max-width: 1440px !important;
+  }
+
+  /* Balance typography scaling on ultra-high-resolution monitors */
+  .hero-content {
+    max-width: 960px !important;
+  }
+}
+
+/* Editorial engineering canvas */
+html.light #hero {
+  background:
+    radial-gradient(ellipse at 74% 46%, rgba(37, 99, 235, 0.055), transparent 42%),
+    linear-gradient(180deg, #fafaf9 0%, #f8fafc 100%);
+}
+
+#hero .hero-content.hero-editorial {
+  width: 100%;
+  max-width: 1440px !important;
+  padding-top: clamp(7rem, 12vh, 10rem);
+  padding-bottom: clamp(4rem, 9vh, 7rem);
+}
+
+.hero-editorial-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 6rem);
+}
+
+.hero-editorial-copy {
+  max-width: 660px;
+}
+
+.hero-edition,
+.blueprint-topline,
+.blueprint-node-index,
+.blueprint-coordinate,
+.blueprint-caption,
+.hero-proof i {
+  color: #475569;
+  font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.625rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+}
+
+.hero-title {
+  max-width: 12ch;
+  margin: 1.5rem 0 1.25rem;
+  font-size: clamp(3rem, 5.9vw, 5.75rem);
+  font-weight: 730;
+  letter-spacing: -0.065em;
+  line-height: 0.99;
+}
+
+.hero-title-accent {
+  display: block;
+  margin-top: 0.1em;
+  color: #1d4ed8;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.88em;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.055em;
+  line-height: 1.06;
+}
+
+.hero-lede {
+  max-width: 54ch;
+  font-size: clamp(1rem, 1.35vw, 1.125rem);
+  line-height: 1.8;
+}
+
+.hero-proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.35rem;
+  margin: 1.75rem 0 1.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-proof li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #334155;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.hero-proof i {
+  color: #2563eb;
+  font-style: normal;
+}
+
+.hero-blueprint {
+  position: relative;
+  width: min(100%, 540px);
+  justify-self: end;
+  padding: 1rem;
+  overflow: hidden;
+  border: 1px solid #dbe3ee;
+  border-radius: 0.9rem;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(241, 245, 249, 0.88)),
+    #f8fafc;
+  box-shadow:
+    0 2px 4px rgba(15, 23, 42, 0.035),
+    0 24px 60px -34px rgba(15, 23, 42, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.hero-blueprint::before,
+.hero-blueprint::after {
+  position: absolute;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+  border-color: #2563eb;
+  border-style: solid;
+  content: '';
+  pointer-events: none;
+}
+
+.hero-blueprint::before {
+  top: 0.55rem;
+  left: 0.55rem;
+  border-width: 1px 0 0 1px;
+}
+
+.hero-blueprint::after {
+  right: 0.55rem;
+  bottom: 0.55rem;
+  border-width: 0 1px 1px 0;
+}
+
+.blueprint-topline,
+.blueprint-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.blueprint-topline {
+  padding: 0.25rem 0.35rem 0.9rem;
+}
+
+.blueprint-canvas {
+  position: relative;
+  min-height: 330px;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  background-color: #f8fafc;
+  background-image:
+    linear-gradient(rgba(100, 116, 139, 0.085) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 116, 139, 0.085) 1px, transparent 1px),
+    linear-gradient(rgba(100, 116, 139, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 116, 139, 0.035) 1px, transparent 1px);
+  background-position: center center;
+  background-size:
+    48px 48px,
+    48px 48px,
+    12px 12px,
+    12px 12px;
+}
+
+.blueprint-axis {
+  position: absolute;
+  z-index: 0;
+  background: rgba(37, 99, 235, 0.16);
+}
+
+.blueprint-axis-x {
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 1px;
+}
+
+.blueprint-axis-y {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+}
+
+.blueprint-node {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  width: 58%;
+  min-height: 82px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.8rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.55rem;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow:
+    0 2px 4px rgba(15, 23, 42, 0.045),
+    0 12px 28px -20px rgba(15, 23, 42, 0.32);
+}
+
+.blueprint-node strong {
+  margin-top: 0.3rem;
+  color: #0f172a;
+  font-size: 1rem;
+  letter-spacing: -0.025em;
+}
+
+.blueprint-node small {
+  margin-top: 0.12rem;
+  color: #475569;
+  font-size: 0.6875rem;
+}
+
+.blueprint-node-index {
+  color: #1d4ed8;
+  font-size: 0.55rem;
+}
+
+.blueprint-node-client {
+  top: 2rem;
+  left: 1.25rem;
+}
+
+.blueprint-node-api {
+  top: 7.6rem;
+  right: 1.25rem;
+}
+
+.blueprint-node-data {
+  bottom: 1.5rem;
+  left: 1.25rem;
+}
+
+.blueprint-link {
+  position: absolute;
+  z-index: 1;
+  width: 22%;
+  height: 1px;
+  border-top: 1px dashed #2563eb;
+  transform-origin: left center;
+}
+
+.blueprint-link::after {
+  position: absolute;
+  top: -3px;
+  right: -1px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #2563eb;
+  content: '';
+}
+
+.blueprint-link-one {
+  top: 7.1rem;
+  left: 56%;
+  transform: rotate(27deg);
+}
+
+.blueprint-link-two {
+  top: 12.5rem;
+  left: 31%;
+  transform: rotate(27deg);
+}
+
+.blueprint-stamp {
+  position: absolute;
+  z-index: 1;
+  top: 1.2rem;
+  right: 1rem;
+  display: grid;
+  width: 64px;
+  height: 64px;
+  place-content: center;
+  border: 1px solid rgba(37, 99, 235, 0.38);
+  border-radius: 50%;
+  color: #1d4ed8;
+  font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.48rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  transform: rotate(9deg);
+}
+
+.blueprint-coordinate {
+  position: absolute;
+  z-index: 1;
+  right: 0.65rem;
+  bottom: 0.45rem;
+  font-size: 0.48rem;
+}
+
+.blueprint-coordinate-a {
+  top: 0.55rem;
+  right: auto;
+  bottom: auto;
+  left: 0.65rem;
+}
+
+.blueprint-caption {
+  padding: 0.85rem 0.35rem 0.2rem;
+  color: #475569;
+  font-size: 0.58rem;
+  letter-spacing: 0.045em;
+}
+
+.inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #1d4ed8;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition:
+    color 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    gap 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.inline-link:hover {
+  gap: 0.6rem;
+  color: #1e3a8a;
+}
+
+.architecture-related-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+html.light .glass-panel {
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.025),
+    0 14px 36px -30px rgba(15, 23, 42, 0.28);
+}
+
+.architecture-related-links a {
+  color: #1d4ed8;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  text-decoration: none;
+  text-underline-offset: 0.2em;
+}
+
+.architecture-related-links a:hover {
+  color: #1e3a8a;
+  text-decoration: underline;
+}
+
+.architecture-code {
+  border: 1px solid #1e293b;
+  background: #0f172a;
+  box-shadow:
+    inset 0 1px 0 rgba(148, 163, 184, 0.08),
+    0 16px 30px -24px rgba(2, 6, 23, 0.7);
+}
+
+.architecture-terminal-header {
+  border-bottom: 1px solid #334155;
+  background: #172033;
+}
+
+.architecture-terminal-header .ui-text-secondary {
+  color: #cbd5e1 !important;
+}
+
+.architecture-code-body {
+  color: #bfdbfe;
+}
+
+html.light .glass-card:hover {
+  border-color: #bfdbfe;
+  box-shadow:
+    0 2px 6px rgba(15, 23, 42, 0.04),
+    0 20px 42px -26px rgba(30, 64, 175, 0.32);
+  transform: translateY(-3px);
+}
+
+html.light .field,
+html.light select.field option {
+  background-color: #fff;
+}
+
+html.light .field:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
+}
+
+@media (max-width: 900px) {
+  .hero-editorial-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem;
+  }
+
+  .hero-editorial-copy {
+    max-width: 720px;
+  }
+
+  .hero-blueprint {
+    width: min(100%, 620px);
+    justify-self: start;
+  }
+}
+
+@media (max-width: 640px) {
+  #hero .hero-content.hero-editorial {
+    padding-top: 6.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .hero-title {
+    max-width: 11ch;
+    margin-top: 1.2rem;
+    font-size: clamp(2.65rem, 12vw, 4rem);
+  }
+
+  .hero-proof {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .blueprint-canvas {
+    min-height: 290px;
+  }
+
+  .blueprint-node {
+    width: 68%;
+  }
+
+  .blueprint-node-client,
+  .blueprint-node-data {
+    left: 0.75rem;
+  }
+
+  .blueprint-node-api {
+    right: 0.75rem;
+  }
+
+  .blueprint-stamp {
+    width: 52px;
+    height: 52px;
+    font-size: 0.4rem;
+  }
+
+  .case-study-links {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.architecture-page-header {
+  position: relative;
+  padding: clamp(1.5rem, 5vw, 4rem) 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.architecture-page-header::before {
+  display: block;
+  width: 2rem;
+  height: 2px;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #2563eb, #4338ca);
+  content: '';
+}
+
+.architecture-page-header h1 {
+  max-width: 16ch;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  letter-spacing: -0.06em;
+  line-height: 1.02;
+}
+
+.architecture-page-header p {
+  max-width: 58ch;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.architecture-map {
+  position: relative;
+  overflow: hidden;
+  background-image:
+    linear-gradient(rgba(100, 116, 139, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 116, 139, 0.025) 1px, transparent 1px);
+  background-size: 24px 24px;
+  box-shadow:
+    0 2px 6px rgba(15, 23, 42, 0.035),
+    0 24px 48px -36px rgba(15, 23, 42, 0.28);
+}
+
+@media (min-width: 1920px) {
+  #hero .hero-content.hero-editorial {
+    max-width: 1440px !important;
   }
 }

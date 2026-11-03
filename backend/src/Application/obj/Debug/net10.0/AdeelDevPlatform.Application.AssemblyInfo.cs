@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AdeelDevPlatform.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84d1ebb626cee466083527ed8ac1a3164a261bc7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+178fe1f53bbb3fb8f89a8f3d5b40a5f3dc0f4e2d")]
 [assembly: System.Reflection.AssemblyProductAttribute("AdeelDevPlatform.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AdeelDevPlatform.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

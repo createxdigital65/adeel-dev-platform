@@ -5,7 +5,7 @@
       <div class="flex-shrink-0 flex items-center">
         <a routerLink="/" (click)="closeMobileMenu()" class="flex items-center space-x-2 group">
           <div
-            class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300"
+            class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-700 to-purple-700 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300"
           >
             AS
           </div>
@@ -22,6 +22,7 @@
         <a
           routerLink="/"
           fragment="about"
+          (click)="trackNavClick('about')"
           [class.active]="activeSection() === 'about'"
           class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200"
           >About</a
@@ -29,6 +30,7 @@
         <a
           routerLink="/"
           fragment="projects"
+          (click)="trackNavClick('projects')"
           [class.active]="activeSection() === 'projects'"
           class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200"
           >Projects</a
@@ -36,6 +38,7 @@
         <a
           routerLink="/"
           fragment="services"
+          (click)="trackNavClick('services')"
           [class.active]="activeSection() === 'services'"
           class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200"
           >Services</a
@@ -43,6 +46,7 @@
         <a
           routerLink="/"
           fragment="ai-playground"
+          (click)="trackNavClick('ai-playground')"
           [class.active]="activeSection() === 'ai-playground'"
           class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200"
           >AI Playground</a
@@ -50,6 +54,7 @@
         <a
           routerLink="/"
           fragment="contact"
+          (click)="trackNavClick('contact')"
           [class.active]="activeSection() === 'contact'"
           class="px-3 py-2 rounded-md text-xs font-medium nav-link hover:bg-slate-800/40 transition-all duration-200"
           >Contact</a
@@ -62,7 +67,7 @@
         <button
           (click)="toggleTheme()"
           type="button"
-          aria-label="Toggle theme"
+          [attr.aria-label]="isLightTheme() ? 'Switch to dark theme' : 'Switch to light theme'"
           [ngClass]="
             isLightTheme()
               ? 'p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-100 hover:border-blue-500/40 hover:text-white'
@@ -71,7 +76,7 @@
           class="theme-toggle transition-all cursor-pointer"
         >
           <!-- Sun icon (shows in light mode, toggles to dark) -->
-          <svg
+          <svg aria-hidden="true" focusable="false"
             *ngIf="isLightTheme()"
             class="h-4.5 w-4.5"
             fill="none"
@@ -86,7 +91,7 @@
             />
           </svg>
           <!-- Moon icon (shows in dark mode, toggles to light) -->
-          <svg
+          <svg aria-hidden="true" focusable="false"
             *ngIf="!isLightTheme()"
             class="h-4.5 w-4.5"
             fill="none"
@@ -102,9 +107,14 @@
           </svg>
         </button>
 
-        <a routerLink="/" fragment="contact" class="btn-sm btn-sm-primary">
-          Start a Project
-          <svg class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <a
+          routerLink="/"
+          fragment="contact"
+          (click)="trackNavClick('architecture-review')"
+          class="btn-sm btn-sm-primary"
+        >
+          Architecture Review
+          <svg aria-hidden="true" focusable="false" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -121,7 +131,7 @@
         <button
           (click)="toggleTheme()"
           type="button"
-          aria-label="Toggle theme"
+          [attr.aria-label]="isLightTheme() ? 'Switch to dark theme' : 'Switch to light theme'"
           [ngClass]="
             isLightTheme()
               ? 'p-2 rounded-md text-slate-100 bg-slate-900 hover:text-white hover:bg-slate-800/50 focus:outline-none'
@@ -129,7 +139,7 @@
           "
           class="theme-toggle cursor-pointer"
         >
-          <svg
+          <svg aria-hidden="true" focusable="false"
             *ngIf="isLightTheme()"
             class="h-4.5 w-4.5"
             fill="none"
@@ -143,7 +153,7 @@
               d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707m12.728 12.728A9 9 0 115.636 5.636a9 9 0 0112.728 12.728z"
             />
           </svg>
-          <svg
+          <svg aria-hidden="true" focusable="false"
             *ngIf="!isLightTheme()"
             class="h-4.5 w-4.5"
             fill="none"
@@ -165,10 +175,11 @@
           class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 focus:outline-none"
           aria-controls="mobile-menu"
           [aria-expanded]="isMobileMenuOpen()"
+          [attr.aria-label]="isMobileMenuOpen() ? 'Close main menu' : 'Open main menu'"
         >
-          <span class="sr-only">Open main menu</span>
+          <span class="sr-only">{{ isMobileMenuOpen() ? 'Close main menu' : 'Open main menu' }}</span>
           <!-- Menu icon -->
-          <svg
+          <svg aria-hidden="true" focusable="false"
             [class.hidden]="isMobileMenuOpen()"
             class="h-5 w-5"
             fill="none"
@@ -183,7 +194,7 @@
             />
           </svg>
           <!-- Close icon -->
-          <svg
+          <svg aria-hidden="true" focusable="false"
             [class.hidden]="!isMobileMenuOpen()"
             class="h-5 w-5"
             fill="none"
@@ -212,37 +223,37 @@
       <a
         routerLink="/"
         fragment="about"
-        (click)="closeMobileMenu()"
+        (click)="trackNavClick('about'); closeMobileMenu()"
         class="block px-3 py-2.5 rounded-md text-sm font-medium nav-link"
         >About</a
       >
       <a
         routerLink="/"
         fragment="projects"
-        (click)="closeMobileMenu()"
+        (click)="trackNavClick('projects'); closeMobileMenu()"
         class="block px-3 py-2.5 rounded-md text-sm font-medium nav-link"
         >Projects</a
       >
       <a
         routerLink="/"
         fragment="services"
-        (click)="closeMobileMenu()"
+        (click)="trackNavClick('services'); closeMobileMenu()"
         class="block px-3 py-2.5 rounded-md text-sm font-medium nav-link"
         >Services</a
       >
       <a
         routerLink="/"
         fragment="ai-playground"
-        (click)="closeMobileMenu()"
+        (click)="trackNavClick('ai-playground'); closeMobileMenu()"
         class="block px-3 py-2.5 rounded-md text-sm font-medium nav-link"
         >AI Playground</a
       >
       <a
         routerLink="/"
         fragment="contact"
-        (click)="closeMobileMenu()"
+        (click)="trackNavClick('architecture-review'); closeMobileMenu()"
         class="block px-3 py-2.5 rounded-md text-sm font-semibold text-blue-600 bg-blue-500/10 mt-1 hover:bg-blue-500/20"
-        >Start a Project</a
+        >Schedule Architecture Review</a
       >
     </div>
   </div>

@@ -51,45 +51,84 @@
     </div>
 
     <!-- Foreground content (moves minimally, counter to the backdrop) -->
-    <div
-      class="hero-content max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-10 text-center"
-    >
-      <div class="space-y-6 animate-fade-in-up">
-        <div class="inline-flex justify-center">
-          <span class="chip chip-accent">Software Engineer</span>
+    <div class="hero-content hero-editorial max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-32 pb-16">
+      <div class="hero-editorial-grid animate-fade-in-up">
+        <div class="hero-editorial-copy">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="chip chip-accent">Independent engineering consultant</span>
+            <span class="hero-edition">.NET · ANGULAR · SYSTEMS</span>
+          </div>
+
+          <h1 class="hero-title ui-text-primary">
+            Precision engineering for
+            <span class="hero-title-accent">systems where the details matter.</span>
+          </h1>
+
+          <p class="hero-lede ui-text-secondary">
+            I work directly with founders and engineering teams to design and build dependable
+            ASP.NET Core and Angular products—from regulated platforms to AI features that belong
+            in real workflows.
+          </p>
+
+          <ul class="hero-proof" aria-label="How I work">
+            <li><i>01</i> Direct engineering partnership</li>
+            <li><i>02</i> No agency handoffs</li>
+            <li><i>03</i> Replies within 12 hours</li>
+          </ul>
+
+          <div class="flex flex-col sm:flex-row items-start gap-3 pt-2">
+            <a
+              (click)="trackCtaClick('Schedule an Architecture Review', 'hero-section'); scrollToContact()"
+              id="btn-hero-talk"
+              class="btn btn-primary cta-glow w-full sm:w-auto cursor-pointer"
+            >
+              Schedule an Architecture Review
+            </a>
+            <a
+              routerLink="/"
+              fragment="projects"
+              (click)="trackCtaClick('Review Selected Case Studies', 'hero-section')"
+              id="btn-hero-work"
+              class="btn btn-secondary w-full sm:w-auto cursor-pointer"
+            >
+              Read the case studies
+            </a>
+          </div>
         </div>
 
-        <h1
-          class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight ui-text-primary leading-tight font-sans"
-        >
-          Building software that solves
-          <span class="headline-gradient">real business problems</span>.
-        </h1>
-
-        <p
-          class="text-sm sm:text-base ui-text-secondary max-w-2xl mx-auto leading-relaxed font-light"
-        >
-          I help businesses modernize legacy systems, build high-performance .NET and Angular
-          applications, and automate operations with practical AI.
-        </p>
-
-        <!-- Primary CTA hierarchy -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a
-            (click)="scrollToContact()"
-            id="btn-hero-talk"
-            class="btn btn-primary cta-glow w-full sm:w-auto cursor-pointer"
-          >
-            Start a Project
-          </a>
-          <a
-            routerLink="/"
-            fragment="projects"
-            id="btn-hero-work"
-            class="btn btn-secondary w-full sm:w-auto cursor-pointer"
-          >
-            Explore My Work
-          </a>
+        <div class="hero-blueprint" aria-hidden="true">
+          <div class="blueprint-topline">
+            <span>FIELD NOTES / 001</span>
+            <span>FIG. 01 — SYSTEM MAP</span>
+          </div>
+          <div class="blueprint-canvas">
+            <div class="blueprint-axis blueprint-axis-x"></div>
+            <div class="blueprint-axis blueprint-axis-y"></div>
+            <div class="blueprint-stamp">DESIGNED<br />TO HOLD UP</div>
+            <div class="blueprint-node blueprint-node-client">
+              <span class="blueprint-node-index">01 / INTERFACE</span>
+              <strong>Angular</strong>
+              <small>Clear, responsive tools</small>
+            </div>
+            <div class="blueprint-node blueprint-node-api">
+              <span class="blueprint-node-index">02 / APPLICATION</span>
+              <strong>ASP.NET Core</strong>
+              <small>Rules where they belong</small>
+            </div>
+            <div class="blueprint-node blueprint-node-data">
+              <span class="blueprint-node-index">03 / TRUST</span>
+              <strong>Data &amp; AI</strong>
+              <small>Auditable by design</small>
+            </div>
+            <div class="blueprint-link blueprint-link-one"></div>
+            <div class="blueprint-link blueprint-link-two"></div>
+            <span class="blueprint-coordinate blueprint-coordinate-a">40°43′ N</span>
+            <span class="blueprint-coordinate blueprint-coordinate-b">BUILD / VERIFY / SHIP</span>
+          </div>
+          <div class="blueprint-caption">
+            <span>Good systems make the hard parts feel considered.</span>
+            <span>AS—01</span>
+          </div>
         </div>
       </div>
     </div>
@@ -125,31 +164,27 @@
     </div>
   </section>
 
-  <!-- 3. About Section -->
+  <!-- 3. Consultative Value Proposition -->
   <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
     <div appReveal class="max-w-3xl mx-auto text-center space-y-5">
-      <p class="kicker">About</p>
+      <p class="kicker">Why Work With Me</p>
       <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
-        Software that runs <span class="text-blue-500">your business</span>
+        Thoughtful engineering for <span class="text-blue-500">high-stakes work</span>
       </h2>
 
       <div
-        class="ui-text-secondary text-sm sm:text-base space-y-4 leading-relaxed font-light text-left"
+        class="ui-text-secondary text-sm sm:text-base space-y-4 leading-relaxed text-left"
       >
         <p>
-          I'm Adeel Sattar — a full-stack software engineer and agency lead. I build enterprise
-          applications, automate workflows with AI, and ship modern web platforms that solve real
-          business problems.
+          I partner with the people who own the outcome: founders, product leaders, and engineering teams. Together we make the architecture legible, the product dependable, and the next step clear. My day-to-day tools are <strong class="ui-text-primary font-semibold">ASP.NET Core</strong>, <strong class="ui-text-primary font-semibold">Angular</strong>, and carefully scoped AI integrations.
         </p>
         <p>
-          My background spans computer science, hands-on marketing and growth work, and deep .NET
-          and Angular engineering. That mix means I build systems that are technically solid
-          <em>and</em> aligned with what your business actually needs.
+          I have worked on systems where mistakes carry real consequences: <strong class="ui-text-primary font-semibold">digital-asset custody, AML/KYC monitoring, and law-enforcement software subject to CJIS requirements</strong>. That experience shapes how I approach access control, key management, audit trails, and the less visible details that earn a system's trust.
         </p>
       </div>
 
       <p class="text-xs ui-text-muted pt-2">
-        Engineering in .NET 10, ASP.NET Core, Angular 20, AI, PostgreSQL, Docker, and Cloudflare.
+        Clean Architecture • Cryptographic Key Management • Zero-Trust Access • WCAG 2.1 AA • Production AI Guardrails
       </p>
     </div>
   </section>
@@ -157,12 +192,12 @@
   <!-- 4. Featured Projects -->
   <section id="projects" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
     <div appReveal class="text-center space-y-3 mb-12">
-      <p class="kicker">Projects</p>
+      <p class="kicker">Case Studies</p>
       <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
-        Work that delivers <span class="text-blue-500">real results</span>
+        Selected <span class="text-blue-500">engineering work</span>
       </h2>
       <p class="text-sm ui-text-secondary max-w-2xl mx-auto">
-        A look at the problems I solve — from enterprise integrations to AI-powered platforms.
+        A closer look at the constraints, design choices, and trade-offs behind complex software.
       </p>
     </div>
 
@@ -182,10 +217,26 @@
             <p class="text-sm ui-text-secondary leading-relaxed">{{ proj.description }}</p>
 
             <!-- Tech stack (supporting proof, de-emphasized) -->
-            <div class="flex flex-wrap gap-1 pt-1">
-              <span *ngFor="let tech of proj.techs" class="text-[10px] ui-text-muted font-medium">{{
+            <div class="flex flex-wrap gap-1.5 pt-1">
+              <span *ngFor="let tech of proj.techs" class="chip text-[10px] py-1 px-2.5 font-medium">{{
                 tech
               }}</span>
+            </div>
+          </div>
+          <div class="case-study-links mt-8 flex flex-wrap items-center justify-between gap-4">
+            <p class="text-sm ui-text-secondary">Want to see how the pieces fit together?</p>
+            <div class="flex flex-wrap gap-3">
+              <a
+                routerLink="/architecture"
+                (click)="trackCtaClick('Explore system architecture', 'case-studies')"
+                class="inline-link"
+              >Explore the system architecture <span aria-hidden="true">→</span></a>
+              <a
+                routerLink="/"
+                fragment="services"
+                (click)="trackCtaClick('Explore consulting services', 'case-studies')"
+                class="inline-link"
+              >See how I can help <span aria-hidden="true">→</span></a>
             </div>
           </div>
 
@@ -197,7 +248,7 @@
               class="btn-sm btn-sm-secondary w-full md:w-auto"
             >
               <span>{{ proj.expanded ? 'Hide Details' : 'View Details' }}</span>
-              <svg
+              <svg aria-hidden="true" focusable="false"
                 class="h-3.5 w-3.5 transform transition-transform"
                 [ngClass]="proj.expanded ? 'rotate-180' : ''"
                 fill="none"
@@ -223,13 +274,13 @@
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Left Info -->
             <div class="space-y-4">
-              <h4 class="kicker">Key Features</h4>
+              <h4 class="kicker text-blue-400">Business Value & Impact</h4>
               <ul class="space-y-2.5">
                 <li
                   *ngFor="let feature of proj.features"
                   class="flex items-start text-sm ui-text-secondary"
                 >
-                  <svg
+                  <svg aria-hidden="true" focusable="false"
                     class="h-4.5 w-4.5 text-blue-500 mr-2 flex-shrink-0"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -250,11 +301,11 @@
             <!-- Right Info -->
             <div class="space-y-4">
               <div>
-                <h4 class="kicker text-red-500 mb-1.5">The Challenge</h4>
+                <h4 class="kicker text-red-500 mb-1.5">Core Problem Solved</h4>
                 <p class="text-sm ui-text-secondary leading-relaxed">{{ proj.challenges }}</p>
               </div>
               <div>
-                <h4 class="kicker text-emerald-600 mb-1.5">The Solution</h4>
+                <h4 class="kicker text-emerald-500 mb-1.5">Technical Solution & Architecture</h4>
                 <p class="text-sm ui-text-secondary leading-relaxed">{{ proj.lessons }}</p>
               </div>
             </div>
@@ -264,28 +315,27 @@
     </div>
   </section>
 
-  <!-- 5. Services -->
+  <!-- 5. Core Capabilities -->
   <section id="services" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
     <div appReveal class="text-center space-y-3 mb-12">
-      <p class="kicker">Services</p>
+      <p class="kicker">What I Do</p>
       <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight ui-text-primary">
-        What I can <span class="text-blue-500">help you build</span>
+        Core <span class="text-blue-500">Engineering Specialties</span>
       </h2>
       <p class="text-sm ui-text-secondary max-w-2xl mx-auto">
-        Clear outcomes, no technical jargon — here's how I add value to businesses.
+        Hands-on technical leadership across four main areas where I do my best work.
       </p>
     </div>
 
     <!-- Delivery note -->
     <div appReveal class="max-w-3xl mx-auto mb-12 text-center">
       <p class="text-xs ui-text-secondary leading-relaxed">
-        Enterprise software and AI systems are delivered by me directly. Web and growth projects are
-        executed with a small team of vetted specialists under my technical direction.
+        You work directly with me from kickoff to deployment. No account managers, no junior handoffs, no agency overhead—just clear communication and senior engineering.
       </p>
     </div>
 
-    <!-- Services Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Services Grid (4 Core Capabilities) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
       <div
         *ngFor="let serv of services; let i = index"
         appReveal
@@ -297,7 +347,7 @@
           <div
             class="w-10 h-10 rounded-xl bg-blue-500/5 text-blue-500 flex items-center justify-center border border-blue-500/10"
           >
-            <svg
+            <svg aria-hidden="true" focusable="false"
               *ngIf="serv.icon === 'code'"
               class="h-5 w-5"
               fill="none"
@@ -311,7 +361,7 @@
                 d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
               />
             </svg>
-            <svg
+            <svg aria-hidden="true" focusable="false"
               *ngIf="serv.icon === 'globe'"
               class="h-5 w-5"
               fill="none"
@@ -325,7 +375,7 @@
                 d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
               />
             </svg>
-            <svg
+            <svg aria-hidden="true" focusable="false"
               *ngIf="serv.icon === 'cpu'"
               class="h-5 w-5"
               fill="none"
@@ -339,7 +389,7 @@
                 d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
               />
             </svg>
-            <svg
+            <svg aria-hidden="true" focusable="false"
               *ngIf="serv.icon === 'legacy'"
               class="h-5 w-5"
               fill="none"
@@ -353,7 +403,7 @@
                 d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m0 0h6m-6 0h-6"
               />
             </svg>
-            <svg
+            <svg aria-hidden="true" focusable="false"
               *ngIf="serv.icon === 'trending'"
               class="h-5 w-5"
               fill="none"
@@ -369,11 +419,14 @@
             </svg>
           </div>
 
-          <h3 class="text-base font-bold ui-text-primary tracking-wide">{{ serv.title }}</h3>
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-blue-400 block mb-1">{{ serv.subtitle }}</span>
+            <h3 class="text-base font-bold ui-text-primary tracking-wide leading-snug">{{ serv.title }}</h3>
+          </div>
           <p class="text-sm ui-text-secondary leading-relaxed">{{ serv.description }}</p>
         </div>
 
-        <div class="text-xs ui-text-muted font-medium mt-5">{{ serv.techs }}</div>
+        <div class="text-xs ui-text-muted font-medium mt-5 pt-3 border-t border-slate-800/40">{{ serv.techs }}</div>
       </div>
     </div>
   </section>
@@ -402,7 +455,7 @@
         AI <span class="text-blue-500">Playground</span>
       </h2>
       <p class="text-sm ui-text-secondary max-w-2xl mx-auto">
-        A few practical examples of how I build AI into real software workflows.
+        Small, honest demonstrations of where AI can help—and where careful boundaries matter.
       </p>
     </div>
 
@@ -412,16 +465,26 @@
   <!-- 8. Contact / Start a Project -->
   <section #contactSection id="contact" class="max-w-3xl mx-auto px-4 sm:px-6 scroll-mt-24">
     <div appReveal class="glass-panel rounded-2xl p-6 md:p-8 shadow-2xl relative">
-      <div class="text-center space-y-2 mb-8">
-        <h2 class="text-xl sm:text-2xl font-bold ui-text-primary">Start a Project</h2>
-        <p class="text-sm ui-text-secondary max-w-md mx-auto">
-          ⚡ Powered by AI Lead Sync — Adeel will personally review your project requirements and
-          respond within 12 hours.
+      <div class="text-center space-y-3 mb-8">
+        <p class="kicker text-blue-400">Consulting & Architecture Reviews</p>
+        <h2 class="text-xl sm:text-2xl font-bold ui-text-primary">
+          Tell me what you’re trying to build.
+        </h2>
+        <p class="text-sm ui-text-secondary max-w-xl mx-auto leading-relaxed">
+          Share the context, constraints, and what a good outcome looks like. I’ll read it myself and reply within 12 hours. No pitch deck or polished brief needed.
         </p>
 
-        <div class="flex items-center justify-center gap-2 pt-3">
+        <!-- Engagement Models Badges -->
+        <div class="flex flex-wrap items-center justify-center gap-2 pt-2">
+          <span class="chip chip-blue">1–2 Week Architecture Audits</span>
+          <span class="chip chip-blue">High-Compliance Full-Stack Builds</span>
+          <span class="chip chip-blue">Enterprise AI Agent Integrations</span>
+        </div>
+
+        <div class="flex items-center justify-center gap-2 pt-2">
           <a
             href="https://pk.linkedin.com/in/adeelsattar-dotnet-angular-developer"
+            (click)="trackOutreach('linkedin', 'contact-section')"
             target="_blank"
             rel="noopener noreferrer"
             class="chip hover:border-blue-500/50 transition-colors"
@@ -429,10 +492,17 @@
           >
           <a
             href="https://wa.me/923176468708"
+            (click)="trackOutreach('whatsapp', 'contact-section')"
             target="_blank"
             rel="noopener noreferrer"
             class="chip hover:border-blue-500/50 transition-colors"
             >WhatsApp</a
+          >
+          <a
+            href="mailto:consulting@adeelsattar.dev"
+            (click)="trackOutreach('email', 'contact-section')"
+            class="chip hover:border-blue-500/50 transition-colors"
+            >consulting&#64;adeelsattar.dev</a
           >
         </div>
       </div>
@@ -446,6 +516,7 @@
               type="text"
               id="contact-name"
               name="name"
+              autocomplete="name"
               required
               [disabled]="isSubmitting()"
               [(ngModel)]="contactName"
@@ -460,6 +531,7 @@
               type="email"
               id="contact-email"
               name="email"
+              autocomplete="email"
               required
               [disabled]="isSubmitting()"
               [(ngModel)]="contactEmail"
@@ -470,20 +542,23 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <!-- Budget -->
+          <!-- Project focus -->
           <div>
-            <label for="contact-budget" class="field-label">Project budget</label>
+            <label for="contact-focus" class="field-label">What would you like help with?</label>
             <select
-              id="contact-budget"
-              name="budget"
+              id="contact-focus"
+              name="focus"
               [disabled]="isSubmitting()"
-              [(ngModel)]="contactBudget"
+              [(ngModel)]="contactFocus"
               class="field cursor-pointer"
             >
-              <option value="< $1k">&lt; $1k</option>
-              <option value="$1k–$3k">$1k–$3k</option>
-              <option value="$3k–$5k">$3k–$5k</option>
-              <option value="Enterprise / Retainer">Enterprise / Retainer</option>
+              <option value="">Choose a project focus (optional)</option>
+              <option value="Architecture review">Architecture review</option>
+              <option value="Build a new product">Build a new product</option>
+              <option value="Improve an existing system">Improve an existing system</option>
+              <option value="AI or workflow integration">AI or workflow integration</option>
+              <option value="Security or compliance">Security or compliance</option>
+              <option value="Something else">Something else</option>
             </select>
           </div>
           <!-- Timeline -->
@@ -511,10 +586,11 @@
             id="contact-details"
             name="details"
             rows="4"
+            required
             [disabled]="isSubmitting()"
             [(ngModel)]="contactDetails"
             class="field resize-none"
-            placeholder="Tell me about your idea, problem, or project..."
+            placeholder="A few sentences about the problem, your timeline, or the decision you’re working through is plenty."
           >
           </textarea>
         </div>
@@ -522,6 +598,8 @@
         <!-- Feedback Alert status -->
         <div
           *ngIf="submitSuccess() !== null"
+          role="status"
+          aria-live="polite"
           class="p-3.5 rounded-lg text-sm font-semibold animate-fade-in"
           [ngClass]="
             submitSuccess()
@@ -530,10 +608,10 @@
           "
         >
           <span *ngIf="submitSuccess()"
-            >Your email draft is ready — I'll reply personally within 12 hours.</span
+            >Your Gmail draft is open. Review it and press Send when you’re ready; I’ll reply within 12 hours.</span
           >
           <span *ngIf="!submitSuccess()"
-            >Something went wrong. Message me directly on LinkedIn or WhatsApp instead.</span
+            >Your browser blocked the draft. Email me at consulting&#64;adeelsattar.dev or use LinkedIn instead.</span
           >
         </div>
 
@@ -545,7 +623,7 @@
             id="btn-submit-contact"
             class="btn btn-primary w-full"
           >
-            <svg
+            <svg aria-hidden="true" focusable="false"
               *ngIf="isSubmitting()"
               class="animate-spin -ml-1 mr-2 h-4 w-4"
               fill="none"
@@ -565,11 +643,11 @@
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               ></path>
             </svg>
-            {{ isSubmitting() ? 'Preparing your email draft...' : 'Start a Conversation' }}
+            {{ isSubmitting() ? 'Opening your email draft...' : 'Send a project inquiry' }}
           </button>
 
           <p class="text-xs text-center ui-text-muted">
-            No spam, no sales funnels - just a direct conversation with me.
+            This opens a prefilled Gmail draft. Review it there, then send it when you’re ready.
           </p>
         </div>
       </form>

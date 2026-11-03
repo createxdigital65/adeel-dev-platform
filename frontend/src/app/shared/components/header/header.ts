@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, signal, inject } from '@angular/core';
 import { RouterLink, Router, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
+import { AnalyticsService } from '../../../core/services/analytics.service';
 
 /** Home-page section ids tracked by the nav scroll-spy. */
 const SPY_SECTIONS = ['about', 'projects', 'services', 'ai-playground', 'contact'];
@@ -15,23 +16,30 @@ const SPY_SECTIONS = ['about', 'projects', 'services', 'ai-playground', 'contact
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isMobileMenuOpen = signal(false);
-  isLightTheme = signal(false);
+  isLightTheme = signal(true);
   activeSection = signal('');
 
   private readonly router = inject(Router);
+  private readonly analyticsService = inject(AnalyticsService);
   private sectionObserver?: IntersectionObserver;
 
-  ngOnInit(): void {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  trackNavClick(section: string): void {
+    this.analyticsService.trackCtaClick(`nav_${section}`, 'header-nav');
+  }
 
-    if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
-      this.isLightTheme.set(true);
-      document.documentElement.classList.add('light');
-    } else {
-      this.isLightTheme.set(false);
-      document.documentElement.classList.remove('light');
+  ngOnInit(): void {
+    if (
+      typeof window === 'undefined' ||
+      typeof localStorage === 'undefined' ||
+      typeof document === 'undefined'
+    ) {
+      return;
     }
+
+    const savedTheme = localStorage.getItem('theme');
+    const shouldUseLightTheme = savedTheme !== 'dark';
+    this.isLightTheme.set(shouldUseLightTheme);
+    document.documentElement.classList.toggle('light', shouldUseLightTheme);
 
     // Re-arm the scroll-spy whenever the route changes; sections only exist on '/'.
     this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
@@ -49,6 +57,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
    * highlights the matching nav link. Safe on routes without those sections.
    */
   private initScrollSpy(): void {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+      return;
+    }
     this.sectionObserver?.disconnect();
     // Wait one frame so route views have rendered before querying sections.
     requestAnimationFrame(() => {
